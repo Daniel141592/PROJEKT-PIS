@@ -1,5 +1,6 @@
 package pis.projekt;
 
+import javafx.util.Pair;
 import java.util.Vector;
 
 public class Magazine {
@@ -31,11 +32,41 @@ public class Magazine {
         return width;
     }
 
-    boolean checkCollision(Section newSection, Vector<Section> magazineBoundSections){}
+    // not sure how we will handle magazine bound sections now
+    // true = collision, false = no collision
+    boolean checkCollision(Section newSection, Vector<Section> magazineBoundSections){
+        boolean isSame;
+        for(Section sec: magazineBoundSections){
+            isSame = true;
+            for(Pair<Integer,Integer> newSecPoint: newSection.getPoints()){
+                if(sec.containsPoint(newSecPoint)){return true;}
+            }
+            for(Pair<Integer,Integer> oldSecPoint: sec.getPoints()){
+                if(newSection.containsPoint(oldSecPoint)){return true;}
+            }
+            for(int i=0; i<4; i++){
+                if(sec.getPoints() != newSection.getPoints()){
+                    isSame = false;
+                }
+            }
+            if(isSame){return true;}
+        }
+        return false;
+    }
 
-    int calcEmptySpace(Vector<Section> magazineBoundSection, boolean inPrecent){}
+    double calcEmptySpace(Vector<Section> magazineBoundSections, boolean inPrecent){
 
-    int getProductAmount(Product product){}
+        double area = 0;
+        for(Section sec: magazineBoundSections){
+            area += sec.calcArea();
+        }
+        if(inPrecent){
+            area = area / (this.length * this.width);
+        }
+        return area;
+    }
+
+    //int getProductAmount(Vector<Section> magazineBoundSections, Product product){}
 
 
 }
