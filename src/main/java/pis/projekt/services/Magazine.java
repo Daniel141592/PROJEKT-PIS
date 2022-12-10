@@ -1,6 +1,7 @@
-package pis.projekt;
+package pis.projekt.services;
 
-import javafx.util.Pair;
+import pis.projekt.utils.Pair;
+
 import java.util.Vector;
 
 public class Magazine {
@@ -38,10 +39,10 @@ public class Magazine {
         boolean isSame;
         for(Section sec: magazineBoundSections){
             isSame = true;
-            for(Pair<Integer,Integer> newSecPoint: newSection.getPoints()){
+            for(Pair newSecPoint: newSection.getPoints()){
                 if(sec.containsPoint(newSecPoint)){return true;}
             }
-            for(Pair<Integer,Integer> oldSecPoint: sec.getPoints()){
+            for(Pair oldSecPoint: sec.getPoints()){
                 if(newSection.containsPoint(oldSecPoint)){return true;}
             }
             for(int i=0; i<4; i++){
