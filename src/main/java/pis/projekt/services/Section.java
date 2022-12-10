@@ -1,15 +1,19 @@
-package pis.projekt;
-import javafx.util.Pair;
+package pis.projekt.services;
+import pis.projekt.models.Product;
+import pis.projekt.utils.Pair;
+
 import java.lang.Math;
 
 public class Section {
-    private Pair<Integer, Integer>[] points; // lets try to get them in some sensible order (upper left as first one, down left second, down right third...)
+    // lets try to get them in some sensible order
+    // (upper left as first one, down left second, down right third...)
+    private Pair[] points;
     private Magazine magazine;
     private Product product;
     private String name;
 
 
-    Section(Pair<Integer, Integer>[] newPoints, Magazine newMagazine, Product newProduct, String newName){
+    Section(Pair[] newPoints, Magazine newMagazine, Product newProduct, String newName){
         points = newPoints;
         magazine = newMagazine;
         product = newProduct;
@@ -17,7 +21,7 @@ public class Section {
 
     }
 
-    public Pair<Integer, Integer>[] getPoints() {
+    public Pair[] getPoints() {
         return points;
     }
 
@@ -41,7 +45,7 @@ public class Section {
         this.product = product;
     }
 
-    boolean containsPoint(Pair<Integer,Integer> point){
+    boolean containsPoint(Pair point){
         boolean cond1 = point.getKey() > points[0].getKey();
         boolean cond2 = point.getKey() < points[2].getKey();
         boolean cond3 = point.getValue() < points[1].getValue();

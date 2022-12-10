@@ -1,4 +1,4 @@
-package pis.projekt;
+package pis.projekt.models;
 
 public class Product {
     private String name;
