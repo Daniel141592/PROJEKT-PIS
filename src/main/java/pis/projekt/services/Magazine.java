@@ -1,5 +1,6 @@
 package pis.projekt.services;
 
+import pis.projekt.models.Product;
 import pis.projekt.utils.Pair;
 
 import java.util.Vector;
@@ -67,7 +68,14 @@ public class Magazine {
         return area;
     }
 
-    //int getProductAmount(Vector<Section> magazineBoundSections, Product product){}
+    int getProductAmount(Vector<Section> magazineBoundSections, Product product){
+        int amount = 0;
+        for(Section sec: magazineBoundSections){
+            if(sec.getProduct() == product){amount += sec.getCapacity();}
+        }
+        return amount;
+    }
+
 
 
 }

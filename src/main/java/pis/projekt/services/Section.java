@@ -11,6 +11,7 @@ public class Section {
     private Magazine magazine;
     private Product product;
     private String name;
+    private int capacity;
 
 
     Section(Pair[] newPoints, Magazine newMagazine, Product newProduct, String newName){
@@ -33,16 +34,29 @@ public class Section {
         return product;
     }
 
+    public int getCapacity() { return capacity; }
+
     public String getName() {
         return name;
     }
 
-    public void setMagazine(Magazine magazine) {
+    public void forceSetMagazine(Magazine magazine) {
         this.magazine = magazine;
     }
 
+    // to be finished when database comes
+    //public void setMagazine(Magazine magazine) { if(!magazine.checkCollision(this, ))}
+
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public void addProduct() {if(capacity < this.calcMaxCapacity()){ this.capacity += 1;}}
+
+    public int calcMaxCapacity() {
+        int length = points[1].getValue() - points[0].getValue();
+        int width = points[3].getKey() - points[0].getKey();
+        return (length / product.getLength() ) * (width / product.getWidth() ) * product.getStackability();
     }
 
     boolean containsPoint(Pair point){
