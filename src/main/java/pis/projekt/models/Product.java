@@ -1,34 +1,25 @@
 package pis.projekt.models;
 
+import pis.projekt.utils.Pair;
+
 public class Product {
     private String name;
-    private int length;
-    private int width;
-    private int stackability;
+    private Pair dimensions;
+    private int stackSize; // this name asks for God's intervention
 
-    Product(String newName, int newLength, int newWidth, int newStackability)
+    public Product(String newName, int newLength, int newWidth, int newStackSize)
     {
         name = newName;
-        length = newLength;
-        width = newWidth;
-        stackability = newStackability;
+        dimensions = new Pair(newLength, newWidth);
+        stackSize = newStackSize;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getLength() {
-        return length;
-    }
+    public Pair getDimensions() { return dimensions; }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getStackability() {
-        return stackability;
-    }
-
+    public int getStackSize() { return stackSize; }
 
 }
