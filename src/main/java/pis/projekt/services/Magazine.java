@@ -11,7 +11,14 @@ public class Magazine {
     private int length;
     private int width;
 
-    Magazine(int newId, String newName, int newLength, int newWidth){
+    public Magazine(){
+        id = 0;
+        name = "";
+        length = 0;
+        width = 0;
+    }
+
+    public Magazine(int newId, String newName, int newLength, int newWidth){
         id = newId;
         name = newName;
         length = newLength;
@@ -40,14 +47,14 @@ public class Magazine {
         boolean isSame;
         for(Section sec: magazineBoundSections){
             isSame = true;
-            for(Pair newSecPoint: newSection.getPoints()){
+            for(Pair newSecPoint: newSection.getCords()){
                 if(sec.containsPoint(newSecPoint)){return true;}
             }
-            for(Pair oldSecPoint: sec.getPoints()){
+            for(Pair oldSecPoint: sec.getCords()){
                 if(newSection.containsPoint(oldSecPoint)){return true;}
             }
             for(int i=0; i<4; i++){
-                if(sec.getPoints() != newSection.getPoints()){
+                if(sec.getCords() != newSection.getCords()){
                     isSame = false;
                 }
             }

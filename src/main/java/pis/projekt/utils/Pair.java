@@ -2,22 +2,28 @@ package pis.projekt.utils;
 
 public class Pair
 {
-    private int key;
-    private int value;
+    private int first;
+    private int second;
 
-    public int getKey() {
-        return key;
+    public Pair(int value1, int value2)
+    {
+        this.first = value1;
+        this.second = value2;
     }
 
-    public void setKey(int key) {
-        this.key = key;
+    public int first() {
+        return first;
     }
 
-    public int getValue() {
-        return value;
+    public void setFirst(int value) {
+        this.first = value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public int second() {
+        return second;
+    }
+
+    public void setSecond(int value) {
+        this.second = value;
     }
 }
