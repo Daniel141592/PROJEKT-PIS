@@ -8,42 +8,42 @@ import java.util.Vector;
 import static java.lang.Math.abs;
 import static java.lang.Math.round;
 
-public class Magazine {
+public class MagazineService {
     private int id;
     private String name;
     private Pair dimensions;
-    private Vector<Section> sections;
+    private Vector<SectionService> sectionServices;
 
-    public Magazine(){
+    public MagazineService(){
         id = 0;
         name = "";
         dimensions = new Pair();
-        sections = new Vector<Section>();
+        sectionServices = new Vector<SectionService>();
     }
 
-    public Magazine(int newId, String newName, int newLength, int newWidth){
+    public MagazineService(int newId, String newName, int newLength, int newWidth){
         id = newId;
         name = newName;
         dimensions = new Pair(newLength, newWidth);
-        sections = new Vector<Section>();
+        sectionServices = new Vector<SectionService>();
     }
 
-    public Magazine(int id, String name, int length, int width, Section section){
+    public MagazineService(int id, String name, int length, int width, SectionService sectionService){
         this(id, name, length, width);
-        this.sections.add(section);
+        this.sectionServices.add(sectionService);
     }
 
-    public Magazine(int id, String name, int length, int width, Vector<Section> sections){
+    public MagazineService(int id, String name, int length, int width, Vector<SectionService> sectionServices){
         this(id, name, length, width);
-        this.sections = sections;
+        this.sectionServices = sectionServices;
     }
 
     public String getName() {
         return name;
     }
 
-    public Vector<Section> getSections(){
-        return sections;
+    public Vector<SectionService> getSections(){
+        return sectionServices;
     }
 
     public int getId() {
@@ -52,20 +52,20 @@ public class Magazine {
 
     public Pair getDimensions() { return dimensions;}
 
-    public int getSectionsAmount(){ return sections.size(); }
+    public int getSectionsAmount(){ return sectionServices.size(); }
 
-    boolean checkCollision(Section newSection){
+    boolean checkCollision(SectionService newSectionService){
         boolean isSame;
-        for(Section sec: sections){
+        for(SectionService sec: sectionServices){
             isSame = true;
-            for(Pair newSecPoint: newSection.getCords()){
+            for(Pair newSecPoint: newSectionService.getCords()){
                 if(sec.containsPoint(newSecPoint)){ return true; }
             }
             for(Pair oldSecPoint: sec.getCords()){
-                if(newSection.containsPoint(oldSecPoint)){ return true; }
+                if(newSectionService.containsPoint(oldSecPoint)){ return true; }
             }
             for(int i=0; i<4; i++){
-                if(sec.getCords() != newSection.getCords()){
+                if(sec.getCords() != newSectionService.getCords()){
                     isSame = false;
                 }
             }
@@ -75,9 +75,9 @@ public class Magazine {
     }
 
     // return true if added, else return false
-    public boolean addSection(Section newSection){
-        if(!checkCollision(newSection)){
-            sections.add(newSection);
+    public boolean addSection(SectionService newSectionService){
+        if(!checkCollision(newSectionService)){
+            sectionServices.add(newSectionService);
             return true;
         }
         return false;
@@ -92,7 +92,7 @@ public class Magazine {
 
         double absArea = calcSpace();
         double area = absArea;
-        for(Section sec: sections){
+        for(SectionService sec: sectionServices){
             area -= sec.calcArea();
         }
         return inPercent ? area/absArea : area;
@@ -100,7 +100,7 @@ public class Magazine {
 
     public int getProductAmount(Product product){
         int amount = 0;
-        for(Section sec: sections){
+        for(SectionService sec: sectionServices){
             if(Product.isSame(sec.getProduct(), product)){
                 amount += sec.getAmount();
             }

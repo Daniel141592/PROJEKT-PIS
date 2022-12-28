@@ -3,29 +3,29 @@ import pis.projekt.models.Product;
 import pis.projekt.utils.Pair;
 import static java.lang.Math.abs;
 
-public class Section {
+public class SectionService {
     // let's try to get them in some sensible order
     // (upper left as first one, down left second, down right third...)
     private Pair[] cords;
-    private Magazine magazine;
+    private MagazineService magazineService;
     private Product product;
     private String name;
     private Integer amount;
 
-    public Section(){
+    public SectionService(){
         Pair[] newCords = {new Pair(), new Pair(), new Pair(), new Pair()};
         cords = newCords;
-        magazine = new Magazine();
+        magazineService = new MagazineService();
         product = new Product();
         name = "";
         amount = 0;
     }
 
-    public Section(Pair[] newCords, String newName, Product newProduct, Magazine newMagazine){
+    public SectionService(Pair[] newCords, String newName, Product newProduct, MagazineService newMagazineService){
         cords = newCords;
         name = newName;
         product = newProduct;
-        magazine = newMagazine;
+        magazineService = newMagazineService;
         amount = 0;
     }
 
@@ -38,8 +38,8 @@ public class Section {
         cords[cordIx] = new Pair(first, second);
     }
 
-    public Magazine getMagazine() {
-        return magazine;
+    public MagazineService getMagazine() {
+        return magazineService;
     }
 
     public Product getProduct() {
@@ -57,8 +57,8 @@ public class Section {
         return name;
     }
 
-    public void forceSetMagazine(Magazine magazine) {
-        this.magazine = magazine;
+    public void forceSetMagazine(MagazineService magazineService) {
+        this.magazineService = magazineService;
     }
 
     // to be finished when database comes

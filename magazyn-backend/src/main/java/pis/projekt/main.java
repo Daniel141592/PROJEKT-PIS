@@ -1,10 +1,9 @@
 package pis.projekt;
 
-import pis.projekt.services.Magazine;
+import pis.projekt.services.MagazineService;
 import pis.projekt.services.Report;
-import pis.projekt.services.Section;
+import pis.projekt.services.SectionService;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -18,12 +17,12 @@ public class main {
     public static void main(String[] args) throws IOException {
 
         System.out.println("dupa");
-        Vector<Section> sections = new Vector<Section>();
-        Section sect = new Section();
+        Vector<SectionService> sectionServices = new Vector<SectionService>();
+        SectionService sect = new SectionService();
         for (int i = 0; i < 4; i++) {
-            sections.add(sect);
+            sectionServices.add(sect);
         }
-        Magazine mag = new Magazine(7, "benedict", 21, 37, sections);
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37, sectionServices);
         Report rep = new Report(mag);
         /*PDDocument doc = new PDDocument();
 

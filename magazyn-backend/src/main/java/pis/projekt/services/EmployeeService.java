@@ -1,20 +1,18 @@
-package pis.projekt.models;
+package pis.projekt.services;
 
-public class Employee {
+public class EmployeeService {
     private int id;
     private String name;
     private String surname;
     private String login;
     private String password;
-    private boolean isManager;
 
-    Employee(int newId, String newName, String newSurname, String newLogin, String newPassword, boolean isManager){
+    EmployeeService(int newId, String newName, String newSurname, String newLogin, String newPassword){
         this.id = newId;
         this.name = newName;
         this.surname = newSurname;
         this.login = newLogin;
         this.password = newPassword;
-        this.isManager = isManager;
     }
 
     public int getId() {
@@ -37,10 +35,6 @@ public class Employee {
         return password;
     }
 
-    public boolean getIsManager(){
-        return isManager;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -61,7 +55,6 @@ public class Employee {
         this.password = password;
     }
 
-    public void setIsManager(boolean isManager) {
-        this.isManager = isManager;
-    }
+    public boolean isManager(){return false;}
+
 }

@@ -4,11 +4,11 @@ public class Issue {
     private int id;
     private String name;
     private String description;
-    private Manager issuingManager;
+    private Employee issuingManager;
     private Employee issuedEmployee;
     private String status;
 
-    Issue(int newId, String newName, String newDescription, Manager newManager, Employee newEmployee, String newStatus){
+    Issue(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus){
         this.id = newId;
         this.name = newName;
         this.description = newDescription;
@@ -34,7 +34,7 @@ public class Issue {
         return status;
     }
 
-    public Manager getIssuingManager() {
+    public Employee getIssuingManager() {
         return issuingManager;
     }
 
@@ -54,7 +54,7 @@ public class Issue {
         this.description = description;
     }
 
-    public void setIssuingManager(Manager issuingManager) {
+    public void setIssuingManager(Employee issuingManager) {
         this.issuingManager = issuingManager;
     }
 

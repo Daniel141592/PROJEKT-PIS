@@ -36,4 +36,15 @@ public class Product {
 
     public int getStackSize() { return stackSize; }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDimensions(Pair dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public void setStackSize(int stackSize) {
+        this.stackSize = stackSize;
+    }
 }

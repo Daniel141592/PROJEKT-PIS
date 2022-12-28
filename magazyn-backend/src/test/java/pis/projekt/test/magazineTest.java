@@ -2,21 +2,18 @@ package pis.projekt.test;
 import org.junit.Test;
 import org.junit.Assert;
 import pis.projekt.models.Product;
-import pis.projekt.services.Magazine;
-import pis.projekt.services.Section;
+import pis.projekt.services.MagazineService;
+import pis.projekt.services.SectionService;
 import pis.projekt.utils.Pair;
 
-import java.util.Arrays;
 import java.util.Vector;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class magazineTest {
 
     @Test
     public void emptyConstructorTest()
     {
-        Magazine emptyMag = new Magazine();
+        MagazineService emptyMag = new MagazineService();
         Pair zerosPair = new Pair();
         Assert.assertEquals(0, emptyMag.getId());
         Assert.assertEquals("", emptyMag.getName());
@@ -27,7 +24,7 @@ public class magazineTest {
     @Test
     public void basicConstructorTest()
     {
-        Magazine mag = new Magazine(7, "benedict", 21, 37);
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37);
         Pair testPair = new Pair(21, 37);
         Assert.assertEquals(7, mag.getId());
         Assert.assertEquals("benedict", mag.getName());
@@ -38,8 +35,8 @@ public class magazineTest {
     @Test
     public void oneSectionConstructorTest()
     {
-        Section sect = new Section();
-        Magazine mag = new Magazine(7, "benedict", 21, 37, sect);
+        SectionService sect = new SectionService();
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37, sect);
         Assert.assertEquals(7, mag.getId());
         Assert.assertEquals("benedict", mag.getName());
         Assert.assertEquals(21, mag.getDimensions().first);
@@ -50,13 +47,13 @@ public class magazineTest {
     @Test
     public void sectionsVectorConstructorTest()
     {
-        Vector<Section> sections = new Vector<Section>();
-        Section sect = new Section();
+        Vector<SectionService> sectionServices = new Vector<SectionService>();
+        SectionService sect = new SectionService();
         for (int i=0; i<4; i++)
         {
-            sections.add(sect);
+            sectionServices.add(sect);
         }
-        Magazine mag = new Magazine(7, "benedict", 21, 37, sections);
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37, sectionServices);
         Assert.assertEquals(7, mag.getId());
         Assert.assertEquals("benedict", mag.getName());
         Assert.assertEquals(21, mag.getDimensions().first);
@@ -67,8 +64,8 @@ public class magazineTest {
     @Test
     public void sectionsEmptyVectorConstructorTest()
     {
-        Vector<Section> sections = new Vector<Section>();
-        Magazine mag = new Magazine(7, "benedict", 21, 37, sections);
+        Vector<SectionService> sectionServices = new Vector<SectionService>();
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37, sectionServices);
         Assert.assertEquals(7, mag.getId());
         Assert.assertEquals("benedict", mag.getName());
         Assert.assertEquals(21, mag.getDimensions().first);
@@ -79,9 +76,9 @@ public class magazineTest {
     @Test
     public void addSectionComplexTest()
     {
-        Magazine mag = new Magazine(7, "benedict", 21, 37);
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37);
 
-        Section sect1 = new Section();
+        SectionService sect1 = new SectionService();
         sect1.setCords(0, 0, 0);
         sect1.setCords(1, 0, 3);
         sect1.setCords(2, 4, 3);
@@ -89,28 +86,28 @@ public class magazineTest {
         Assert.assertTrue(mag.addSection(sect1));
         Assert.assertFalse(mag.addSection(sect1));
 
-        Section sect2 = new Section();
+        SectionService sect2 = new SectionService();
         sect2.setCords(0, 1, 2);
         sect2.setCords(1, 1, 3);
         sect2.setCords(2, 4, 3);
         sect2.setCords(3, 4, 2);
         Assert.assertFalse(mag.addSection(sect2));
 
-        Section sect3 = new Section();
+        SectionService sect3 = new SectionService();
         sect3.setCords(0, 4, 3);
         sect3.setCords(1, 4, 4);
         sect3.setCords(2, 5, 4);
         sect3.setCords(3, 5, 3);
         Assert.assertTrue(mag.addSection(sect3));
 
-        Section sect4 = new Section();
+        SectionService sect4 = new SectionService();
         sect4.setCords(0, 4, 0);
         sect4.setCords(1, 4, 3);
         sect4.setCords(2, 6, 3);
         sect4.setCords(3, 6, 0);
         Assert.assertTrue(mag.addSection(sect4));
 
-        Section sect5 = new Section();
+        SectionService sect5 = new SectionService();
         sect5.setCords(0, 3, 2);
         sect5.setCords(1, 3, 4);
         sect5.setCords(2, 5, 4);
@@ -123,30 +120,30 @@ public class magazineTest {
     @Test
     public void calcSpaceTest()
     {
-        Magazine mag = new Magazine(7, "benedict", 6, 9);
+        MagazineService mag = new MagazineService(7, "benedict", 6, 9);
         Assert.assertEquals(54, mag.calcSpace(), 0);
     }
 
     @Test
     public void calcEmptySpaceTest()
     {
-        Magazine mag = new Magazine(7, "benedict", 21, 37);
+        MagazineService mag = new MagazineService(7, "benedict", 21, 37);
 
-        Section sect1 = new Section();
+        SectionService sect1 = new SectionService();
         sect1.setCords(0, 0, 0);
         sect1.setCords(1, 0, 3);
         sect1.setCords(2, 4, 3);
         sect1.setCords(3, 4, 0);
         mag.addSection(sect1);
 
-        Section sect3 = new Section();
+        SectionService sect3 = new SectionService();
         sect3.setCords(0, 4, 3);
         sect3.setCords(1, 4, 4);
         sect3.setCords(2, 5, 4);
         sect3.setCords(3, 5, 3);
         mag.addSection(sect3);
 
-        Section sect4 = new Section();
+        SectionService sect4 = new SectionService();
         sect4.setCords(0, 4, 0);
         sect4.setCords(1, 4, 3);
         sect4.setCords(2, 6, 3);
@@ -160,12 +157,12 @@ public class magazineTest {
     @Test
     public void getProductAmountTest1()
     {
-        Magazine mag = new Magazine(7, "benedict", 210, 370);
+        MagazineService mag = new MagazineService(7, "benedict", 210, 370);
 
         Product beer = new Product("beer", 3, 4, 4);
         Product notBeer = new Product("notbeer", 3, 4, 4);
 
-        Section sect1 = new Section();
+        SectionService sect1 = new SectionService();
         sect1.setProduct(beer);
         sect1.setCords(0, 0, 0);
         sect1.setCords(1, 0, 10);
@@ -177,7 +174,7 @@ public class magazineTest {
         }
         mag.addSection(sect1);
 
-        Section sect2 = new Section();
+        SectionService sect2 = new SectionService();
         sect2.setProduct(notBeer);
         sect2.setCords(0, 10, 10);
         sect2.setCords(1, 10, 20);
@@ -189,7 +186,7 @@ public class magazineTest {
         }
         mag.addSection(sect2);
 
-        Section sect3 = new Section();
+        SectionService sect3 = new SectionService();
         sect3.setProduct(beer);
         sect3.setCords(0, 40, 40);
         sect3.setCords(1, 40, 50);
