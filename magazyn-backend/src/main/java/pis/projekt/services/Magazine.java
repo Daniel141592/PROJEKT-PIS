@@ -10,6 +10,7 @@ public class Magazine {
     private String name;
     private int length;
     private int width;
+    private Vector<Section> magazineBoundSections;
 
     public Magazine(){
         id = 0;
@@ -41,9 +42,20 @@ public class Magazine {
         return width;
     }
 
+    public int getAmountOfSections(){return magazineBoundSections.size(); }
+
+    // return true if added, else return false
+    public boolean addSection(Section newSection){
+        if(!checkCollision(newSection)){
+            magazineBoundSections.add(newSection);
+            return true;
+        }
+        return false;
+    }
+
     // not sure how we will handle magazine bound sections now
     // true = collision, false = no collision
-    boolean checkCollision(Section newSection, Vector<Section> magazineBoundSections){
+    boolean checkCollision(Section newSection){
         boolean isSame;
         for(Section sec: magazineBoundSections){
             isSame = true;
@@ -63,7 +75,7 @@ public class Magazine {
         return false;
     }
 
-    double calcEmptySpace(Vector<Section> magazineBoundSections, boolean inPrecent){
+    double calcEmptySpace(boolean inPrecent){
 
         double area = 0;
         for(Section sec: magazineBoundSections){
@@ -75,7 +87,7 @@ public class Magazine {
         return area;
     }
 
-    int getProductAmount(Vector<Section> magazineBoundSections, Product product){
+    int getProductAmount(Product product){
         int amount = 0;
         for(Section sec: magazineBoundSections){
             if(sec.getProduct() == product){amount += sec.getCapacity();}
