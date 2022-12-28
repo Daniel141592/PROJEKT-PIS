@@ -1,0 +1,17 @@
+package pis.projekt.test;
+import org.junit.Test;
+import org.junit.Assert;
+import pis.projekt.models.Product;
+import pis.projekt.services.Magazine;
+import pis.projekt.services.Section;
+import pis.projekt.utils.Pair;
+public class pairTest {
+
+    @Test
+    public void isSameTest()
+    {
+        Pair pair1 = new Pair(6, 7);
+        Pair pair2 = new Pair(6, 7);
+        Assert.assertTrue(Pair.isSame(pair1, pair2));
+    }
+}

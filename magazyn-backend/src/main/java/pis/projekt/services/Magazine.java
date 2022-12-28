@@ -5,6 +5,9 @@ import pis.projekt.utils.Pair;
 
 import java.util.Vector;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.round;
+
 public class Magazine {
     private int id;
     private String name;
@@ -49,7 +52,27 @@ public class Magazine {
 
     public Pair getDimensions() { return dimensions;}
 
-    public int getAmountOfSections(){return sections.size(); }
+    public int getSectionsAmount(){ return sections.size(); }
+
+    boolean checkCollision(Section newSection){
+        boolean isSame;
+        for(Section sec: sections){
+            isSame = true;
+            for(Pair newSecPoint: newSection.getCords()){
+                if(sec.containsPoint(newSecPoint)){ return true; }
+            }
+            for(Pair oldSecPoint: sec.getCords()){
+                if(newSection.containsPoint(oldSecPoint)){ return true; }
+            }
+            for(int i=0; i<4; i++){
+                if(sec.getCords() != newSection.getCords()){
+                    isSame = false;
+                }
+            }
+            if(isSame){ return true; }
+        }
+        return false;
+    }
 
     // return true if added, else return false
     public boolean addSection(Section newSection){
@@ -60,45 +83,27 @@ public class Magazine {
         return false;
     }
 
-    // not sure how we will handle magazine bound sections now
-    // true = collision, false = no collision
-    boolean checkCollision(Section newSection){
-        boolean isSame;
-        for(Section sec: sections){
-            isSame = true;
-            for(Pair newSecPoint: newSection.getCords()){
-                if(sec.containsPoint(newSecPoint)){return true;}
-            }
-            for(Pair oldSecPoint: sec.getCords()){
-                if(newSection.containsPoint(oldSecPoint)){return true;}
-            }
-            for(int i=0; i<4; i++){
-                if(sec.getCords() != newSection.getCords()){
-                    isSame = false;
-                }
-            }
-            if(isSame){return true;}
-        }
-        return false;
+    public double calcSpace(){
+        double absSpace = dimensions.first * dimensions.second;
+        return absSpace;
     }
 
-    double calcEmptySpace(boolean inPrecent){
+    public double calcEmptySpace(boolean inPercent){
 
-        double area = 0;
+        double absArea = calcSpace();
+        double area = absArea;
         for(Section sec: sections){
-            area += sec.calcArea();
+            area -= sec.calcArea();
         }
-        if(inPrecent){
-
-            area = area / (this.dimensions.first * this.dimensions.second);
-        }
-        return area;
+        return inPercent ? area/absArea : area;
     }
 
-    int getProductAmount(Product product){
+    public int getProductAmount(Product product){
         int amount = 0;
         for(Section sec: sections){
-            if(sec.getProduct() == product){amount += sec.getCapacity();}
+            if(Product.isSame(sec.getProduct(), product)){
+                amount += sec.getAmount();
+            }
         }
         return amount;
     }

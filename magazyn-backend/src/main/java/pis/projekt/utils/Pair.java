@@ -21,6 +21,10 @@ public class Pair
         this.first = value;
     }
 
+    public static boolean isSame(Pair pair1, Pair pair2){
+        return pair1.first == pair2.first && pair1.second == pair2.second ? true : false;
+    }
+
 
     public void setSecond(int value) {
         this.second = value;

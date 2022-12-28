@@ -10,7 +10,7 @@ public class Section {
     private Magazine magazine;
     private Product product;
     private String name;
-    private Integer capacity;
+    private Integer amount;
 
     public Section(){
         Pair[] newCords = {new Pair(), new Pair(), new Pair(), new Pair()};
@@ -18,7 +18,7 @@ public class Section {
         magazine = new Magazine();
         product = new Product();
         name = "";
-        capacity = null;
+        amount = 0;
     }
 
     public Section(Pair[] newCords, String newName, Product newProduct, Magazine newMagazine){
@@ -26,10 +26,16 @@ public class Section {
         name = newName;
         product = newProduct;
         magazine = newMagazine;
+        amount = 0;
     }
 
     public Pair[] getCords() {
         return cords;
+    }
+
+    public void setCords(int cordIx, int first, int second)
+    {
+        cords[cordIx] = new Pair(first, second);
     }
 
     public Magazine getMagazine() {
@@ -40,13 +46,11 @@ public class Section {
         return product;
     }
 
-    public void setCapacity(Integer capacity){
-        this.capacity = capacity;
+    public void setAmount(Integer capacity){
+        this.amount = capacity;
     }
-    public int getCapacity() {
-        if (capacity == null)
-            capacity = calcMaxCapacity();
-        return capacity;
+    public int getAmount() {
+        return amount;
     }
 
     public String getName() {
@@ -64,14 +68,12 @@ public class Section {
         this.product = product;
     }
 
-    public void addProduct() {if(capacity < this.calcMaxCapacity()){ this.capacity += 1;}}
-    // I think it should be opposite logic: capacity should be treated as
-    // how many else can we fit inside, so imo    if (capacity > 0) {this.capacity -= 1;}
-    // TODO: review logic of this function
+    public void addProduct(){
+        if(amount < this.calcMaxCapacity() && amount < product.getStackSize())
+            { this.amount += 1;}
+    }
 
     public int calcMaxCapacity() {
-        // it isn't very accurate, there should be an algorithm to count it more properly
-        // TODO: find better algorithm for this
         int length = abs(cords[1].second - cords[0].second);
         int width = abs(cords[3].first - cords[0].first);
         int propValue1 = (int)(length / product.getDimensions().first ) * (int)(width / product.getDimensions().second )

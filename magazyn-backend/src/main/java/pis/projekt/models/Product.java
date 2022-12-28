@@ -21,6 +21,13 @@ public class Product {
         stackSize = newStackSize;
     }
 
+    public static boolean isSame(Product product1, Product product2){
+        boolean sameName = product1.getName() == product2.name;
+        boolean sameDimensions = Pair.isSame(product1.getDimensions(), product2.dimensions);
+        boolean sameStackSize = product1.getStackSize() == product2.stackSize;
+        return sameName && sameDimensions && sameStackSize;
+    }
+
     public String getName() {
         return name;
     }
