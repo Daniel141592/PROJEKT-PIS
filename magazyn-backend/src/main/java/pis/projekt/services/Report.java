@@ -37,7 +37,7 @@ public class Report {
         reportText ="ID magazynu: " + Integer.toString(magazine.getId());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getWidth()) + 'x' + Integer.toString(magazine.getLength());
+        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getDimensions().second) + 'x' + Integer.toString(magazine.getDimensions().first);
         contentStream.showText(reportText);
         contentStream.newLine();
         reportText ="Liczba sekcji: " + Integer.toString(magazine.getAmountOfSections());

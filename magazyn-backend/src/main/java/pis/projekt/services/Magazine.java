@@ -39,12 +39,6 @@ public class Magazine {
         return name;
     }
 
-
-    public void addSection(Section section){
-        this.sections.add(section);
-    }
-
-
     public Vector<Section> getSections(){
         return sections;
     }
@@ -68,7 +62,6 @@ public class Magazine {
 
     // not sure how we will handle magazine bound sections now
     // true = collision, false = no collision
-    boolean checkCollision(Section newSection, Vector<Section> sections){
     boolean checkCollision(Section newSection){
         boolean isSame;
         for(Section sec: sections){
@@ -89,7 +82,6 @@ public class Magazine {
         return false;
     }
 
-    double calcEmptySpace(Vector<Section> sections, boolean inPrecent){
     double calcEmptySpace(boolean inPrecent){
 
         double area = 0;
@@ -103,7 +95,6 @@ public class Magazine {
         return area;
     }
 
-    int getProductAmount(Vector<Section> sections, Product product){
     int getProductAmount(Product product){
         int amount = 0;
         for(Section sec: sections){
