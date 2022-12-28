@@ -56,7 +56,7 @@ public class Report{
         reportText ="Wymiary magazynu: " + Integer.toString(magazine.getDimensions().first) + 'x' + Integer.toString(magazine.getDimensions().second);
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Liczba sekcji: " + Integer.toString(magazine.getAmountOfSections());
+        reportText ="Liczba sekcji: " + Integer.toString(magazine.getSectionsAmount());
         contentStream.showText(reportText);
         contentStream.newLine();
         reportText ="Wolne miejsce " + Double.toString(magazine.calcEmptySpace(false));
