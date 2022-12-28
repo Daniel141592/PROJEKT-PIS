@@ -39,9 +39,11 @@ public class Magazine {
         return name;
     }
 
+
     public void addSection(Section section){
         this.sections.add(section);
     }
+
 
     public Vector<Section> getSections(){
         return sections;
@@ -53,11 +55,23 @@ public class Magazine {
 
     public Pair getDimensions() { return dimensions;}
 
+    public int getAmountOfSections(){return sections.size(); }
+
+    // return true if added, else return false
+    public boolean addSection(Section newSection){
+        if(!checkCollision(newSection)){
+            sections.add(newSection);
+            return true;
+        }
+        return false;
+    }
+
     // not sure how we will handle magazine bound sections now
     // true = collision, false = no collision
-    boolean checkCollision(Section newSection, Vector<Section> magazineBoundSections){
+    boolean checkCollision(Section newSection, Vector<Section> sections){
+    boolean checkCollision(Section newSection){
         boolean isSame;
-        for(Section sec: magazineBoundSections){
+        for(Section sec: sections){
             isSame = true;
             for(Pair newSecPoint: newSection.getCords()){
                 if(sec.containsPoint(newSecPoint)){return true;}
@@ -75,21 +89,24 @@ public class Magazine {
         return false;
     }
 
-    double calcEmptySpace(Vector<Section> magazineBoundSections, boolean inPrecent){
+    double calcEmptySpace(Vector<Section> sections, boolean inPrecent){
+    double calcEmptySpace(boolean inPrecent){
 
         double area = 0;
-        for(Section sec: magazineBoundSections){
+        for(Section sec: sections){
             area += sec.calcArea();
         }
         if(inPrecent){
+
             area = area / (this.dimensions.first * this.dimensions.second);
         }
         return area;
     }
 
-    int getProductAmount(Vector<Section> magazineBoundSections, Product product){
+    int getProductAmount(Vector<Section> sections, Product product){
+    int getProductAmount(Product product){
         int amount = 0;
-        for(Section sec: magazineBoundSections){
+        for(Section sec: sections){
             if(sec.getProduct() == product){amount += sec.getCapacity();}
         }
         return amount;
