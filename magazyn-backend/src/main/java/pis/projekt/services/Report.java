@@ -6,11 +6,12 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-public class Report {
+public class Report{
     private String name;
     private PDDocument reportDocument;
     private String reportText;
@@ -19,14 +20,29 @@ public class Report {
 
     public Report(Magazine magazine) throws IOException {
         reportDocument = new PDDocument();
-        reportPage = new PDPage();
+
+        DateTimeFormatter dtf_name = DateTimeFormatter.ofPattern("yyyy_MM_dd__HH_mm_ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        name = "Raport_" + magazine.getName() + "_" + dtf_name.format(now) + ".pdf";
+
+        PDDocument doc = new PDDocument();
+        PDPage page = new PDPage();
+        doc.addPage(page);
+        doc.save(name);
+        doc.close();
+
+        File file = new File(name);
+        reportDocument = PDDocument.load(file);
+
+        reportPage = reportDocument.getPage(0);
+
         contentStream = new PDPageContentStream(reportDocument, reportPage);
         contentStream.setFont(PDType1Font.TIMES_ROMAN,20);
-        contentStream.newLineAtOffset(20, 450);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(20, 750);
         contentStream.setLeading(15f);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        name = "Raport_" + magazine.getName() + "_" + dtf.format(now) + ".pdf";
         reportText = "Raport z magazynu: " + magazine.getName() + " z " + dtf.format(now);
         contentStream.showText(reportText);
         contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
@@ -37,7 +53,7 @@ public class Report {
         reportText ="ID magazynu: " + Integer.toString(magazine.getId());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getDimensions().second) + 'x' + Integer.toString(magazine.getDimensions().first);
+        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getDimensions().first) + 'x' + Integer.toString(magazine.getDimensions().second);
         contentStream.showText(reportText);
         contentStream.newLine();
         reportText ="Liczba sekcji: " + Integer.toString(magazine.getSectionsAmount());
@@ -52,6 +68,7 @@ public class Report {
         contentStream.endText();
         contentStream.close();
         reportDocument.save(name);
+        reportDocument.close();
 
 
     };
