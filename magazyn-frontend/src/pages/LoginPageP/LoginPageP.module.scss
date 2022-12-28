@@ -1,0 +1,58 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 64px;
+  width: 100%;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+  width: 100%;
+  margin-top: 10%;
+}
+
+.signInCaption {
+  margin-top: -2.5%;
+  a {
+    color: orange;
+  }
+}
+
+.fullDiv {
+  height: 100%;
+  width: 100%;
+  background-image: url('../../img/login_pracownik_bg.jpg');
+  background-size: cover;
+}
+
+.transDiv {
+  height: 100%;
+  width: 100%;
+  background: rgb(5, 0, 0, 0.6);
+}
+
+.headerUp {
+  padding-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  font-size: 400%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bolder;
+  // color: black;
+}
+
+.headerDown {
+  padding-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  font-size: 300%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bolder;
+  // color: black;
+}

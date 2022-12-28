@@ -1,0 +1,32 @@
+$color-button-primary: #5A06C6;
+$color-font-button-primary: #ffffff;
+$color-button-secondary: transparent;
+$color-font-button-secondary: #ffffff;
+
+.container {
+  border: none;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  border-radius: 100%;
+  height: 64px;
+  width: 64px;
+  padding: 16px;
+}
+
+.container:hover {
+  scale: 0.95;
+}
+
+.container:active {
+  scale: 0.9;
+}
+
+.theme-primary {
+  background-color: $color-button-primary;
+  color: $color-font-button-primary;
+}
+
+.theme-transparent {
+  background-color: $color-button-secondary;
+  color: $color-font-button-secondary;
+}
