@@ -7,6 +7,13 @@ public class Product {
     private Pair dimensions;
     private int stackSize; // this name asks for God's intervention
 
+    public Product()
+    {
+        name = "";
+        dimensions = new Pair();
+        stackSize = 0;
+    }
+
     public Product(String newName, int newLength, int newWidth, int newStackSize)
     {
         name = newName;

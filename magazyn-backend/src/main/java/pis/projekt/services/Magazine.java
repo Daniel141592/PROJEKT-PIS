@@ -8,38 +8,50 @@ import java.util.Vector;
 public class Magazine {
     private int id;
     private String name;
-    private int length;
-    private int width;
+    private Pair dimensions;
+    private Vector<Section> sections;
 
     public Magazine(){
         id = 0;
         name = "";
-        length = 0;
-        width = 0;
+        dimensions = new Pair();
+        sections = new Vector<Section>();
     }
 
     public Magazine(int newId, String newName, int newLength, int newWidth){
         id = newId;
         name = newName;
-        length = newLength;
-        width = newWidth;
+        dimensions = new Pair(newLength, newWidth);
+        sections = new Vector<Section>();
+    }
+
+    public Magazine(int id, String name, int length, int width, Section section){
+        this(id, name, length, width);
+        this.sections.add(section);
+    }
+
+    public Magazine(int id, String name, int length, int width, Vector<Section> sections){
+        this(id, name, length, width);
+        this.sections = sections;
     }
 
     public String getName() {
         return name;
     }
 
+    public void addSection(Section section){
+        this.sections.add(section);
+    }
+
+    public Vector<Section> getSections(){
+        return sections;
+    }
+
     public int getId() {
         return id;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public int getWidth() {
-        return width;
-    }
+    public Pair getDimensions() { return dimensions;}
 
     // not sure how we will handle magazine bound sections now
     // true = collision, false = no collision
@@ -70,7 +82,7 @@ public class Magazine {
             area += sec.calcArea();
         }
         if(inPrecent){
-            area = area / (this.length * this.width);
+            area = area / (this.dimensions.first * this.dimensions.second);
         }
         return area;
     }
