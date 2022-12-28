@@ -5,14 +5,14 @@ public class EmployeeService {
     private String name;
     private String surname;
     private String login;
-    private String password;
+    private String passwordHash;
 
-    EmployeeService(int newId, String newName, String newSurname, String newLogin, String newPassword){
+    EmployeeService(int newId, String newName, String newSurname, String newLogin, String newPasswordHash){
         this.id = newId;
         this.name = newName;
         this.surname = newSurname;
         this.login = newLogin;
-        this.password = newPassword;
+        this.passwordHash = newPasswordHash;
     }
 
     public int getId() {
@@ -31,8 +31,8 @@ public class EmployeeService {
         return login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public void setId(int id) {
@@ -51,8 +51,8 @@ public class EmployeeService {
         this.login = login;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public boolean isManager(){return false;}

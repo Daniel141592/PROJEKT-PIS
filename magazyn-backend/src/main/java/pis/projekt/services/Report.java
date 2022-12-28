@@ -59,11 +59,13 @@ public class Report{
         reportText ="Liczba sekcji: " + Integer.toString(magazineService.getSectionsAmount());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wolne miejsce " + Double.toString(magazineService.calcEmptySpace(false));
+        reportText ="Wolne miejsce: " + Double.toString(magazineService.calcEmptySpace(false));
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wolne miejsce (w procentach) " + Double.toString(magazineService.calcEmptySpace(true));
+        reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
         contentStream.showText(reportText);
+
+
 
         contentStream.endText();
         contentStream.close();

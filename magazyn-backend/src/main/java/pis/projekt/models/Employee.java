@@ -5,15 +5,15 @@ public class Employee {
     private String name;
     private String surname;
     private String login;
-    private String password;
+    private String passwordHash;
     private boolean isManager;
 
-    Employee(int newId, String newName, String newSurname, String newLogin, String newPassword, boolean isManager){
+    Employee(int newId, String newName, String newSurname, String newLogin, String newPasswordHash, boolean isManager){
         this.id = newId;
         this.name = newName;
         this.surname = newSurname;
         this.login = newLogin;
-        this.password = newPassword;
+        this.passwordHash = newPasswordHash;
         this.isManager = isManager;
     }
 
@@ -33,8 +33,8 @@ public class Employee {
         return login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public boolean getIsManager(){
@@ -57,8 +57,8 @@ public class Employee {
         this.login = login;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public void setIsManager(boolean isManager) {
