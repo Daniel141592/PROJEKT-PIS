@@ -66,9 +66,9 @@ public class Issue {
         this.status = status;
     }
 
-    public void changeStatus(String newStatus, Employee statusChanger){
+    /*public void changeStatus(String newStatus, Employee statusChanger){
         if(statusChanger == issuingManager || statusChanger == issuedEmployee){
             status = newStatus;
         }
-    }
+    }*/
 }
