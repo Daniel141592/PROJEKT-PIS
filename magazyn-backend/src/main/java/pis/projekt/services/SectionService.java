@@ -69,7 +69,8 @@ public class SectionService {
     }
 
     public void addProduct(){
-        if(amount < this.calcMaxCapacity() && amount < product.getStackSize())
+        int maxCapacity = this.calcMaxCapacity();
+        if(amount < maxCapacity && amount < product.getStackSize() * maxCapacity)
             { this.amount += 1;}
     }
 

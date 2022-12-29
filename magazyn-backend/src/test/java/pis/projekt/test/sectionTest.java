@@ -122,6 +122,10 @@ public class sectionTest {
         MagazineService magazineService = new MagazineService();
         Product prod = new Product("product", 2, 3, 4);
         SectionService sect = new SectionService(cords,"Name", prod, magazineService);
+        for (int i=0; i<20; i++)
+        {
+            sect.addProduct();
+        }
         Assert.assertEquals(16, sect.getAmount());
     }
 
@@ -167,10 +171,10 @@ public class sectionTest {
         MagazineService magazineService = new MagazineService();
         Product prod = new Product("product", 2, 3, 4);
         SectionService sect = new SectionService(cords,"Name", prod, magazineService);
-        for (int i=0; i<5; i++)
+        for (int i=0; i<1000; i++)
         {
             sect.addProduct();
         }
-        Assert.assertEquals(4, sect.getAmount());
+        Assert.assertEquals(400, sect.getAmount());
     }
 }
