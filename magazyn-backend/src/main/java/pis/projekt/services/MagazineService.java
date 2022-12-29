@@ -112,7 +112,7 @@ public class MagazineService {
         Vector<Product> productVector = new Vector<Product>();
 
         for(SectionService ss: sectionServices){
-            if(!productVector.contains(ss.getProduct())){productVector.add(ss.getProduct());}
+            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product())){productVector.add(ss.getProduct());}
         }
         return productVector;
     }
