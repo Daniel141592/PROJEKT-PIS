@@ -5,11 +5,13 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import pis.projekt.models.Product;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.Vector;
 
 public class Report{
     private String name;
@@ -64,8 +66,23 @@ public class Report{
         contentStream.newLine();
         reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
         contentStream.showText(reportText);
+        contentStream.newLine();
+        reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
+        contentStream.showText(reportText);
 
+        contentStream.newLine();
+        contentStream.newLine();
+        reportText ="Zawartość magazynu: ";
+        contentStream.showText(reportText);
+        contentStream.setFont(PDType1Font.TIMES_ROMAN,12);
 
+        Vector<Product> productVector = magazineService.getProductVector();
+
+        for(Product p: productVector){
+            contentStream.newLine();
+            reportText ="- " + p.getName() + ": " + " Sekcje - " + magazineService.getProductSections(p) + "  Całkowita ilość - " + magazineService.getProductAmountInMagazine(p);
+            contentStream.showText(reportText);
+        }
 
         contentStream.endText();
         contentStream.close();

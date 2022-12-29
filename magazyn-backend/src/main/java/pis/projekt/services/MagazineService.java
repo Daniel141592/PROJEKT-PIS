@@ -108,6 +108,29 @@ public class MagazineService {
         return amount;
     }
 
+    public Vector<Product> getProductVector(){
+        Vector<Product> productVector = new Vector<Product>();
 
+        for(SectionService ss: sectionServices){
+            if(!productVector.contains(ss.getProduct())){productVector.add(ss.getProduct());}
+        }
+        return productVector;
+    }
+
+    public int getProductAmountInMagazine(Product product){
+        int productAmount = 0;
+        for(SectionService ss: sectionServices){
+            if(product == ss.getProduct()){productAmount += ss.getAmount();}
+        }
+        return productAmount;
+    }
+
+    public int getProductSections(Product product){
+        int productSections = 0;
+        for(SectionService ss: sectionServices){
+            if(product == ss.getProduct()){productSections += 1;}
+        }
+        return productSections;
+    }
 
 }
