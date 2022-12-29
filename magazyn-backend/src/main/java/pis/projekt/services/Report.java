@@ -72,15 +72,15 @@ public class Report{
 
         contentStream.newLine();
         contentStream.newLine();
-        reportText ="Zawartość magazynu: ";
+        reportText ="Zawartosc magazynu: ";
         contentStream.showText(reportText);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,12);
+        contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
 
         Vector<Product> productVector = magazineService.getProductVector();
 
         for(Product p: productVector){
             contentStream.newLine();
-            reportText ="- " + p.getName() + ": " + " Sekcje - " + magazineService.getProductSections(p) + "  Całkowita ilość - " + magazineService.getProductAmountInMagazine(p);
+            reportText ="- " + p.getName() + ": " + " Sekcje - " + magazineService.getProductSections(p) + "  Calkowita ilosc - " + magazineService.getProductAmountInMagazine(p);
             contentStream.showText(reportText);
         }
 
