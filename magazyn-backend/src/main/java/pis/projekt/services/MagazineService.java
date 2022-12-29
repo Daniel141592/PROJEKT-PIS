@@ -84,8 +84,7 @@ public class MagazineService {
     }
 
     public double calcSpace(){
-        double absSpace = dimensions.first * dimensions.second;
-        return absSpace;
+        return dimensions.first * dimensions.second;
     }
 
     public double calcEmptySpace(boolean inPercent){

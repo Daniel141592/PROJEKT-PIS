@@ -1,60 +1,35 @@
 package pis.projekt.services;
 
-public class EmployeeService {
-    private int id;
-    private String name;
-    private String surname;
-    private String login;
-    private String passwordHash;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pis.projekt.interfaces.IEmployeeService;
+import pis.projekt.models.Employee;
+import pis.projekt.repository.IEmployeeRepository;
 
-    EmployeeService(int newId, String newName, String newSurname, String newLogin, String newPasswordHash){
-        this.id = newId;
-        this.name = newName;
-        this.surname = newSurname;
-        this.login = newLogin;
-        this.passwordHash = newPasswordHash;
+import java.util.List;
+
+@Service
+public class EmployeeService implements IEmployeeService {
+    @Autowired
+    private IEmployeeRepository employeeRepository;
+
+    @Override
+    public List<Employee> findAllEmployees() {
+        return employeeRepository.findAll();
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public Employee findEmployeeById(Integer empId) {
+        return employeeRepository.findEmployeeById(empId);
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public List<Employee> findEmployeeByFirstName(String firstname) {
+        return employeeRepository.findEmployeeByName(firstname);
     }
 
-    public String getSurname() {
-        return surname;
+    @Override
+    public List<Employee> findEmployeeByLastName(String lastname) {
+        return employeeRepository.findEmployeeBySurname(lastname);
     }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setPassword(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public boolean isManager(){return false;}
-
 }

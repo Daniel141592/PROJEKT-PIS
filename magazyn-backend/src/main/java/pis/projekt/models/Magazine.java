@@ -1,14 +1,19 @@
 package pis.projekt.models;
 
-import pis.projekt.services.SectionService;
-import pis.projekt.utils.Pair;
+import jakarta.persistence.*;
 
-import java.util.Vector;
-
+@Entity
+@Table(name = "magazyny")
 public class Magazine {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "length", nullable = false)
     private int length;
+    @Column(name = "width", nullable = false)
     private int width;
 
     public Magazine(){

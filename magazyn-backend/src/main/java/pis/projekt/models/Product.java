@@ -1,38 +1,55 @@
 package pis.projekt.models;
 
+import jakarta.persistence.*;
 import pis.projekt.utils.Pair;
 
+import java.util.Objects;
+
+@Entity
+@Table(name = "produkty")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    int id;
+    @Column(name = "name", nullable = false)
     private String name;
-    private Pair dimensions;
-    private int stackSize; // this name asks for God's intervention
+    @Column(name = "length", nullable = false)
+    private int length;
+    @Column(name = "width", nullable = false)
+    private int width;
+    @Column(name = "stack_size", nullable = false)
+    private int stackSize;
 
     public Product()
     {
         name = "";
-        dimensions = new Pair();
+        width = 0;
+        length = 0;
         stackSize = 0;
     }
 
     public Product(String newName, int newLength, int newWidth, int newStackSize)
     {
         name = newName;
-        dimensions = new Pair(newLength, newWidth);
+        width = newWidth;
+        length = newLength;
         stackSize = newStackSize;
     }
 
     public static boolean isSame(Product product1, Product product2){
-        boolean sameName = product1.getName() == product2.name;
-        boolean sameDimensions = Pair.isSame(product1.getDimensions(), product2.dimensions);
+        boolean sameName = Objects.equals(product1.getName(), product2.name);
+        boolean sameLength = product1.length == product2.length;
+        boolean sameWidth = product1.width == product2.width;
         boolean sameStackSize = product1.getStackSize() == product2.stackSize;
-        return sameName && sameDimensions && sameStackSize;
+        return sameName && sameLength && sameWidth && sameStackSize;
     }
 
     public String getName() {
         return name;
     }
 
-    public Pair getDimensions() { return dimensions; }
+    public Pair getDimensions() { return new Pair(width, length); }
 
     public int getStackSize() { return stackSize; }
 
@@ -40,11 +57,11 @@ public class Product {
         this.name = name;
     }
 
-    public void setDimensions(Pair dimensions) {
-        this.dimensions = dimensions;
-    }
-
     public void setStackSize(int stackSize) {
         this.stackSize = stackSize;
+    }
+
+    public int getId() {
+        return id;
     }
 }

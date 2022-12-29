@@ -1,11 +1,25 @@
 package pis.projekt.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "zlecenia")
 public class Issue {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
+    @Column(name = "nazwa", nullable = false)
     private String name;
+    @Column(name = "opis", nullable = false)
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "kier_id", nullable = false)
     private Employee issuingManager;
+    @ManyToOne
+    @JoinColumn(name = "prac_id", nullable = false)
     private Employee issuedEmployee;
+    @Column(name = "status", nullable = false)
     private String status;
 
     Issue(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus){
@@ -16,6 +30,10 @@ public class Issue {
         this.issuedEmployee = newEmployee;
         this.status = newStatus;
         // maybe add sending to bd here
+    }
+
+    public Issue() {
+
     }
 
     public String getName() {

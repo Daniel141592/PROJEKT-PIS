@@ -1,11 +1,23 @@
 package pis.projekt.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "pracownicy")
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
+    @Column(name = "first_name", nullable = false)
     private String name;
+    @Column(name = "last_name", nullable = false)
     private String surname;
+    @Column(name = "login", nullable = false)
     private String login;
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
+    @Column(name = "is_manager", nullable = false)
     private boolean isManager;
 
     Employee(int newId, String newName, String newSurname, String newLogin, String newPasswordHash, boolean isManager){
@@ -15,6 +27,10 @@ public class Employee {
         this.login = newLogin;
         this.passwordHash = newPasswordHash;
         this.isManager = isManager;
+    }
+
+    public Employee() {
+
     }
 
     public int getId() {
