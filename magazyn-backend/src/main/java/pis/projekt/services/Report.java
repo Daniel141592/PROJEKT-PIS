@@ -66,9 +66,6 @@ public class Report{
         contentStream.newLine();
         reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
         contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
-        contentStream.showText(reportText);
 
         contentStream.newLine();
         contentStream.newLine();

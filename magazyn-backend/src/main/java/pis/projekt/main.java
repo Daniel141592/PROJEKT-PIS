@@ -47,8 +47,8 @@ public class main {
         sect4.setCords(1, 4, 3);
         sect4.setCords(2, 6, 3);
         sect4.setCords(3, 6, 0);
-        sect3.setProduct(p2);
-        sect3.setAmount(1);
+        sect4.setProduct(p2);
+        sect4.setAmount(1);
         mag.addSection(sect4);
 
         Report rep = new Report(mag);
