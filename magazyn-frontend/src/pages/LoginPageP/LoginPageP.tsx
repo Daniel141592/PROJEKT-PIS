@@ -2,6 +2,7 @@ import React from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageP.module.scss"
 import {MagButton} from "components/MagButton";
+import {MagLinkButton} from "components/MagLinkButton";
 import {Link, useNavigate} from "react-router-dom";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";
@@ -27,7 +28,8 @@ export const LoginPageP: React.FC = () => {
 							<MagInput placeholder="Nazwa użytkownika" {...register("UserName")}/>
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
 						</div>
-						<MagButton type="submit">Zaloguj się</MagButton>
+						{/* <MagButton type="submit">Zaloguj się</MagButton> */}
+						<MagLinkButton href={PATHS.employer}>Zaloguj się</MagLinkButton>
 						<p className={s.signInCaption}>
 							Nie masz konta?{" "}
 							<Link to={PATHS.signup}>Zarejestruj się</Link>

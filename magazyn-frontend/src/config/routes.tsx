@@ -5,6 +5,7 @@ import {PATHS} from "./paths";
 import {LoginPageP} from "../pages/LoginPageP";
 import {LoginPageK} from "../pages/LoginPageK";
 import {SignupPage} from "../pages/SignupPage";
+import {EmployerPage} from "../pages/EmployerPage";
 
 export const routes = createBrowserRouter([
 	{
@@ -22,6 +23,10 @@ export const routes = createBrowserRouter([
 	{
 		path: PATHS.signup,
 		element: <SignupPage/>
+	},
+	{
+		path: PATHS.employer,
+		element: <EmployerPage/>
 	}
 
 ])

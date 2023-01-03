@@ -3,5 +3,5 @@ export const PATHS = {
 	loginP: '/loginP',
 	loginK: '/loginK',
 	signup: '/signup',
-	chat: '/chat',
+	employer: '/employer'
 }
