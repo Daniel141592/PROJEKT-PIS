@@ -9,9 +9,9 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
-    @Column(name = "nazwa", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "opis", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
     @ManyToOne
     @JoinColumn(name = "kier_id", nullable = false)
