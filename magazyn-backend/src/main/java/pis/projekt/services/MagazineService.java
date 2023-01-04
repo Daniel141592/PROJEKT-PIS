@@ -1,112 +1,66 @@
 package pis.projekt.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pis.projekt.interfaces.IMagazineService;
+import pis.projekt.models.Magazine;
 import pis.projekt.models.Product;
-import pis.projekt.utils.Pair;
+import pis.projekt.models.Section;
+import pis.projekt.repository.IMagazineRepository;
+import pis.projekt.repository.ISectionRepository;
 
-import java.util.Vector;
+import java.util.List;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.round;
+@Service
+public class MagazineService implements IMagazineService {
 
-public class MagazineService {
-    private int id;
-    private String name;
-    private Pair dimensions;
-    private Vector<SectionService> sectionServices;
+    @Autowired
+    private IMagazineRepository magazineRepository;
+    @Autowired
+    private ISectionRepository sectionRepository;
 
-    public MagazineService(){
-        id = 0;
-        name = "";
-        dimensions = new Pair();
-        sectionServices = new Vector<SectionService>();
+    @Override
+    public List<Magazine> findAllMagazines() {
+        return magazineRepository.findAll();
     }
 
-    public MagazineService(int newId, String newName, int newLength, int newWidth){
-        id = newId;
-        name = newName;
-        dimensions = new Pair(newLength, newWidth);
-        sectionServices = new Vector<SectionService>();
+    @Override
+    public Magazine findMagazineById(Integer magazineId) {
+        return magazineRepository.findMagazineById(magazineId);
     }
 
-    public MagazineService(int id, String name, int length, int width, SectionService sectionService){
-        this(id, name, length, width);
-        this.sectionServices.add(sectionService);
+    @Override
+    public List<Magazine> findMagazineByName(String name) {
+        return magazineRepository.findMagazineByNameContaining(name);
     }
 
-    public MagazineService(int id, String name, int length, int width, Vector<SectionService> sectionServices){
-        this(id, name, length, width);
-        this.sectionServices = sectionServices;
+    @Override
+    public Magazine addMagazine(Magazine magazine) {
+        return magazineRepository.save(magazine);
     }
 
-    public String getName() {
-        return name;
+    public double calcSpace(Magazine magazine) {
+        return magazine.getWidth() * magazine.getLength();
     }
 
-    public Vector<SectionService> getSections(){
-        return sectionServices;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Pair getDimensions() { return dimensions;}
-
-    public int getSectionsAmount(){ return sectionServices.size(); }
-
-    boolean checkCollision(SectionService newSectionService){
-        boolean isSame;
-        for(SectionService sec: sectionServices){
-            isSame = true;
-            for(Pair newSecPoint: newSectionService.getCords()){
-                if(sec.containsPoint(newSecPoint)){ return true; }
-            }
-            for(Pair oldSecPoint: sec.getCords()){
-                if(newSectionService.containsPoint(oldSecPoint)){ return true; }
-            }
-            for(int i=0; i<4; i++){
-                if(sec.getCords() != newSectionService.getCords()){
-                    isSame = false;
-                }
-            }
-            if(isSame){ return true; }
-        }
-        return false;
-    }
-
-    // return true if added, else return false
-    public boolean addSection(SectionService newSectionService){
-        if(!checkCollision(newSectionService)){
-            sectionServices.add(newSectionService);
-            return true;
-        }
-        return false;
-    }
-
-    public double calcSpace(){
-        return dimensions.first * dimensions.second;
-    }
-
-    public double calcEmptySpace(boolean inPercent){
-
-        double absArea = calcSpace();
+    public double calcEmptySpace(Magazine magazine, boolean inPercent) {
+        double absArea = calcSpace(magazine);
         double area = absArea;
-        for(SectionService sec: sectionServices){
-            area -= sec.calcArea();
+        List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine.getId());
+        for (Section section : sections){
+            area -= SectionService.calcArea(section);
         }
         return inPercent ? area/absArea : area;
     }
 
-    public int getProductAmount(Product product){
+    public int getProductAmount(Magazine magazine, Product product){
         int amount = 0;
-        for(SectionService sec: sectionServices){
-            if(Product.isSame(sec.getProduct(), product)){
-                amount += sec.getAmount();
+        List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine.getId());
+        for (Section section : sections){
+            if(Product.isSame(section.getProduct(), product)) {
+                amount += section.getAmount();
             }
         }
         return amount;
     }
-
-
-
 }

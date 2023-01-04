@@ -2,11 +2,14 @@ package pis.projekt.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "magazyny")
 public class Magazine {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
     @Column(name = "name", nullable = false)
@@ -15,12 +18,19 @@ public class Magazine {
     private int length;
     @Column(name = "width", nullable = false)
     private int width;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "magazyn_id")
+    private List<Section> sections;
 
-    public Magazine(){
+    public Magazine() {
         id = 0;
         name = "";
         length = 0;
         width = 0;
+    }
+
+    public Magazine(int id) {
+        this.id = id;
     }
 
     public Magazine(int newId, String newName, int newLength, int newWidth){
@@ -61,4 +71,9 @@ public class Magazine {
     public int getWidth() {
         return width;
     }
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
 }
