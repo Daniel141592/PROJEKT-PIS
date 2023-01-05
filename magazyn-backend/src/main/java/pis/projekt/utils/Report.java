@@ -3,6 +3,7 @@ package pis.projekt.utils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import pis.projekt.models.Magazine;
@@ -46,15 +47,19 @@ public class Report{
 
         reportPage = reportDocument.getPage(0);
 
+        String fontDirectory = "magazyn-backend/src/main/resources/fonts/arial.ttf";
+        PDType0Font font = PDType0Font.load(reportDocument, new File(fontDirectory));
+
+
         contentStream = new PDPageContentStream(reportDocument, reportPage);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,20);
+        contentStream.setFont(font,20);
         contentStream.beginText();
         contentStream.newLineAtOffset(20, 750);
         contentStream.setLeading(15f);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         reportText = "Raport z magazynu: " + magazine.getName() + " z " + dtf.format(now);
         contentStream.showText(reportText);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
+        contentStream.setFont(font,14);
         contentStream.newLine();
         reportText ="Nazwa magazynu: " + magazine.getName();
         contentStream.showText(reportText);
@@ -76,15 +81,15 @@ public class Report{
 
         contentStream.newLine();
         contentStream.newLine();
-        reportText ="Zawartosc magazynu: ";
+        reportText ="Zawartość magazynu: ";
         contentStream.showText(reportText);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
+        contentStream.setFont(font,14);
 
         Vector<Product> productVector = MagazineService.getProductVector(magazine);
 
         for(Product p: productVector){
             contentStream.newLine();
-            reportText ="- " + p.getName() + ": " + " Sekcje - " + MagazineService.getProductSections(magazine, p) + "  Calkowita ilosc - " + MagazineService.getProductAmount(magazine, p);
+            reportText ="- " + p.getName() + ": " + " Sekcje - " + MagazineService.getProductSections(magazine, p) + "  Całkowita ilość - " + MagazineService.getProductAmount(magazine, p);
             contentStream.showText(reportText);
         }
 
