@@ -32,4 +32,14 @@ public class IssueController {
     public List<Issue> getIssuesContains(@RequestParam("desc") String desc) {
         return issueService.findIssuesByDescriptionContains(desc);
     }
+
+    @PostMapping("/add")
+    public Issue addIssue(@RequestBody Issue issue) {
+        return issueService.addIssue(issue);
+    }
+
+    @PostMapping("/update/{id}")
+    public Issue changeStatus(@RequestBody String status, @PathVariable Integer id) {
+        return issueService.changeStatus(id, status);
+    }
 }

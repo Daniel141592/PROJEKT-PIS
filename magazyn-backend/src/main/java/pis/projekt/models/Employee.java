@@ -33,6 +33,10 @@ public class Employee {
 
     }
 
+    public Employee(Integer id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -37,4 +37,16 @@ public class IssueService implements IIssueService {
     public List<Issue> findIssuesByDescriptionContains(String desc) {
         return issueRepository.findIssuesByDescriptionContains(desc);
     }
+
+    @Override
+    public Issue addIssue(Issue issue) {
+        return issueRepository.save(issue);
+    }
+
+    @Override
+    public Issue changeStatus(Integer issueId, String status) {
+        Issue issue = issueRepository.findIssueById(issueId);
+        issue.setStatus(status);
+        return issueRepository.save(issue);
+    }
 }

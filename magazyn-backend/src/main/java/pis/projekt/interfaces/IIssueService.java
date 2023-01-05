@@ -14,4 +14,8 @@ public interface IIssueService {
     List<Issue> findIssuesByDescriptionContains(String desc);
 
     List<Issue> findAllIssues();
+
+    Issue addIssue(Issue issue);
+
+    Issue changeStatus(Integer issueId, String status);
 }
