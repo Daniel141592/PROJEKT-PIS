@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 import pis.projekt.interfaces.IEmployeeService;
 import pis.projekt.models.Employee;
 import pis.projekt.repository.IEmployeeRepository;
-import pis.projekt.requests.LoginRequest;
-import pis.projekt.requests.RegisterRequest;
-import pis.projekt.responses.EmployeeResponse;
+import pis.projekt.models.requests.LoginRequest;
+import pis.projekt.models.requests.RegisterRequest;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

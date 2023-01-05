@@ -1,4 +1,4 @@
-package pis.projekt.responses;
+package pis.projekt.models.responses;
 
 
 import pis.projekt.models.Employee;

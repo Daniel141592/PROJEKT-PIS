@@ -1,7 +1,7 @@
 package pis.projekt.models;
 
 import jakarta.persistence.*;
-import pis.projekt.responses.EmployeeResponse;
+import pis.projekt.models.responses.EmployeeResponse;
 
 @Entity
 @Table(name = "zlecenia")

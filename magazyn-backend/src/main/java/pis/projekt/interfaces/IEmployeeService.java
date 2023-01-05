@@ -1,8 +1,8 @@
 package pis.projekt.interfaces;
 
 import pis.projekt.models.Employee;
-import pis.projekt.requests.LoginRequest;
-import pis.projekt.requests.RegisterRequest;
+import pis.projekt.models.requests.LoginRequest;
+import pis.projekt.models.requests.RegisterRequest;
 
 import java.util.List;
 

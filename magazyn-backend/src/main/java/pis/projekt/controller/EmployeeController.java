@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pis.projekt.interfaces.IEmployeeService;
 import pis.projekt.models.Employee;
-import pis.projekt.requests.LoginRequest;
-import pis.projekt.responses.EmployeeResponse;
-import pis.projekt.responses.LoginResponse;
+import pis.projekt.models.requests.LoginRequest;
+import pis.projekt.models.responses.EmployeeResponse;
+import pis.projekt.models.responses.LoginResponse;
 
 import java.util.ArrayList;
 import java.util.List;

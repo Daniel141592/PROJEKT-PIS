@@ -1,4 +1,4 @@
-package pis.projekt.requests;
+package pis.projekt.models.requests;
 
 import jakarta.validation.constraints.NotNull;
 

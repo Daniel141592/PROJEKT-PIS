@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pis.projekt.interfaces.ISectionService;
 import pis.projekt.models.Section;
-import pis.projekt.requests.AddProductRequest;
+import pis.projekt.models.requests.AddProductRequest;
 
 import java.util.List;
 
