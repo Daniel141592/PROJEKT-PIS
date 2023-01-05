@@ -10,6 +10,7 @@ import pis.projekt.repository.IMagazineRepository;
 import pis.projekt.repository.ISectionRepository;
 
 import java.util.List;
+import java.util.Vector;
 
 @Service
 public class MagazineService implements IMagazineService {
@@ -39,28 +40,47 @@ public class MagazineService implements IMagazineService {
         return magazineRepository.save(magazine);
     }
 
-    public double calcSpace(Magazine magazine) {
+    public static double calcSpace(Magazine magazine) {
         return magazine.getWidth() * magazine.getLength();
     }
 
-    public double calcEmptySpace(Magazine magazine, boolean inPercent) {
+    public static double calcEmptySpace(Magazine magazine, boolean inPercent) {
         double absArea = calcSpace(magazine);
         double area = absArea;
-        List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine.getId());
+        List<Section> sections = magazine.getSections();
         for (Section section : sections){
             area -= SectionService.calcArea(section);
         }
         return inPercent ? area/absArea : area;
     }
 
-    public int getProductAmount(Magazine magazine, Product product){
+    public static int getProductAmount(Magazine magazine, Product product){
         int amount = 0;
-        List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine.getId());
+        List<Section> sections = magazine.getSections();
         for (Section section : sections){
             if(Product.isSame(section.getProduct(), product)) {
                 amount += section.getAmount();
             }
         }
         return amount;
+    }
+
+    public static Vector<Product> getProductVector(Magazine magazine){
+        Vector<Product> productVector = new Vector<Product>();
+        List<Section> sections = magazine.getSections();
+        for(Section ss: sections){
+            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product())){productVector.add(ss.getProduct());}
+        }
+        return productVector;
+    }
+
+
+    public static int getProductSections(Magazine magazine, Product product){
+        int productSections = 0;
+        List<Section> sections = magazine.getSections();
+        for(Section ss: sections){
+            if(product == ss.getProduct()){productSections += 1;}
+        }
+        return productSections;
     }
 }

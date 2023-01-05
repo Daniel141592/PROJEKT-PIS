@@ -38,4 +38,7 @@ public class MagazineController {
     public Magazine addMagazine(@RequestBody Magazine magazine) {
         return magazineService.addMagazine(magazine);
     }
+
+
+
 }
