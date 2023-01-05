@@ -51,7 +51,7 @@ public class MagazineService implements IMagazineService {
         for (Section section : sections){
             area -= SectionService.calcArea(section);
         }
-        return inPercent ? area/absArea : area;
+        return inPercent ? (area/absArea * 100) : area;
     }
 
     public static int getProductAmount(Magazine magazine, Product product){
