@@ -10,6 +10,7 @@ import pis.projekt.models.Employee;
 import pis.projekt.repository.IEmployeeRepository;
 import pis.projekt.requests.LoginRequest;
 import pis.projekt.requests.RegisterRequest;
+import pis.projekt.responses.EmployeeResponse;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -45,16 +46,26 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public List<Employee> findAllManagers() {
+        return employeeRepository.findEmployeesByIsManager(true);
+    }
+
+    @Override
+    public List<Employee> findEmployeesExcludingManagers() {
+        return employeeRepository.findEmployeesByIsManager(false);
+    }
+
+    @Override
     public Employee login(LoginRequest loginRequest) {
-        if (loginRequest.password == null || loginRequest.password.isBlank())
+        if (loginRequest.getPassword() == null || loginRequest.getPassword().isBlank())
             return null;
-        if (loginRequest.username == null || loginRequest.username.isBlank())
+        if (loginRequest.getUsername() == null || loginRequest.getUsername().isBlank())
             return null;
-        Employee employee = employeeRepository.findEmployeeByLogin(loginRequest.username);
+        Employee employee = employeeRepository.findEmployeeByLogin(loginRequest.getUsername());
         if (employee == null)
             return null;
         String hashStoredInDb = employee.getPasswordHash();
-        String newHash = Hex.encodeHexString(hashPassword(loginRequest.password));
+        String newHash = Hex.encodeHexString(hashPassword(loginRequest.getPassword()));
         if (!newHash.equals(hashStoredInDb))
             return null;
         return employee;

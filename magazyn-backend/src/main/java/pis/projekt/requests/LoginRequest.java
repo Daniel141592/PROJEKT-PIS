@@ -4,12 +4,20 @@ import jakarta.validation.constraints.NotNull;
 
 public class LoginRequest {
     @NotNull
-    public String username;
+    private String username;
     @NotNull
-    public String password;
+    private String password;
 
     public LoginRequest(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

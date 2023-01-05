@@ -1,6 +1,7 @@
 package pis.projekt.models;
 
 import jakarta.persistence.*;
+import pis.projekt.responses.EmployeeResponse;
 
 @Entity
 @Table(name = "zlecenia")
@@ -29,7 +30,6 @@ public class Issue {
         this.issuingManager = newManager;
         this.issuedEmployee = newEmployee;
         this.status = newStatus;
-        // maybe add sending to bd here
     }
 
     public Issue() {
@@ -52,12 +52,12 @@ public class Issue {
         return status;
     }
 
-    public Employee getIssuingManager() {
-        return issuingManager;
+    public EmployeeResponse getIssuingManager() {
+        return new EmployeeResponse(issuingManager);
     }
 
-    public Employee getIssuedEmployee() {
-        return issuedEmployee;
+    public EmployeeResponse getIssuedEmployee() {
+        return new EmployeeResponse(issuedEmployee);
     }
 
     public void setName(String name) {
@@ -83,10 +83,4 @@ public class Issue {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    /*public void changeStatus(String newStatus, Employee statusChanger){
-        if(statusChanger == issuingManager || statusChanger == issuedEmployee){
-            status = newStatus;
-        }
-    }*/
 }

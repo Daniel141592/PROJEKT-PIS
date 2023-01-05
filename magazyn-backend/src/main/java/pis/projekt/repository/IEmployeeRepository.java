@@ -14,4 +14,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findEmployeeBySurname(String lastname);
 
+    List<Employee> findEmployeesByIsManager(boolean isManager);
+
 }

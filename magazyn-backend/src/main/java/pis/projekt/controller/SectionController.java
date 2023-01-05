@@ -46,6 +46,6 @@ public class SectionController {
 
     @PostMapping("/product/add")
     public boolean addProduct(@RequestBody AddProductRequest request) {
-        return sectionService.addProduct(request.sectionId, request.amount);
+        return sectionService.addProduct(request.getSectionId(), request.getAmount());
     }
 }

@@ -4,12 +4,20 @@ import jakarta.validation.constraints.NotNull;
 
 public class AddProductRequest {
     @NotNull
-    public Integer sectionId;
+    private Integer sectionId;
     @NotNull
-    public  Integer amount;
+    private  Integer amount;
 
     public AddProductRequest(Integer sectionId, Integer amount) {
         this.sectionId = sectionId;
         this.amount = amount;
+    }
+
+    public Integer getSectionId() {
+        return sectionId;
+    }
+
+    public Integer getAmount() {
+        return amount;
     }
 }

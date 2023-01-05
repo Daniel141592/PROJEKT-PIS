@@ -4,13 +4,21 @@ import jakarta.validation.constraints.NotNull;
 
 public class RegisterRequest extends LoginRequest {
     @NotNull
-    public String confirmPassword;
+    private String confirmPassword;
     @NotNull
-    public String email;
+    private String email;
 
     public RegisterRequest(String username, String password, String confirmPassword, String email){
         super(username, password);
         this.confirmPassword = confirmPassword;
         this.email = email;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

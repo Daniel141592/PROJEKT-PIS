@@ -17,7 +17,7 @@ export const LoginPageP: React.FC = () => {
 	const {setIsLoggedIn} = useUserContext();
 
 	function sendLoginRequest(data: FieldValues) {
-		let url = "http://localhost:8080/account/login";
+		let url = "http://localhost:8080/employees/login";
 		fetch(url, {
 			method: 'POST',
 			headers: {
