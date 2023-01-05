@@ -1,12 +1,23 @@
 package pis.projekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pis.projekt.interfaces.IMagazineService;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Section;
+import pis.projekt.utils.Report;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @RestController
 @RequestMapping("/magazines")
@@ -39,6 +50,22 @@ public class MagazineController {
         return magazineService.addMagazine(magazine);
     }
 
+    @GetMapping("/report/{id}")
+    public ResponseEntity createAndDownloadReport(@PathVariable Integer id) throws IOException {
+        Report report = new Report(magazineService.findMagazineById(id));
+        String fileName = report.getAbsolutePath();
+        Path path = Paths.get(fileName);
+        Resource resource = null;
+        try {
+            resource = new UrlResource(path.toUri());
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();;
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 
+    }
 
 }

@@ -23,6 +23,7 @@ public class Report{
     private String reportText;
     private PDPage reportPage;
     private PDPageContentStream contentStream;
+    private String absolutePath;
 
     public Report(Magazine magazine) throws IOException {
 
@@ -40,6 +41,7 @@ public class Report{
         doc.close();
 
         File file = new File(name);
+        absolutePath = file.getAbsolutePath();
         reportDocument = PDDocument.load(file);
 
         reportPage = reportDocument.getPage(0);
@@ -93,5 +95,11 @@ public class Report{
 
     };
 
+    public String getName() {
+        return name;
+    }
 
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
 }
