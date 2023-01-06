@@ -21,4 +21,6 @@ public interface IIssueHistoryService {
 
     IssueHistory addIssueHistory(IssueHistory issueHistory);
 
+    boolean deleteIssueHistory(Integer issueHistoryId);
+
 }

@@ -50,6 +50,15 @@ public class IssueService implements IIssueService {
     }
 
     @Override
+    public boolean deleteIssue(Integer issueId){
+        if(issueRepository.existsById(issueId)){return false;}
+        else{
+            issueRepository.deleteById(issueId);
+            return true;
+        }
+    }
+
+    @Override
     public Issue changeStatus(Integer issueId, String status) {
         Issue issue = issueRepository.findIssueById(issueId);
         issue.setStatus(status);

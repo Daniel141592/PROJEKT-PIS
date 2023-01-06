@@ -1,6 +1,7 @@
 package pis.projekt.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import pis.projekt.models.IssueHistory;
 import pis.projekt.repository.IIssueHistoryRepository;
@@ -44,10 +45,18 @@ public class IssueHistoryService implements IIssueHistoryService {
         return issueHistoryRepository.findIssueHistoriesByModifyDate(modifyDate);
     }
 
-
     @Override
     public IssueHistory addIssueHistory(IssueHistory issueHistory) {
         return issueHistoryRepository.save(issueHistory);
+    }
+
+    @Override
+    public boolean deleteIssueHistory(Integer issueHistoryId){
+        if(issueHistoryRepository.existsById(issueHistoryId)){return false;}
+        else{
+            issueHistoryRepository.deleteById(issueHistoryId);
+            return true;
+        }
     }
 
 

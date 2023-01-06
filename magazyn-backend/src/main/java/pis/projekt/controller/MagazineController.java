@@ -50,6 +50,11 @@ public class MagazineController {
         return magazineService.addMagazine(magazine);
     }
 
+    @PostMapping("delete/{id}")
+    public boolean deleteMagazine(@PathVariable Integer id) {
+        return magazineService.deleteMagazine(id);
+    }
+
     @GetMapping("/report/{id}")
     public ResponseEntity createAndDownloadReport(@PathVariable Integer id) throws IOException {
         Report report = new Report(magazineService.findMagazineById(id));

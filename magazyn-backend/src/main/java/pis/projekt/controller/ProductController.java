@@ -32,4 +32,12 @@ public class ProductController {
     public List<Product> getProductsByName(@RequestParam("name") String name) {
         return productService.findProductsByNameContaining(name);
     }
+
+    @PostMapping("/add")
+    public Product addProduct(@RequestBody Product product){ return productService.addProduct(product);}
+
+    @PostMapping("delete/{id}")
+    public boolean deleteProduct(@PathVariable Integer id) {
+        return productService.deleteProduct(id);
+    }
 }

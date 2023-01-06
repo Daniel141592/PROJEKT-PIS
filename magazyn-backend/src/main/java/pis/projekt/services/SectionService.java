@@ -41,6 +41,15 @@ public class SectionService implements ISectionService {
         return null;
     }
 
+    @Override
+    public boolean deleteSection(Integer sectionId){
+        if(sectionRepository.existsById(sectionId)){return false;}
+        else{
+            sectionRepository.deleteById(sectionId);
+            return true;
+        }
+    }
+
     boolean checkCollision(Integer magazine_id, Section newSection) {
         List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine_id);
         boolean isSame;

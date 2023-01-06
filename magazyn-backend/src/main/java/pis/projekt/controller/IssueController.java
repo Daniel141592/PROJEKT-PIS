@@ -38,6 +38,11 @@ public class IssueController {
         return issueService.addIssue(issue);
     }
 
+    @PostMapping("delete/{id}")
+    public boolean deleteIssue(@PathVariable Integer id) {
+        return issueService.deleteIssue(id);
+    }
+
     @PostMapping("/update/{id}")
     public Issue changeStatus(@RequestBody String status, @PathVariable Integer id) {
         return issueService.changeStatus(id, status);
