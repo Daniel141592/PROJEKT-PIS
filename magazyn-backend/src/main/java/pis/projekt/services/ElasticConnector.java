@@ -8,7 +8,10 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.*;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import pis.projekt.utils.JSONHandler;
+
 import java.io.IOException;
 
 public class ElasticConnector {
@@ -21,7 +24,7 @@ public class ElasticConnector {
         credentialsProvider.setCredentials(AuthScope.ANY, credentials);
     }
 
-    public static RestClient getRestClient(){
+    public static @NotNull RestClient getRestClient(){
         RestClientBuilder builder = RestClient.builder(cloudId)
                 .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
                     @Override
@@ -91,7 +94,33 @@ public class ElasticConnector {
         return result;
     }
 
+    public static int getCount(String index){
+        setCredentials();
+        int count = 0;
+        JSONObject result = null;
+        RestClient client = getRestClient();
+        String endpoint = "/" + index + "/_count";
+        try{
+            Request request = new Request(
+                    "GET",
+                    endpoint);
+
+            Response response = client.performRequest(request);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            result = new JSONObject(responseBody);
+            //System.out.println(result);
+            count = JSONHandler.getCountFromJSON();
+            client.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     public static void main(String[] args){
-        JSONObject a = elasticSearch("pracownicy", "Dembski");
+        //JSONObject a = elasticSearch("pracownicy", "Dembski");
+
+        int a = getCount("pracownicy");
+        System.out.println(a);
     }
 }
