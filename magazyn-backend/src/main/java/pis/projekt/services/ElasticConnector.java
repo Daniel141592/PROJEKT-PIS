@@ -40,7 +40,7 @@ public class ElasticConnector {
         setCredentials();
         RestClient client = getRestClient();
 
-        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\"}}}";
+        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\", \"fuzziness\":\"AUTO\"}}}";
 
         try{
             Request request = new Request(
@@ -68,7 +68,7 @@ public class ElasticConnector {
         setCredentials();
         RestClient client = getRestClient();
 
-        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\"}}}";
+        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\", \"fuzziness\":\"AUTO\"}}}";
         String endpoint = "/" + index + "/_search";
         try{
             Request request = new Request(
@@ -92,6 +92,6 @@ public class ElasticConnector {
     }
 
     public static void main(String[] args){
-        JSONObject a = elasticSearch("pracownicy", "Dębski");
+        JSONObject a = elasticSearch("pracownicy", "Dembski");
     }
 }
