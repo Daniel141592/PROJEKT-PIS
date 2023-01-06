@@ -1,0 +1,67 @@
+$color-button-primary: #e36810;
+$color-font-button-primary: #ffffff;
+$color-button-secondary: #000000;
+$color-font-button-secondary: #ffffff;
+
+.mainDiv {
+  width: 100%;
+  height: fit-content;
+  border-radius: 20px;
+  border: 8px;
+  border-style: solid;
+  border-color: $color-button-primary;
+  margin-top: 2%;
+  padding: 1%;
+}
+
+.textDiv {
+  color: $color-button-secondary;
+  font-size: large;
+}
+
+.button {
+  // font-family: Helvetica, monospace;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: large;
+  border: none;
+  transition-duration: 0.3s;
+  padding: 0 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: $color-button-primary;
+  color: $color-font-button-primary;
+  width: 49.5%;
+  height: 30px;
+  border-radius: 10px;
+  margin-left: 1%;
+}
+
+.button:hover {
+  scale: 0.95;
+}
+
+.button:active {
+  scale: 0.9;
+}
+
+.input {
+  border: none;
+  width: 49.5%;
+  height: 30px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: large;
+  padding: 0 16px;
+  border-radius: 10px;
+}
+
+.input:focus {
+  border-radius: 10px;
+  border: 3px;
+  border-style: solid;
+  border-color: $color-button-primary;
+}

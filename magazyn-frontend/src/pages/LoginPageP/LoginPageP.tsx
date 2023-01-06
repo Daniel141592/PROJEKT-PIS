@@ -29,7 +29,7 @@ export const LoginPageP: React.FC = () => {
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
 						</div>
 						{/* <MagButton type="submit">Zaloguj się</MagButton> */}
-						<MagLinkButton href={PATHS.employer}>Zaloguj się</MagLinkButton>
+						<MagLinkButton href={PATHS.employee}>Zaloguj się</MagLinkButton>
 						<p className={s.signInCaption}>
 							Nie masz konta?{" "}
 							<Link to={PATHS.signup}>Zarejestruj się</Link>

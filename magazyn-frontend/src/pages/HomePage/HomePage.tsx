@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
-import reactLogo from 'assets/react.svg'
 import s from "./HomePage.module.scss"
-import clsx from "clsx";
-import {MagButton} from "../../components/MagButton";
 import {MagLinkButton} from "../../components/MagLinkButton";
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";

@@ -5,7 +5,8 @@ import {PATHS} from "./paths";
 import {LoginPageP} from "../pages/LoginPageP";
 import {LoginPageK} from "../pages/LoginPageK";
 import {SignupPage} from "../pages/SignupPage";
-import {EmployerPage} from "../pages/EmployerPage";
+import {EmployeePage} from "../pages/EmployeePage";
+import {WarehousePage} from "../pages/WarehousePage";
 
 export const routes = createBrowserRouter([
 	{
@@ -25,8 +26,12 @@ export const routes = createBrowserRouter([
 		element: <SignupPage/>
 	},
 	{
-		path: PATHS.employer,
-		element: <EmployerPage/>
+		path: PATHS.employee,
+		element: <EmployeePage/>
+	},
+	{
+		path: PATHS.warehouse,
+		element: <WarehousePage/>
 	}
 
 ])
