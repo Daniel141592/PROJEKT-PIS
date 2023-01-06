@@ -44,6 +44,11 @@ public class SectionController {
         return sectionService.addSection(section);
     }
 
+    @PostMapping("delete/{id}")
+    public boolean deleteSection(@PathVariable Integer id) {
+        return sectionService.deleteSection(id);
+    }
+
     @PostMapping("/product/add")
     public boolean addProduct(@RequestBody AddProductRequest request) {
         return sectionService.addProduct(request.getSectionId(), request.getAmount());

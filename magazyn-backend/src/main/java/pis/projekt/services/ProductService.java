@@ -26,4 +26,18 @@ public class ProductService implements IProductService {
     public List<Product> findProductsByNameContaining(String name) {
         return productRepository.findProductsByNameContaining(name);
     }
+
+    @Override
+    public Product addProduct(Product product){
+        return productRepository.save(product);
+    }
+
+    @Override
+    public boolean deleteProduct(Integer productId){
+        if(productRepository.existsById(productId)){return false;}
+        else{
+            productRepository.deleteById(productId);
+            return true;
+        }
+    }
 }

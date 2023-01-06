@@ -40,6 +40,15 @@ public class MagazineService implements IMagazineService {
         return magazineRepository.save(magazine);
     }
 
+    @Override
+    public boolean deleteMagazine(Integer magazineId){
+        if(magazineRepository.existsById(magazineId)){return false;}
+        else{
+            magazineRepository.deleteById(magazineId);
+            return true;
+        }
+    }
+
     public static double calcSpace(Magazine magazine) {
         return magazine.getWidth() * magazine.getLength();
     }

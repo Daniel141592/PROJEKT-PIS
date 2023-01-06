@@ -13,4 +13,6 @@ public interface IMagazineService {
 
     Magazine addMagazine(Magazine magazine);
 
+    boolean deleteMagazine(Integer magazineId);
+
 }

@@ -13,5 +13,8 @@ public interface ISectionService {
     List<Section> findSectionsByProduct_Id(Integer productId);
 
     Section addSection(Section section);
+
+    boolean deleteSection(Integer sectionId);
+
     boolean addProduct(Integer sectionId, Integer amount);
 }
