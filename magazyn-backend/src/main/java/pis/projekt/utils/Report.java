@@ -1,11 +1,16 @@
-package pis.projekt.services;
-
+package pis.projekt.utils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+import pis.projekt.models.Magazine;
+import pis.projekt.services.MagazineService;
+import pis.projekt.models.Section;
 import pis.projekt.models.Product;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -19,14 +24,16 @@ public class Report{
     private String reportText;
     private PDPage reportPage;
     private PDPageContentStream contentStream;
+    private String absolutePath;
 
-    public Report(MagazineService magazineService) throws IOException {
+    public Report(Magazine magazine) throws IOException {
+
         reportDocument = new PDDocument();
 
         DateTimeFormatter dtf_name = DateTimeFormatter.ofPattern("yyyy_MM_dd__HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
 
-        name = "Raport_" + magazineService.getName() + "_" + dtf_name.format(now) + ".pdf";
+        name = "Raport_" + magazine.getName() + "_" + dtf_name.format(now) + ".pdf";
 
         PDDocument doc = new PDDocument();
         PDPage page = new PDPage();
@@ -35,49 +42,54 @@ public class Report{
         doc.close();
 
         File file = new File(name);
+        absolutePath = file.getAbsolutePath();
         reportDocument = PDDocument.load(file);
 
         reportPage = reportDocument.getPage(0);
 
+        String fontDirectory = "magazyn-backend/src/main/resources/fonts/arial.ttf";
+        PDType0Font font = PDType0Font.load(reportDocument, new File(fontDirectory));
+
+
         contentStream = new PDPageContentStream(reportDocument, reportPage);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,20);
+        contentStream.setFont(font,20);
         contentStream.beginText();
         contentStream.newLineAtOffset(20, 750);
         contentStream.setLeading(15f);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        reportText = "Raport z magazynu: " + magazineService.getName() + " z " + dtf.format(now);
+        reportText = "Raport z magazynu: " + magazine.getName() + " z " + dtf.format(now);
         contentStream.showText(reportText);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
+        contentStream.setFont(font,14);
         contentStream.newLine();
-        reportText ="Nazwa magazynu: " + magazineService.getName();
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="ID magazynu: " + Integer.toString(magazineService.getId());
+        reportText ="Nazwa magazynu: " + magazine.getName();
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wymiary magazynu: " + Integer.toString(magazineService.getDimensions().first) + 'x' + Integer.toString(magazineService.getDimensions().second);
+        reportText ="ID magazynu: " + Integer.toString(magazine.getId());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Liczba sekcji: " + Integer.toString(magazineService.getSectionsAmount());
+        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getLength()) + 'x' + Integer.toString(magazine.getWidth());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wolne miejsce: " + Double.toString(magazineService.calcEmptySpace(false));
+        reportText ="Liczba sekcji: " + Integer.toString(magazine.getSections().size());
         contentStream.showText(reportText);
         contentStream.newLine();
-        reportText ="Wolne miejsce (w procentach): " + Double.toString(magazineService.calcEmptySpace(true)) + "%";
+        reportText ="Wolne miejsce: " + Double.toString(MagazineService.calcEmptySpace(magazine, false ));
+        contentStream.showText(reportText);
+        contentStream.newLine();
+        reportText ="Wolne miejsce (w procentach): " + Double.toString(MagazineService.calcEmptySpace(magazine, true )) + "%";
         contentStream.showText(reportText);
 
         contentStream.newLine();
         contentStream.newLine();
-        reportText ="Zawartosc magazynu: ";
+        reportText ="Zawartość magazynu: ";
         contentStream.showText(reportText);
-        contentStream.setFont(PDType1Font.TIMES_ROMAN,14);
+        contentStream.setFont(font,14);
 
-        Vector<Product> productVector = magazineService.getProductVector();
+        Vector<Product> productVector = MagazineService.getProductVector(magazine);
 
         for(Product p: productVector){
             contentStream.newLine();
-            reportText ="- " + p.getName() + ": " + " Sekcje - " + magazineService.getProductSections(p) + "  Calkowita ilosc - " + magazineService.getProductAmountInMagazine(p);
+            reportText ="- " + p.getName() + ": " + " Sekcje - " + MagazineService.getProductSections(magazine, p) + "  Całkowita ilość - " + MagazineService.getProductAmount(magazine, p);
             contentStream.showText(reportText);
         }
 
@@ -86,8 +98,13 @@ public class Report{
         reportDocument.save(name);
         reportDocument.close();
 
-
     };
 
+    public String getName() {
+        return name;
+    }
 
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
 }
