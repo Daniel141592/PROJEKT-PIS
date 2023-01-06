@@ -1,6 +1,5 @@
 package pis.projekt.services;
 
-import org.apache.http.RequestLine;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -9,9 +8,8 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.*;
-
+import org.json.JSONObject;
 import java.io.IOException;
-import java.security.Principal;
 
 public class ElasticConnector {
 
@@ -19,13 +17,11 @@ public class ElasticConnector {
     final static CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     static String cloudId = "magazyn:ZXVyb3BlLXdlc3QzLmdjcC5jbG91ZC5lcy5pbzo0NDMkMThiMGZhNmNmMDA1NDY0YWI0NTU1Yjc3NjBiZGJhZjIkMzllZGViOTgxNTAwNGViN2EzYTJlNTQ1MTVjOWUyNmM=";
 
-    public static void main(String[] args){
-        //RestClient restClient = RestClient.builder(
-        //        new HttpHost("localhost", 9200, "http")).build();
-
+    public static void setCredentials(){
         credentialsProvider.setCredentials(AuthScope.ANY, credentials);
+    }
 
-
+    public static RestClient getRestClient(){
         RestClientBuilder builder = RestClient.builder(cloudId)
                 .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
                     @Override
@@ -36,45 +32,66 @@ public class ElasticConnector {
 
         RestClient client = builder.build();
 
+        return client;
+    }
+
+    public static JSONObject elasticSearch(String search){
+        JSONObject result = null;
+        setCredentials();
+        RestClient client = getRestClient();
+
+        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\"}}}";
+
         try{
             Request request = new Request(
                     "GET",
-                    "/zlecenia/_count");
+                    "/_search");
             request.addParameter("pretty", "true");
+            request.addParameter("format", "json");
+            request.setJsonEntity(searchQuery);
             Response response = client.performRequest(request);
-
-            RequestLine requestLine = response.getRequestLine();
             String responseBody = EntityUtils.toString(response.getEntity());
 
-            System.out.println(responseBody);
+            result = new JSONObject(responseBody);
+
+            // System.out.println(responseBody);
             client.close();
         } catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println(result);
+        return result;
+    }
 
+    public static JSONObject elasticSearch(String index, String search){
+        JSONObject result = null;
+        setCredentials();
+        RestClient client = getRestClient();
 
-//    SearchRequest searchRequest = new SearchRequest();
-//        searchRequest.indices("tesla_employees");
-//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-//        searchRequest.source(searchSourceBuilder);
-//        Map<String, Object> map=null;
-//
-//        try {
-//            SearchResponse searchResponse = null;
-//            searchResponse =client.search(searchRequest, RequestOptions.DEFAULT);
-//            if (searchResponse.getHits().getTotalHits().value > 0) {
-//                SearchHit[] searchHit = searchResponse.getHits().getHits();
-//                for (SearchHit hit : searchHit) {
-//                    map = hit.getSourceAsMap();
-//                    System.out.println("map:"+ Arrays.toString(map.entrySet().toArray()));
-//
-//
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        String searchQuery = "{\"query\":{\"multi_match\":{\"query\":\"" + search + "\"}}}";
+        String endpoint = "/" + index + "/_search";
+        try{
+            Request request = new Request(
+                    "GET",
+                    endpoint);
+            request.addParameter("pretty", "true");
+            request.addParameter("format", "json");
+            request.setJsonEntity(searchQuery);
+            Response response = client.performRequest(request);
+            String responseBody = EntityUtils.toString(response.getEntity());
 
+            result = new JSONObject(responseBody);
+
+            // System.out.println(responseBody);
+            client.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return result;
+    }
+
+    public static void main(String[] args){
+        JSONObject a = elasticSearch("pracownicy", "Dębski");
     }
 }
