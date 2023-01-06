@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "zlecenia")
+@Table(name = "historia_zlecen")
 public class IssueHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
