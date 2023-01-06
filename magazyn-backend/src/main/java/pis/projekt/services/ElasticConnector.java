@@ -108,8 +108,8 @@ public class ElasticConnector {
             Response response = client.performRequest(request);
             String responseBody = EntityUtils.toString(response.getEntity());
             result = new JSONObject(responseBody);
-            //System.out.println(result);
-            count = JSONHandler.getCountFromJSON();
+            // System.out.println(result);
+            count = JSONHandler.getCountFromJSON(result);
             client.close();
         } catch (IOException e){
             e.printStackTrace();
@@ -118,9 +118,9 @@ public class ElasticConnector {
     }
 
     public static void main(String[] args){
-        //JSONObject a = elasticSearch("pracownicy", "Dembski");
+        JSONObject a = elasticSearch("Dembski");
 
-        int a = getCount("pracownicy");
+        //int a = getCount("pracownicy");
         System.out.println(a);
     }
 }
