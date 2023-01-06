@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name = "produkty")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     int id;
     @Column(name = "name", nullable = false)
@@ -27,6 +27,10 @@ public class Product {
         width = 0;
         length = 0;
         stackSize = 0;
+    }
+
+    public Product(int id) {
+        this.id = id;
     }
 
     public Product(String newName, int newLength, int newWidth, int newStackSize)

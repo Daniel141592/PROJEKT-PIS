@@ -1,114 +1,101 @@
 package pis.projekt.services;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pis.projekt.interfaces.ISectionService;
 import pis.projekt.models.Product;
+import pis.projekt.models.Section;
+import pis.projekt.repository.ISectionRepository;
 import pis.projekt.utils.Pair;
-import static java.lang.Math.abs;
 
-public class SectionService {
-    // let's try to get them in some sensible order
-    // (upper left as first one, down left second, down right third...)
-    private Pair[] cords;
-    private MagazineService magazineService;
-    private Product product;
-    private String name;
-    private Integer amount;
+import java.util.List;
 
-    public SectionService(){
-        Pair[] newCords = {new Pair(), new Pair(), new Pair(), new Pair()};
-        cords = newCords;
-        magazineService = new MagazineService();
-        product = new Product();
-        name = "";
-        amount = 0;
+@Service
+public class SectionService implements ISectionService {
+    @Autowired
+    private ISectionRepository sectionRepository;
+
+    @Override
+    public List<Section> findAllSections() {
+        return sectionRepository.findAll();
+    }
+    @Override
+    public Section findSectionById(Integer sectionId) {
+        return sectionRepository.findSectionById(sectionId);
     }
 
-    public SectionService(Pair[] newCords, String newName, Product newProduct, MagazineService newMagazineService){
-        cords = newCords;
-        name = newName;
-        product = newProduct;
-        magazineService = newMagazineService;
-        amount = 0;
+    @Override
+    public List<Section> findSectionsByMagazine_Id(Integer magazineId) {
+        return sectionRepository.findSectionsByMagazine_Id(magazineId);
     }
 
-    public Pair[] getCords() {
-        return cords;
+    @Override
+    public List<Section> findSectionsByProduct_Id(Integer productId) {
+        return sectionRepository.findSectionsByProduct_Id(productId);
     }
 
-    public void setCords(int cordIx, int first, int second)
-    {
-        cords[cordIx] = new Pair(first, second);
+    @Override
+    public Section addSection(Section section) {
+        if(!checkCollision(section.getMagazineId(), section)) {
+            return sectionRepository.save(section);
+        }
+        return null;
     }
 
-    public MagazineService getMagazine() {
-        return magazineService;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setAmount(Integer capacity){
-        this.amount = capacity;
-    }
-    public int getAmount() {
-        return amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void forceSetMagazine(MagazineService magazineService) {
-        this.magazineService = magazineService;
-    }
-
-    // to be finished when database comes
-    //public void setMagazine(Magazine magazine) { if(!magazine.checkCollision(this, ))}
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void addProduct(){
-        if(amount < this.calcMaxCapacity() && amount < product.getStackSize())
-            { this.amount += 1;}
-    }
-
-    public int calcMaxCapacity() {
-        int length = abs(cords[1].second - cords[0].second);
-        int width = abs(cords[3].first - cords[0].first);
-        int propValue1 = (int)(length / product.getDimensions().first ) * (int)(width / product.getDimensions().second )
-                * product.getStackSize();
-        int propValue2 = (int)(width / product.getDimensions().first ) * (int)(length / product.getDimensions().second )
-                * product.getStackSize();
-        return propValue1 > propValue2 ? propValue1 : propValue2;
-    }
-
-    public boolean containsPoint(Pair point){
-        boolean cond1 = point.first > cords[0].first;
-        boolean cond2 = point.first < cords[2].first;
-        boolean cond3 = point.second < cords[1].second;
-        boolean cond4 = point.second > cords[3].second;
-        if(cond1 && cond2 && cond3 && cond4){
-            return true;
+    boolean checkCollision(Integer magazine_id, Section newSection) {
+        List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine_id);
+        boolean isSame;
+        for (Section section : sections) {
+            isSame = true;
+            for (Pair newSecPoint: newSection.getCoords()) {
+                if (SectionService.containsPoint(section, newSecPoint))
+                    return true;
+            }
+            for (Pair oldSecPoint: section.getCoords()){
+                if (SectionService.containsPoint(newSection, oldSecPoint))
+                    return true;
+            }
+            for (int i = 0; i < 4; i++) {
+                if(section.getCoords() != newSection.getCoords()){
+                    isSame = false;
+                }
+            }
+            if (isSame)
+                return true;
         }
         return false;
     }
-    //calculates area, points must be ordered clockwise or counterclockwise
-    public double calcArea(){
-        int psum = 0;
-        int nsum = 0;
-        int sindex = 0;
 
-        for(int i = 0; i < getCords().length; i++){
-            sindex = (i+1) % getCords().length;
-            psum += getCords()[i].first * getCords()[sindex].second;
-            nsum += getCords()[sindex].first * getCords()[i].second;
-
+    @Override
+    public boolean addProduct(Integer sectionId, Integer amount) {
+        Section section = sectionRepository.findSectionById(sectionId);
+        Product product = section.getProduct();
+        amount = section.getAmount() + amount;
+        if (amount >= calcMaxCapacity(section) || amount >= product.getStackSize()) {
+            return false;
         }
-
-        return abs(0.5*(psum - nsum));
-
-
+        section.setAmount(amount);
+        sectionRepository.save(section);
+        return true;
     }
 
+    public static int calcMaxCapacity(Section section) {
+        Product product = section.getProduct();
+        int length = section.getLength();
+        int width = section.getWidth();
+        int propValue1 = (length / product.getDimensions().first) * (width / product.getDimensions().second)
+                * product.getStackSize();
+        int propValue2 = (width / product.getDimensions().first) * (length / product.getDimensions().second)
+                * product.getStackSize();
+        return Math.max(propValue1, propValue2);
+    }
+
+    public static boolean containsPoint(Section section, Pair point) {
+        if (section.getBottomLeftPointY() + section.getLength() < point.first)
+            return false;
+        return (section.getBottomLeftPointX() + section.getWidth() >= point.second);
+    }
+
+    public static double calcArea(Section section) {
+        return section.getWidth() * section.getLength();
+    }
 }

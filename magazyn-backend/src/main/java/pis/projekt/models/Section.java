@@ -1,12 +1,13 @@
 package pis.projekt.models;
 
 import jakarta.persistence.*;
+import pis.projekt.utils.Pair;
 
 @Entity
 @Table(name = "sekcje")
 public class Section {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
@@ -38,7 +39,7 @@ public class Section {
         bottomLeftPointY = 0;
     }
 
-    public Section(int id,
+    public Section(
             Magazine magazine,
             Product product,
             String name,
@@ -47,7 +48,6 @@ public class Section {
             int length,
             int bottomLeftPointX,
             int bottomLeftPointY) {
-        this.id = id;
         this.magazine = magazine;
         this.product = product;
         this.name = name;
@@ -66,8 +66,8 @@ public class Section {
         return name;
     }
 
-    public Magazine getMagazine() {
-        return magazine;
+    public Integer getMagazineId() {
+        return magazine.getId();
     }
 
     public Product getProduct() {
@@ -128,5 +128,14 @@ public class Section {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public Pair[] getCoords() {
+        Pair[] coords = new Pair[4];
+        coords[0] = new Pair(bottomLeftPointX, bottomLeftPointY);
+        coords[1] = new Pair(bottomLeftPointX + width, bottomLeftPointY);
+        coords[2] = new Pair(bottomLeftPointX, bottomLeftPointY + length);
+        coords[3] = new Pair(bottomLeftPointX + width, bottomLeftPointY + length);
+        return coords;
     }
 }
