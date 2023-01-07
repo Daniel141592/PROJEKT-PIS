@@ -2,6 +2,7 @@ import React from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageK.module.scss"
 import {MagButton} from "components/MagButton";
+import {MagLinkButton} from "components/MagLinkButton";
 import {Link, useNavigate} from "react-router-dom";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";

@@ -1,0 +1,44 @@
+$color-button-primary: #e36810;
+$color-font-button-primary: #ffffff;
+$color-button-secondary: #000000;
+$color-font-button-secondary: #ffffff;
+
+.fullDiv {
+    height: 30%;
+    width: 100%;
+    background-image: url('../../img/warehouse.jpg');
+    background-size: cover;
+  }
+  
+  .transDiv {
+    height: 100%;
+    width: 100%;
+    background: rgb(5, 0, 0, 0.8);
+  }
+
+  .headerUp {
+    padding-top: 7.5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    font-size: 400%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    // color: black;
+  }
+
+  .headerTask {
+    font-size: 200%;
+    padding-top: 5%;
+    padding-bottom: 3%;
+    color: rgb(26, 26, 26);
+  }
+
+  .Panel {
+    width: 100%;
+    min-height: 70%;
+    height: fit-content;
+    padding-left: 20%;
+    padding-right: 20%;
+    background: rgb(225, 225, 225);
+  }
