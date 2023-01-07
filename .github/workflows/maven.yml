@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: jar-executable
-        path: /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar
+        path: /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/PISprojekt-1.0-SNAPSHOT.jar
   deploy:
     needs: build
     runs-on: ubuntu-latest
