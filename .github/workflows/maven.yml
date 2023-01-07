@@ -10,7 +10,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master", "pipeline-tests " ]
+    branches: [ "master", "pipeline-tests" ]
   pull_request:
     branches: [ "master" ]
 
