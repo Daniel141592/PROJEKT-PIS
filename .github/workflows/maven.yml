@@ -33,14 +33,21 @@ jobs:
       run: mvn test --file magazyn-backend/pom.xml
     - name: create Jar
       run: mvn clean package --file magazyn-backend/pom.xml
-    - name: Check
-      run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/PISprojekt-1.0-SNAPSHOT.jar
+    - name: Save jar artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: jar-executable
+        path: |
+          /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar
+          !dist/**/*.md
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Test
-        run: cat /etc/os-release
+        uses: actions/download-artifact@v3
+        with:
+          name: jar-executable
       - name: Check
         run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/PISprojekt-1.0-SNAPSHOT.jar
 
