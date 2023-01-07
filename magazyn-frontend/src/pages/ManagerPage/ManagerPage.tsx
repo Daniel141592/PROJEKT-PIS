@@ -20,7 +20,7 @@ export const ManagerPage: React.FC = () => {
 				</div>
 			</div>
 			<div className={s.Panel}>
-				<h1 className={s.headerTask}>Nowe zadanie</h1>
+				<h1 className={s.headerTask}>Nowe zadanie:</h1>
 				<div className={s.mainDiv}>
 					<form>
 						<label>
@@ -32,7 +32,7 @@ export const ManagerPage: React.FC = () => {
 						<button type="submit" className={s.button2}>Stwórz</button>
 					</form>
 				</div>
-				<h1 className={s.headerTask}>Historia zadań</h1>
+				<h1 className={s.headerTask}>Historia zadań:</h1>
 				<div className={s.mainDiv}>
 					<form>
 						<label>
@@ -41,7 +41,7 @@ export const ManagerPage: React.FC = () => {
 						<button type="submit" className={s.button2}>Generuj</button>
 					</form>
 				</div>
-				<h1 className={s.headerTask}>Raport magazynu</h1>
+				<h1 className={s.headerTask}>Raport z magazynu:</h1>
 				<div className={s.mainDiv}>
 					<form>
 						<label>

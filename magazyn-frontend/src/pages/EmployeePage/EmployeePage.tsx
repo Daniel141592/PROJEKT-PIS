@@ -6,8 +6,17 @@ import {MagTask} from "../../components/MagTask";
 import {MagLinkButton} from '../../components/MagLinkButton';
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
+import {sendRequestGET} from 'requests';
 
 export const EmployeePage: React.FC = () => {
+	const [issues, setIssues] = useState([]);
+
+	let response = sendRequestGET(
+		'issues/all'
+	).then(async r => {
+		let response = await r.json()
+		setIssues(response)
+	})
 
 	return (
 		<TemplatePage>
@@ -21,8 +30,10 @@ export const EmployeePage: React.FC = () => {
 			</div>
 			<div className={s.Panel}>
 				<h3 className={s.headerTask}>Dzisiejsze zadania: </h3>
-				<MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/>
-				<MagTask name='Nie rzucić studiów' description='TBD' status='Już za cztery lata...'/>
+				{issues.map((data, idx) => {
+					return <MagTask name={data.name} description={data.description} status={data.status}/>
+				})}
+				{/* // <MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/> */}
 			</div>
 		</TemplatePage>
 	)

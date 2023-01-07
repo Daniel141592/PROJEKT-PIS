@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import s from "./MagTask.module.scss"
 import {MagButton} from 'components/MagButton';
 import {MagInput} from 'components/MagInput';
+import {sendRequestPOST} from 'requests';
+import { FieldValues } from 'react-hook-form';
 
 export function MagTask(props: any) {
 	const [status, setStatus] = useState(props.status);
@@ -14,6 +16,17 @@ export function MagTask(props: any) {
 	function handleSubmit(event: any) {
 	  event.preventDefault();
 	  setStatus(newStatus);
+
+		let response = sendRequestPOST(
+			{"username": event.UserName, "password": event.Password},
+			'employees/login'
+		).then(async r => {
+			let response = await r.json()
+
+			if (response.success) {
+				
+			}
+		})
 	}
   
 	return (
@@ -23,12 +36,10 @@ export function MagTask(props: any) {
 		<div className={s.textDiv}> Status: {status} </div>
 		<form onSubmit={handleSubmit}>
 		  <label>
-			<input value={newStatus} onChange={handleChange} className={s.input}/>
+			<input value={newStatus} placeholder='Nowy status' onChange={handleChange} className={s.input}/>
 		  </label>
 		  <button type="submit" className={s.button}>Aktualizuj</button>
 		</form>
 	  </div>
 	);
 }
-  
-

@@ -6,6 +6,7 @@ import {MagTask} from "../../components/MagTask";
 import {MagLinkButton} from '../../components/MagLinkButton';
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
+import { MagButton } from 'components/MagButton';
 
 export const WarehousePage: React.FC = () => {
 
@@ -17,6 +18,7 @@ export const WarehousePage: React.FC = () => {
 				</div>
 			</div>
 			<div className={s.Panel}>
+				<h1 className={s.headerTask}>Dostępne magazyny:</h1>
 			</div>
 		</TemplatePage>
 	)
