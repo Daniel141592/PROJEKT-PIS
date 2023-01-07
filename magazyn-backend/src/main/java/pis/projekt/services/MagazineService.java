@@ -74,7 +74,7 @@ public class MagazineService implements IMagazineService {
 
     public String createAndStashReport(Integer magazineId) throws IOException {
         Report report = new Report(magazineRepository.findMagazineById(magazineId));
-        report.addReportToDB(reportModelRepository);
+        report.addReportToDB(reportModelRepository, cloudId, username, password);
         return report.getAbsolutePath();
     }
 

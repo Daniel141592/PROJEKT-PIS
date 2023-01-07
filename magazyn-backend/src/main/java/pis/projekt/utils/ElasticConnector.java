@@ -85,4 +85,30 @@ public class ElasticConnector {
         }
         return count;
     }
+
+    public void indexPDF(byte[] pdfBytes){
+        RestClient client = getRestClient();
+
+        JSONObject jsonObject = new JSONObject();
+        String content = JSONHandler.getPDFReadableContent(pdfBytes);
+        jsonObject.put("data", content);
+
+        //System.out.println(jsonObject);
+        try{
+            Request request = new Request(
+                    "POST",
+                    "/pdf_index/_doc");
+
+            request.setJsonEntity(jsonObject.toString());
+            Response response = client.performRequest(request);
+            String responseBody = EntityUtils.toString(response.getEntity());
+
+            System.out.println(responseBody);
+
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

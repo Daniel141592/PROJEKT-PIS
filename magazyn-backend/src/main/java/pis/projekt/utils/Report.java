@@ -25,6 +25,14 @@ import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Report{
+
+//    @Value("${elastic.cloudId}")
+//    private String cloudId;
+//    @Value("${elastic.username}")
+//    private String username;
+//    @Value("${elastic.password}")
+//    private String password;
+
     private String name;
     private PDDocument reportDocument;
     private String reportText;
@@ -114,10 +122,13 @@ public class Report{
         return absolutePath;
     }
 
-    public ReportModel addReportToDB(IReportModelRepository reportModelRepository){
+    public ReportModel addReportToDB(IReportModelRepository reportModelRepository, String c, String u, String p){
+        ElasticConnector elastic = new ElasticConnector(c, u, p);
         try {
             FileInputStream pdfStream = new FileInputStream(this.getAbsolutePath());
             byte[] pdfBytes = IOUtils.toByteArray(pdfStream);
+
+            elastic.indexPDF(pdfBytes);
             return reportModelRepository.save(new ReportModel(null, pdfBytes));
             //return reportModelRepository.save(new ReportModel(null, pdfBytes));
         }catch (Exception e){System.out.println(e);}
