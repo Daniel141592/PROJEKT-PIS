@@ -32,7 +32,7 @@ jobs:
     - name: Run tests
       run: mvn test --file magazyn-backend/pom.xml
     - name: create Jar
-      run: mvn clean package
+      run: mvn clean package --file magazyn-backend/pom.xml
   deploy:
     needs: build
     runs-on: ubuntu-latest
