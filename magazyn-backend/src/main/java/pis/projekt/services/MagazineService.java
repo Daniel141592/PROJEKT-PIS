@@ -1,13 +1,15 @@
 package pis.projekt.services;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pis.projekt.interfaces.IMagazineService;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Product;
 import pis.projekt.models.Section;
 import pis.projekt.repository.IMagazineRepository;
-import pis.projekt.repository.ISectionRepository;
+import pis.projekt.utils.ElasticConnector;
 
 import java.util.List;
 import java.util.Vector;
@@ -17,8 +19,13 @@ public class MagazineService implements IMagazineService {
 
     @Autowired
     private IMagazineRepository magazineRepository;
-    @Autowired
-    private ISectionRepository sectionRepository;
+    @Value("${elastic.cloudId}")
+    private String cloudId;
+    @Value("${elastic.username}")
+    private String username;
+    @Value("${elastic.password}")
+    private String password;
+
 
     @Override
     public List<Magazine> findAllMagazines() {
@@ -48,6 +55,13 @@ public class MagazineService implements IMagazineService {
             return true;
         }
     }
+
+    @Override
+    public String searchInReports(String search) {
+        ElasticConnector elasticConnector = new ElasticConnector(cloudId, username, password);
+        return elasticConnector.elasticSearch(search);
+    }
+
 
     public static double calcSpace(Magazine magazine) {
         return magazine.getWidth() * magazine.getLength();
