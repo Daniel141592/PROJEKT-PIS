@@ -1,0 +1,7 @@
+target/
+.idea
+PISprojekt.iml
+*.pdf
+magazyn-backend/src/main/resources/application.properties
+
+

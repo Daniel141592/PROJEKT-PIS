@@ -2,8 +2,14 @@ package pis.projekt.utils;
 
 public class Pair
 {
-    private int first;
-    private int second;
+    public int first;
+    public int second;
+
+    public Pair()
+    {
+        this.first = 0;
+        this.second = 0;
+    }
 
     public Pair(int value1, int value2)
     {
@@ -11,17 +17,14 @@ public class Pair
         this.second = value2;
     }
 
-    public int first() {
-        return first;
-    }
-
     public void setFirst(int value) {
         this.first = value;
     }
 
-    public int second() {
-        return second;
+    public static boolean isSame(Pair pair1, Pair pair2){
+        return pair1.first == pair2.first && pair1.second == pair2.second ? true : false;
     }
+
 
     public void setSecond(int value) {
         this.second = value;

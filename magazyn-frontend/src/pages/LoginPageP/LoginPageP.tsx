@@ -15,7 +15,21 @@ export const LoginPageP: React.FC = () => {
 
 	const redirect = useNavigate();
 	const {register, formState, handleSubmit} = useForm();
-	const {setIsLoggedIn} = useUserContext()
+	const {setIsLoggedIn} = useUserContext();
+
+	function sendLoginRequest(data: FieldValues) {
+		let url = "http://localhost:8080/employees/login";
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				// 'Authorization': `${cookies.get("JWTTOKEN")}`
+			},
+			body: JSON.stringify({"username": data.UserName, "password": data.Password})
+		}).then(async r => {
+			console.log(await r.json());
+		});
+	}
 
 	return (
 		<TemplatePage>
@@ -23,7 +37,7 @@ export const LoginPageP: React.FC = () => {
 				<div className={s.transDiv}>
 					<h1 className={s.headerUp}>LOGOWANIE</h1>
 					<h3 className={s.headerDown}>PRACOWNIK</h3>
-					<form className={s.formContainer}>
+					<form className={s.formContainer} onSubmit={handleSubmit(sendLoginRequest)}>
 						<div className={s.inputContainer}>
 							<MagInput placeholder="Nazwa użytkownika" {...register("UserName")}/>
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
