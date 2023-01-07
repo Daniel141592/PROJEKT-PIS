@@ -29,17 +29,12 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file magazyn-backend/pom.xml
+    - name: Run tests
+      run: mvn test --file magazyn-backend/pom.xml
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Prepare java and maven
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
       - name: Run tests
         run: mvn test --file magazyn-backend/pom.xml
 
