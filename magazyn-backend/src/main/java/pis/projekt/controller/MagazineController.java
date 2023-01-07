@@ -57,8 +57,7 @@ public class MagazineController {
 
     @GetMapping("/report/{id}")
     public ResponseEntity createAndDownloadReport(@PathVariable Integer id) throws IOException {
-        Report report = new Report(magazineService.findMagazineById(id));
-        String fileName = report.getAbsolutePath();
+        String fileName = magazineService.createAndStashReport(id);
         Path path = Paths.get(fileName);
         Resource resource = null;
         try {
