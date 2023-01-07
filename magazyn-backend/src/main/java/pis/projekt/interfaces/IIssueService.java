@@ -21,4 +21,6 @@ public interface IIssueService {
     boolean deleteIssue(Integer issueId);
 
     Issue changeStatus(Integer issueId, String status);
+
+    List<Issue> getIssuesOfCurrentlyLoggedEmp();
 }
