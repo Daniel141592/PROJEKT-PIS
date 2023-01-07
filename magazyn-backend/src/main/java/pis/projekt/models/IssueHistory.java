@@ -4,7 +4,11 @@ package pis.projekt.models;
 import jakarta.persistence.*;
 import pis.projekt.models.responses.EmployeeResponse;
 
+import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -27,16 +31,16 @@ public class IssueHistory {
     @Column(name = "status", nullable = false)
     private String status;
     @Column(name = "modify_date", nullable = false)
-    private LocalDateTime modifyDate;
+    private Timestamp modifyDate;
 
-    IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, LocalDateTime modifyDate){
+    IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, Timestamp modifyData){
         this.id = newId;
         this.name = newName;
         this.description = newDescription;
         this.issuingManager = newManager;
         this.issuedEmployee = newEmployee;
         this.status = newStatus;
-        this.modifyDate = modifyDate;
+        this.modifyDate = Timestamp.from(Instant.now(Clock.system(ZoneId.of("Europe/Warsaw"))));
     }
 
     public IssueHistory(Issue issue){
@@ -46,7 +50,8 @@ public class IssueHistory {
         this.issuingManager = new Employee(issue.getIssuingManager().getId());
         this.issuedEmployee = new Employee(issue.getIssuedEmployee().getId());
         this.status = issue.getStatus();
-        this.modifyDate = LocalDateTime.now();
+        this.modifyDate = Timestamp.from(Instant.now(Clock.system(ZoneId.of("Europe/Warsaw"))));
+        System.out.println(modifyDate);
     }
 
     public IssueHistory() {
@@ -77,7 +82,7 @@ public class IssueHistory {
         return new EmployeeResponse(issuedEmployee);
     }
 
-    public LocalDateTime getModifyDate() { return modifyDate; }
+    public Timestamp getModifyDate() { return modifyDate; }
 
     public void setName(String name) {
         this.name = name;
@@ -103,5 +108,5 @@ public class IssueHistory {
         this.status = status;
     }
 
-    public void setModifyDate(LocalDateTime modifyDate) { this.modifyDate = modifyDate; }
+    public void setModifyDate(Timestamp modifyDate) { this.modifyDate = modifyDate; }
 }
