@@ -31,12 +31,14 @@ jobs:
       run: mvn -B package --file magazyn-backend/pom.xml
     - name: Run tests
       run: mvn test --file magazyn-backend/pom.xml
+    - name: create Jar
+      run: mvn clean package
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: create Jar
-        run: mvn clean package
+      - name: Test
+        run: cat /etc/os-release
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
