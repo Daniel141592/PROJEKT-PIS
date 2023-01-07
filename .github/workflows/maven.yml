@@ -36,6 +36,10 @@ jobs:
       - name: Test
         run: echo "test"
       - name: Test_2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
         run: mvn test
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
