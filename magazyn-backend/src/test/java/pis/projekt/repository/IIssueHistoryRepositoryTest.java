@@ -50,13 +50,16 @@ public class IIssueHistoryRepositoryTest {
 
     @Test
     public void ifNotEmptyTest(){
-        Assertions.assertThat(HR.findAll().size()).isEqualTo(4);
+        Assertions.assertThat(HR.findAll().size())
+                .isEqualTo(4);
     }
 
     @Test
     public void findIssueHistoryByIdTest(){
-        Assertions.assertThat(HR.findIssueHistoryById(3).getName()).isEqualTo("pis");
-        Assertions.assertThat(HR.findIssueHistoryById(14)).isNull();
+        Assertions.assertThat(HR.findIssueHistoryById(3).getName())
+                .isEqualTo("pis");
+        Assertions.assertThat(HR.findIssueHistoryById(14))
+                .isNull();
     }
 
     @Test

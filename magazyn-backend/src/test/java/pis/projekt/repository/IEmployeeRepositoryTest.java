@@ -32,42 +32,54 @@ public class IEmployeeRepositoryTest {
     public void isEmptyTest(){
         employeeRepository.deleteAll();
         Iterable<Employee> employees = employeeRepository.findAll();
-        Assertions.assertThat(employees).isEmpty();
+        Assertions.assertThat(employees)
+                .isEmpty();
     }
 
     @Test
     public void isNotEmptyTest(){
-        Assertions.assertThat(employeeRepository.findAll().size()).isEqualTo(3);
+        Assertions.assertThat(employeeRepository.findAll().size())
+                .isEqualTo(3);
     }
 
     @Test
     public void findEmployeeByIdTest(){
-        Assertions.assertThat(employeeRepository.findEmployeeById(2).getName()).isEqualTo("adam");
-        Assertions.assertThat(employeeRepository.findEmployeeById(2137)).isNull();
+        Assertions.assertThat(employeeRepository.findEmployeeById(2).getName())
+                .isEqualTo("adam");
+        Assertions.assertThat(employeeRepository.findEmployeeById(2137))
+                .isNull();
     }
 
     @Test
     public void findEmployeeByLoginTest(){
-        Assertions.assertThat(employeeRepository.findEmployeeByLogin("mpiet").getName()).isEqualTo("milena");
-        Assertions.assertThat(employeeRepository.findEmployeeByLogin("benedicto")).isNull();
+        Assertions.assertThat(employeeRepository.findEmployeeByLogin("mpiet").getName())
+                .isEqualTo("milena");
+        Assertions.assertThat(employeeRepository.findEmployeeByLogin("benedicto"))
+                .isNull();
     }
 
     @Test
     public void findEmployeeByNameTest(){
-        Assertions.assertThat(employeeRepository.findEmployeeByName("milena").get(0).getLogin()).isEqualTo("mpiet");
-        Assertions.assertThat(employeeRepository.findEmployeeByName("benedicto")).isEmpty();
+        Assertions.assertThat(employeeRepository.findEmployeeByName("milena").get(0).getLogin())
+                .isEqualTo("mpiet");
+        Assertions.assertThat(employeeRepository.findEmployeeByName("benedicto"))
+                .isEmpty();
     }
 
     @Test
     public void findEmployeeByNameSurname(){
-        Assertions.assertThat(employeeRepository.findEmployeeBySurname("kali").get(0).getLogin()).isEqualTo("pkali");
-        Assertions.assertThat(employeeRepository.findEmployeeBySurname("benedicto")).isEmpty();
+        Assertions.assertThat(employeeRepository.findEmployeeBySurname("kali").get(0).getLogin())
+                .isEqualTo("pkali");
+        Assertions.assertThat(employeeRepository.findEmployeeBySurname("benedicto"))
+                .isEmpty();
     }
 
     @Test
     public void findEmployeeByIsManagerTest(){
-        Assertions.assertThat(employeeRepository.findEmployeesByIsManager(true).get(1).getLogin()).isEqualTo("asur");
-        Assertions.assertThat(employeeRepository.findEmployeesByIsManager(false).get(0).getLogin()).isEqualTo("pkali");
+        Assertions.assertThat(employeeRepository.findEmployeesByIsManager(true).get(1).getLogin())
+                .isEqualTo("asur");
+        Assertions.assertThat(employeeRepository.findEmployeesByIsManager(false).get(0).getLogin())
+                .isEqualTo("pkali");
     }
 
 }

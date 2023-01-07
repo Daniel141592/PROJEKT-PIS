@@ -22,6 +22,14 @@ public class Magazine {
     @JoinColumn(name = "magazyn_id")
     private List<Section> sections;
 
+    public Magazine(int id, String name, int length, int width, List<Section> sections) {
+        this.id = id;
+        this.name = name;
+        this.length = length;
+        this.width = width;
+        this.sections = sections;
+    }
+
     public Magazine() {
         id = 0;
         name = "";
