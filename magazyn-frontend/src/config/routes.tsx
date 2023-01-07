@@ -7,6 +7,7 @@ import {LoginPageK} from "../pages/LoginPageK";
 import {SignupPage} from "../pages/SignupPage";
 import {EmployeePage} from "../pages/EmployeePage";
 import {WarehousePage} from "../pages/WarehousePage";
+import {ManagerPage} from "../pages/ManagerPage"
 
 export const routes = createBrowserRouter([
 	{
@@ -32,6 +33,9 @@ export const routes = createBrowserRouter([
 	{
 		path: PATHS.warehouse,
 		element: <WarehousePage/>
+	},
+	{
+		path: PATHS.manager,
+		element: <ManagerPage/>
 	}
-
 ])

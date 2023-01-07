@@ -4,5 +4,6 @@ export const PATHS = {
 	loginK: '/loginK',
 	signup: '/signup',
 	employee: '/employee',
-	warehouse: '/warehouse'
+	warehouse: '/warehouse',
+	manager: '/manager'
 }
