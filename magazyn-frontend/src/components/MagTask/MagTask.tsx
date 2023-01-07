@@ -19,6 +19,7 @@ export function MagTask(props: any) {
 	return (
 	  <div className={s.mainDiv}>
 		<div className={s.textDiv}> Nazwa zadania: {props.name} </div>
+		<div className={s.textDiv}> Opis zadania: {props.description} </div>
 		<div className={s.textDiv}> Status: {status} </div>
 		<form onSubmit={handleSubmit}>
 		  <label>

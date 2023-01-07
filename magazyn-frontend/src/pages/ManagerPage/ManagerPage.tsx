@@ -20,6 +20,36 @@ export const ManagerPage: React.FC = () => {
 				</div>
 			</div>
 			<div className={s.Panel}>
+				<h1 className={s.headerTask}>Nowe zadanie</h1>
+				<div className={s.mainDiv}>
+					<form>
+						<label>
+							<input placeholder='Nazwa pracownika' className={s.input2}/>
+							<input placeholder='Nazwa zadania' className={s.input4}/>
+							<input placeholder='Opis' className={s.input3}/>
+							<input placeholder='Status' className={s.input}/>
+						</label>
+						<button type="submit" className={s.button2}>Stwórz</button>
+					</form>
+				</div>
+				<h1 className={s.headerTask}>Historia zadań</h1>
+				<div className={s.mainDiv}>
+					<form>
+						<label>
+							<input placeholder='Nazwa pracownika' className={s.input}/>
+						</label>
+						<button type="submit" className={s.button2}>Generuj</button>
+					</form>
+				</div>
+				<h1 className={s.headerTask}>Raport magazynu</h1>
+				<div className={s.mainDiv}>
+					<form>
+						<label>
+							<input placeholder='Nazwa magazynu' className={s.input}/>
+						</label>
+						<button type="submit" className={s.button2}>Generuj</button>
+					</form>
+				</div>
 			</div>
 		</TemplatePage>
 	)

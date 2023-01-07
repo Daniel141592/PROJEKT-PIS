@@ -21,8 +21,8 @@ export const EmployeePage: React.FC = () => {
 			</div>
 			<div className={s.Panel}>
 				<h3 className={s.headerTask}>Dzisiejsze zadania: </h3>
-				<MagTask name='Skończyć ten jebany pis' status='Bliskie pierdolnięcia'/>
-				<MagTask name='Nie rzucić studiów' status='Już za cztery lata...'/>
+				<MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/>
+				<MagTask name='Nie rzucić studiów' description='TBD' status='Już za cztery lata...'/>
 			</div>
 		</TemplatePage>
 	)
