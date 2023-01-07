@@ -13,6 +13,18 @@ public class LoginRequest {
         this.password = password;
     }
 
+    public LoginRequest(String value, boolean isUsername){
+        if (!isUsername){
+            this.password = value;
+        }
+        this.username = value;
+    }
+
+    public LoginRequest(){
+
+    }
+
+
     public String getUsername() {
         return username;
     }
