@@ -32,7 +32,7 @@ public class IIssueHistoryRepositoryTest {
     LocalDateTime time2 = LocalDateTime.of(1945, Month.APRIL, 30, 15, 30, 00);
 
     @Before
-    public void init() throws InterruptedException {
+    public void init(){
         Employee emp1 = new Employee(1, "a", "a", "a", "a", false);
         Employee emp2 = new Employee(2, "b", "b", "b", "b", false);
         Employee man1 = new Employee(3, "c", "c", "c", "c", true);
