@@ -1,13 +1,12 @@
 package pis.projekt.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import pis.projekt.models.IssueHistory;
 import pis.projekt.repository.IIssueHistoryRepository;
 import pis.projekt.interfaces.IIssueHistoryService;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -41,7 +40,7 @@ public class IssueHistoryService implements IIssueHistoryService {
     }
 
     @Override
-    public List<IssueHistory> findIssueHistoriesByModifyDate(LocalDateTime modifyDate) {
+    public List<IssueHistory> findIssueHistoriesByModifyDate(Timestamp modifyDate) {
         return issueHistoryRepository.findIssueHistoriesByModifyDate(modifyDate);
     }
 

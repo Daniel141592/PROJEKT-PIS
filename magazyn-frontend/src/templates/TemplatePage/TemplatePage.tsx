@@ -6,7 +6,6 @@ export const TemplatePage: React.FC<React.PropsWithChildren> = ({children}) => {
 
 	return (
 		<>
-			{/* <WeHeader/> */}
 			<div className={s.container}>
 				{children}
 			</div>
