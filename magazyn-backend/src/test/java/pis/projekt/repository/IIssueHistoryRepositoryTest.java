@@ -13,8 +13,10 @@ import pis.projekt.Config;
 import pis.projekt.models.Employee;
 import pis.projekt.models.IssueHistory;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
+
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
@@ -28,8 +30,11 @@ public class IIssueHistoryRepositoryTest {
     @Autowired
     IEmployeeRepository ER;
 
-    LocalDateTime time1 = LocalDateTime.of(2005, Month.APRIL, 2, 21, 37, 00);
-    LocalDateTime time2 = LocalDateTime.of(1945, Month.APRIL, 30, 15, 30, 00);
+    LocalDateTime ldt1 = LocalDateTime.of(2005, Month.APRIL, 2, 21, 37, 00);
+    LocalDateTime ldt2 = LocalDateTime.of(1945, Month.APRIL, 30, 15, 30, 00);
+
+    Timestamp time1 = Timestamp.valueOf(ldt1);
+    Timestamp time2 = Timestamp.valueOf(ldt2);
 
     @Before
     public void init(){

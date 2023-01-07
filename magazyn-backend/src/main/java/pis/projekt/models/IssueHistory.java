@@ -7,9 +7,7 @@ import pis.projekt.models.responses.EmployeeResponse;
 import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 @Entity
 @Table(name = "historia_zlecen")
@@ -34,7 +32,7 @@ public class IssueHistory {
     private Timestamp modifyDate;
 
 
-    public IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, Timestamp modifyData){
+    public IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus){
         this.id = newId;
         this.name = newName;
         this.description = newDescription;
@@ -42,6 +40,16 @@ public class IssueHistory {
         this.issuedEmployee = newEmployee;
         this.status = newStatus;
         this.modifyDate = Timestamp.from(Instant.now(Clock.system(ZoneId.of("Europe/Warsaw"))));
+    }
+
+    public IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, Timestamp timestamp){
+        this.id = newId;
+        this.name = newName;
+        this.description = newDescription;
+        this.issuingManager = newManager;
+        this.issuedEmployee = newEmployee;
+        this.status = newStatus;
+        this.modifyDate = timestamp;
     }
 
     public IssueHistory(Issue issue){
