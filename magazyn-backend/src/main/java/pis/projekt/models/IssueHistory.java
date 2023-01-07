@@ -29,7 +29,7 @@ public class IssueHistory {
     @Column(name = "modify_date", nullable = false)
     private LocalDateTime modifyDate;
 
-    IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, LocalDateTime modifyDate){
+    public IssueHistory(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus, LocalDateTime modifyDate){
         this.id = newId;
         this.name = newName;
         this.description = newDescription;
