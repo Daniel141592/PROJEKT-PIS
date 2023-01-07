@@ -20,7 +20,7 @@ public class Employee {
     @Column(name = "is_manager", nullable = false)
     private boolean isManager;
 
-    Employee(int newId, String newName, String newSurname, String newLogin, String newPasswordHash, boolean isManager){
+    public Employee(int newId, String newName, String newSurname, String newLogin, String newPasswordHash, boolean isManager){
         this.id = newId;
         this.name = newName;
         this.surname = newSurname;

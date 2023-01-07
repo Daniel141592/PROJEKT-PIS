@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pis.projekt.models.Issue;
 import pis.projekt.models.IssueHistory;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface IIssueHistoryRepository extends JpaRepository<IssueHistory, Integer> {
@@ -16,5 +16,5 @@ public interface IIssueHistoryRepository extends JpaRepository<IssueHistory, Int
 
     List<IssueHistory> findIssueHistoriesByDescriptionContains(String desc);
 
-    List<IssueHistory> findIssueHistoriesByModifyDate(LocalDateTime modifyDate);
+    List<IssueHistory> findIssueHistoriesByModifyDate(Timestamp modifyDate);
 }

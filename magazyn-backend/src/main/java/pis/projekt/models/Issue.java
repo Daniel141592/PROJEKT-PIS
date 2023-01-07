@@ -23,7 +23,7 @@ public class Issue {
     @Column(name = "status", nullable = false)
     private String status;
 
-    Issue(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus){
+    public Issue(int newId, String newName, String newDescription, Employee newManager, Employee newEmployee, String newStatus){
         this.id = newId;
         this.name = newName;
         this.description = newDescription;

@@ -41,6 +41,14 @@ public class Product {
         stackSize = newStackSize;
     }
 
+    public Product(int id, String name, int length, int width, int stackSize) {
+        this.id = id;
+        this.name = name;
+        this.length = length;
+        this.width = width;
+        this.stackSize = stackSize;
+    }
+
     public static boolean isSame(Product product1, Product product2){
         boolean sameName = Objects.equals(product1.getName(), product2.name);
         boolean sameLength = product1.length == product2.length;
