@@ -34,8 +34,8 @@ jobs:
 #    - name: create Jar
 #      run: mvn clean package --file magazyn-backend/pom.xml
 
-    - name: Change name of .jar for simplicity
-      run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
+#    - name: Change name of .jar for simplicity
+#      run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
 
 #    - name: Deploy to Nexus
 #      run: >
