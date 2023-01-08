@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import reactLogo from 'assets/react.svg'
 import s from "./EmployeePage.module.scss"
 import clsx from "clsx";
@@ -11,12 +11,14 @@ import {sendRequestGET} from 'requests';
 export const EmployeePage: React.FC = () => {
 	const [issues, setIssues] = useState([]);
 
-	let response = sendRequestGET(
-		'issues/mine'
-	).then(async r => {
-		let response = await r.json()
-		setIssues(response)
-	})
+	useEffect(() => {
+		sendRequestGET(
+			'issues/mine'
+		).then(async r => {
+			let response = await r.json()
+			setIssues(response)
+		})
+	}, []);
 
 	return (
 		<TemplatePage>
