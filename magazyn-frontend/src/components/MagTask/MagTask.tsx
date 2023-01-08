@@ -10,21 +10,22 @@ export function MagTask(props: any) {
 	const [newStatus, setNewStatus] = useState('');
   
 	function handleChange(event: any) {
-	  setNewStatus(event.target.value);
+		setNewStatus(event.target.value);
 	}
   
 	function handleSubmit(event: any) {
-	  event.preventDefault();
-	  setStatus(newStatus);
+	  	event.preventDefault();
+		setStatus(newStatus);
+		console.log(newStatus)
 
-	let response = sendRequestPOST(
-		status,
-		'issues/update/' + props.id
-	).then(async r => {
-		let response = await r.json()
+		let response = sendRequestPOST(
+			{status: newStatus},
+			'issues/update/' + props.id
+		).then(async r => {
+			let response = await r.json()
 
-		console.log(response)
-	})
+			console.log(response)
+		})
 	}
   
 	return (
