@@ -17,16 +17,14 @@ export function MagTask(props: any) {
 	  event.preventDefault();
 	  setStatus(newStatus);
 
-		let response = sendRequestPOST(
-			{"username": event.UserName, "password": event.Password},
-			'employees/login'
-		).then(async r => {
-			let response = await r.json()
+	let response = sendRequestPOST(
+		status,
+		'issues/update/' + props.id
+	).then(async r => {
+		let response = await r.json()
 
-			if (response.success) {
-				
-			}
-		})
+		console.log(response)
+	})
 	}
   
 	return (

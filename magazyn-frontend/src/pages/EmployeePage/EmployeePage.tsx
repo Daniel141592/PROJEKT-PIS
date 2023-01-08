@@ -12,7 +12,7 @@ export const EmployeePage: React.FC = () => {
 	const [issues, setIssues] = useState([]);
 
 	let response = sendRequestGET(
-		'issues/all'
+		'issues/mine'
 	).then(async r => {
 		let response = await r.json()
 		setIssues(response)
@@ -31,7 +31,7 @@ export const EmployeePage: React.FC = () => {
 			<div className={s.Panel}>
 				<h3 className={s.headerTask}>Dzisiejsze zadania: </h3>
 				{issues.map((data, idx) => {
-					return <MagTask name={data.name} description={data.description} status={data.status}/>
+					return <MagTask name={data.name} description={data.description} status={data.status} id={data.id}/>
 				})}
 				{/* // <MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/> */}
 			</div>
