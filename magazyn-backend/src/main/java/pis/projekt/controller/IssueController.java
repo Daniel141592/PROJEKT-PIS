@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pis.projekt.interfaces.IIssueService;
 import pis.projekt.models.Issue;
+import pis.projekt.models.requests.ChangeStatusRequest;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class IssueController {
     }
 
     @PostMapping("/update/{id}")
-    public Issue changeStatus(@RequestBody String status, @PathVariable Integer id) {
-        return issueService.changeStatus(id, status);
+    public Issue changeStatus(@RequestBody ChangeStatusRequest status, @PathVariable Integer id) {
+        return issueService.changeStatus(id, status.getStatus());
     }
 }
