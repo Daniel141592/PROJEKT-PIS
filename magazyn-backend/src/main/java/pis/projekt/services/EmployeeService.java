@@ -77,8 +77,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public String generateToken(Employee employee) {
-        return Jwts.builder()
-                .setIssuer("PISPROJEKT")
+        return Jwts.builder().setIssuer("PISPROJEKT")
                 .setSubject(employee.getLogin())
                 .claim("manager", employee.getIsManager())
                 .claim("login", employee.getLogin())
@@ -100,5 +99,4 @@ public class EmployeeService implements IEmployeeService {
             return null;
         }
     }
-
 }

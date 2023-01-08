@@ -51,11 +51,10 @@ public class IssueService implements IIssueService {
 
     @Override
     public boolean deleteIssue(Integer issueId){
-        if(issueRepository.existsById(issueId)){return false;}
-        else{
-            issueRepository.deleteById(issueId);
-            return true;
-        }
+        if(!issueRepository.existsById(issueId))
+            return false;
+        issueRepository.deleteById(issueId);
+        return true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pis.projekt.utils;
 
+import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -7,13 +8,18 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import pis.projekt.models.Magazine;
+import pis.projekt.models.ReportModel;
+import pis.projekt.repository.IReportModelRepository;
 import pis.projekt.services.MagazineService;
 import pis.projekt.models.Section;
 import pis.projekt.models.Product;
+import pis.projekt.services.ReportModelService;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Blob;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Vector;
@@ -106,5 +112,17 @@ public class Report{
 
     public String getAbsolutePath() {
         return absolutePath;
+    }
+
+    public ReportModel addReportToDB(IReportModelRepository reportModelRepository){
+        try {
+            FileInputStream pdfStream = new FileInputStream(this.getAbsolutePath());
+            byte[] pdfBytes = IOUtils.toByteArray(pdfStream);
+            return reportModelRepository.save(new ReportModel(null, pdfBytes));
+            //return reportModelRepository.save(new ReportModel(null, pdfBytes));
+        }catch (Exception e){System.out.println(e);}
+
+        return null;
+
     }
 }

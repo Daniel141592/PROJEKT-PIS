@@ -14,6 +14,10 @@ public class RegisterRequest extends LoginRequest {
         this.email = email;
     }
 
+    public RegisterRequest(){
+        super();
+    }
+
     public String getConfirmPassword() {
         return confirmPassword;
     }

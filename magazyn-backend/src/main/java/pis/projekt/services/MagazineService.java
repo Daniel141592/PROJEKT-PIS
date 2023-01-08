@@ -3,12 +3,16 @@ package pis.projekt.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pis.projekt.interfaces.IMagazineService;
+import pis.projekt.interfaces.IReportModelService;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Product;
 import pis.projekt.models.Section;
 import pis.projekt.repository.IMagazineRepository;
+import pis.projekt.repository.IReportModelRepository;
 import pis.projekt.repository.ISectionRepository;
+import pis.projekt.utils.Report;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +23,8 @@ public class MagazineService implements IMagazineService {
     private IMagazineRepository magazineRepository;
     @Autowired
     private ISectionRepository sectionRepository;
+    @Autowired
+    private IReportModelRepository reportModelRepository;
 
     @Override
     public List<Magazine> findAllMagazines() {
@@ -42,11 +48,17 @@ public class MagazineService implements IMagazineService {
 
     @Override
     public boolean deleteMagazine(Integer magazineId){
-        if(magazineRepository.existsById(magazineId)){return false;}
-        else{
-            magazineRepository.deleteById(magazineId);
-            return true;
-        }
+        if(!magazineRepository.existsById(magazineId))
+            return false;
+        magazineRepository.deleteById(magazineId);
+        return true;
+    }
+
+    @Override
+    public String createAndStashReport(Integer magazineId) throws IOException {
+        Report report = new Report(magazineRepository.findMagazineById(magazineId));
+        report.addReportToDB(reportModelRepository);
+        return report.getAbsolutePath();
     }
 
     public static double calcSpace(Magazine magazine) {
@@ -78,7 +90,8 @@ public class MagazineService implements IMagazineService {
         Vector<Product> productVector = new Vector<Product>();
         List<Section> sections = magazine.getSections();
         for(Section ss: sections){
-            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product())){productVector.add(ss.getProduct());}
+            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product()))
+                productVector.add(ss.getProduct());
         }
         return productVector;
     }

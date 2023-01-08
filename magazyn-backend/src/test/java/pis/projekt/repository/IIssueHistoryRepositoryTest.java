@@ -37,7 +37,7 @@ public class IIssueHistoryRepositoryTest {
     Timestamp time2 = Timestamp.valueOf(ldt2);
 
     @Before
-    public void init(){
+    public void setup(){
         Employee emp1 = new Employee(1, "a", "a", "a", "a", false);
         Employee emp2 = new Employee(2, "b", "b", "b", "b", false);
         Employee man1 = new Employee(3, "c", "c", "c", "c", true);

@@ -30,7 +30,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file magazyn-backend/pom.xml
     - name: Run tests
-      run: mvn test --file magazyn-backend/pom.xml
+      run: mvn clean test --file magazyn-backend/pom.xml
     - name: create Jar
       run: mvn clean package --file magazyn-backend/pom.xml
     - name: Save jar artifact

@@ -22,7 +22,7 @@ public class IEmployeeRepositoryTest {
     IEmployeeRepository employeeRepository;
 
     @Before
-    public void init(){
+    public void setup(){
         employeeRepository.save(new Employee(1, "milena", "pieta", "mpiet", "anotherslowo", true));
         employeeRepository.save(new Employee(2, "adam", "sur", "asur", "slowo3", true));
         employeeRepository.save(new Employee(3, "pawel", "kali", "pkali", "mile", false));
