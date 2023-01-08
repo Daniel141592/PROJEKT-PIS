@@ -49,12 +49,12 @@ jobs:
 #    - name: Log in with Azure # może zadziała
 #      uses: azure/login@v1
 #      with:
-#        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#        creds: '${{ secrets.SSH_PASSWORD }}'
     - name: Dupa
       run: echo "dupa" > dupa.txt
     - name: ssh
 #      run: sshpass -d -p "pisUserpisUser123" scp dupa.txt azureuser@40.114.226.113:~/
-      run: sshpass -p "pisUserpisUser123" ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 pwd
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 pwd
 
 
 
