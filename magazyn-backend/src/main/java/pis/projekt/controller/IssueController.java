@@ -38,7 +38,7 @@ public class IssueController {
         return issueService.addIssue(issue);
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("/delete/{id}")
     public boolean deleteIssue(@PathVariable Integer id) {
         return issueService.deleteIssue(id);
     }
