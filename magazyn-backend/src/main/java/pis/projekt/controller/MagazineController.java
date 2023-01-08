@@ -50,7 +50,7 @@ public class MagazineController {
         return magazineService.addMagazine(magazine);
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("/delete/{id}")
     public boolean deleteMagazine(@PathVariable Integer id) {
         return magazineService.deleteMagazine(id);
     }
