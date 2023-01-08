@@ -43,12 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Test
+      - name: Download jar artifact
         uses: actions/download-artifact@v3
         with:
           name: jar-executable
       - name: Check
-        run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/PISprojekt-1.0-SNAPSHOT.jar
+        run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/PISprojekt-1.0-SNAPSHOT.jar
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
