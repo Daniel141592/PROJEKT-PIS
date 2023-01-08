@@ -46,6 +46,8 @@ jobs:
 #        -DgroupId=pis.projekt
 #        -DartifactId=magazyn-executable
 #        -Dversion=1.0.0
+    - name: test '${{ secrets.AZURE_CREDENTIALS }}'
+      run: echo
     - name: Log in with Azure
       uses: azure/login@v1
       with:
