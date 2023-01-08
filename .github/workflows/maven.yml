@@ -37,7 +37,7 @@ jobs:
     - name: Change name of .jar for simplicity
       run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
 
-    - name: Deploy to nexus
+    - name: Deploy to Nexus
       run: >
         mvn deploy:deploy-file --file deploy.xml
         -DrepositoryId=nexus
@@ -46,6 +46,11 @@ jobs:
         -DgroupId=pis.projekt
         -DartifactId=magazyn-executable
         -Dversion=1.0.0
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+
 
 
 
