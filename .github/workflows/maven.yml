@@ -54,7 +54,7 @@ jobs:
       run: echo "dupa" > dupa.txt
     - name: ssh
 #      run: sshpass -d -p "pisUserpisUser123" scp dupa.txt azureuser@40.114.226.113:~/
-      run: sshpass -d -p "pisUserpisUser123" ssh azureuser@40.114.226.113 pwd
+      run: sshpass -p "pisUserpisUser123" ssh azureuser@40.114.226.113 pwd
 
 
 
