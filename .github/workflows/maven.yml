@@ -49,13 +49,17 @@ jobs:
           name: jar-executable
       - name: Check if jar exists
         run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar
+      - name: Change name of .jar for simplicity
+        run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar magazyn.jar
+
       - name: Deploy to nexus
         run:
-          mvn deploy:deploy-file -DgroupId=my.group.id \
+          mvn deploy:deploy-file --file magazyn-backend/pom.xml \
+          -DgroupId=my.group.id \
           -DartifactId=my-artifact-id \
           -Dversion=1.0.0.1 \
           -Dpackaging=jar \
-          -Dfile=foo.jar \
+          -Dfile=magazyn.jar \
           -DgeneratePom=true \
           -DrepositoryId=my-repo \
           -Durl=http://23.101.76.103/:8081/repository/maven-releases/
