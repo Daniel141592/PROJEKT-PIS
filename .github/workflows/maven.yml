@@ -51,7 +51,7 @@ jobs:
         run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar
       - name: Change name of .jar for simplicity
 #        run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar magazyn.jar
-        run: echo "test" > magazyn.jar
+        run: echo "test" > magazyn.jar # dla szybkości
 
       - name: Deploy to nexus
         run:
