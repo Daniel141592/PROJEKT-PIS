@@ -34,10 +34,9 @@ public class ProductService implements IProductService {
 
     @Override
     public boolean deleteProduct(Integer productId){
-        if(productRepository.existsById(productId)){return false;}
-        else{
-            productRepository.deleteById(productId);
-            return true;
-        }
+        if(!productRepository.existsById(productId))
+            return false;
+        productRepository.deleteById(productId);
+        return true;
     }
 }

@@ -49,6 +49,14 @@ public class Product {
         this.stackSize = stackSize;
     }
 
+    public Product(Product product){
+        this.id = product.id;
+        this.name = product.name;
+        this.length = product.length;
+        this.width = product.width;
+        this.stackSize = product.stackSize;
+    }
+
     public static boolean isSame(Product product1, Product product2){
         boolean sameName = Objects.equals(product1.getName(), product2.name);
         boolean sameLength = product1.length == product2.length;

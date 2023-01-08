@@ -48,11 +48,10 @@ public class MagazineService implements IMagazineService {
 
     @Override
     public boolean deleteMagazine(Integer magazineId){
-        if(magazineRepository.existsById(magazineId)){return false;}
-        else{
-            magazineRepository.deleteById(magazineId);
-            return true;
-        }
+        if(!magazineRepository.existsById(magazineId))
+            return false;
+        magazineRepository.deleteById(magazineId);
+        return true;
     }
 
     @Override
@@ -91,7 +90,8 @@ public class MagazineService implements IMagazineService {
         Vector<Product> productVector = new Vector<Product>();
         List<Section> sections = magazine.getSections();
         for(Section ss: sections){
-            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product())){productVector.add(ss.getProduct());}
+            if(!productVector.contains(ss.getProduct()) && !Product.isSame(ss.getProduct(), new Product()))
+                productVector.add(ss.getProduct());
         }
         return productVector;
     }
