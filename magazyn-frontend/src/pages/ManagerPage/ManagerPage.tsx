@@ -1,13 +1,60 @@
 import React, {useState} from 'react'
-import reactLogo from 'assets/react.svg'
 import s from "./ManagerPage.module.scss"
-import clsx from "clsx";
-import {MagTask} from "../../components/MagTask";
-import {MagLinkButton} from '../../components/MagLinkButton';
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
+import { FieldValues, useForm } from 'react-hook-form';
+import { redirect } from 'react-router-dom';
+import { sendRequestGET } from 'requests';
+
 
 export const ManagerPage: React.FC = () => {
+	const [history, setHistory] = useState([]);
+	const [description, setDescription] = useState('');
+	const {register, formState, handleSubmit} = useForm();
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	function Modal({ isOpen, onClose, children }) {
+		if (!isOpen) {
+		  return null;
+		}
+
+		return (
+		  <div className="modal-overlay">
+			<div className="modal-content">
+				{children}
+				{history.map((data, idx) => {
+					return <div>
+								<p className={s.taskHist}>
+									<br/>
+									Id: {data.id} <br/>
+									Nazwa:  {data.name} <br/>
+									Opis: {data.description} <br/>
+									Data modyfikacji: {data.modifyDate} <br/>
+									Kierownik zadania: {data.issuingManager.name} {data.issuingManager.surname}
+								</p>
+								<hr className={s.hLine}></hr>
+							</div>
+				})}
+			</div>
+		  </div>
+		);
+	  }
+
+
+	function handleChangeDescription(event: any) {
+		setDescription(event.target.value)
+	}
+
+	function sendHistoryRequest(event: any){
+		setIsModalOpen(true)
+
+		let response = sendRequestGET(
+			'issueHistories/contains?desc=' + description
+		).then(async r => {
+			let response = await r.json()
+			setHistory(response)
+		})
+	}
 
 	return (
 		<TemplatePage>
@@ -34,11 +81,14 @@ export const ManagerPage: React.FC = () => {
 				</div>
 				<h1 className={s.headerTask}>Historia zadań:</h1>
 				<div className={s.mainDiv}>
-					<form>
+					<form onSubmit={handleSubmit(sendHistoryRequest)}>
 						<label>
-							<input placeholder='Nazwa pracownika' className={s.input}/>
+							<input placeholder='Opis' onChange={handleChangeDescription} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Generuj</button>
+						<Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+							{/* <p className={s.headerTaskSmall}> Zadania: </p> */}
+						</Modal>
 					</form>
 				</div>
 				<h1 className={s.headerTask}>Raport z magazynu:</h1>
@@ -50,6 +100,16 @@ export const ManagerPage: React.FC = () => {
 						<button type="submit" className={s.button2}>Generuj</button>
 					</form>
 				</div>
+				<h1 className={s.headerTask}>Wyszukiwanie pełnotekstowe:</h1>
+				<div className={s.mainDiv}>
+					<form>
+						<label>
+							<input placeholder='Słowa kluczowe' className={s.input}/>
+						</label>
+						<button type="submit" className={s.button2}>Szukaj</button>
+					</form>
+				</div>
+				<h1><br></br></h1>
 			</div>
 		</TemplatePage>
 	)
