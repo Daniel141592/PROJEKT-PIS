@@ -62,7 +62,7 @@ jobs:
           -Dfile=magazyn.jar \
           -DgeneratePom=true \
           -DrepositoryId=my-repo \
-          -Durl=http://23.101.76.103/:8081/repository/maven-releases/
+          -Durl=http://23.101.76.103:8081/repository/maven-releases/
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
