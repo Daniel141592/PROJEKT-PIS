@@ -46,7 +46,7 @@ jobs:
 #        -DgroupId=pis.projekt
 #        -DartifactId=magazyn-executable
 #        -Dversion=1.0.0
-    - name: Log in with Azure
+    - name: Log in with Azure # może zadziała
       uses: azure/login@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
