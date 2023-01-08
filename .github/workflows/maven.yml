@@ -52,8 +52,10 @@ jobs:
 #        creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Dupa
       run: echo "dupa" > dupa.txt
+    - name: pierdolony
+      run: sudo apt install sshpass
     - name: ssh
-      run: sshpass -d -p "'${{ secrets.SSH_PASSWORD }}'" scp dupa.txt azureuser@40.114.226.113:~/
+      run: sshpass -d -p "'${{ secrets.SSH_PASSWORD }}'" scp -o StrictHostKeyChecking=no dupa.txt azureuser@40.114.226.113:~/
 
 
 
