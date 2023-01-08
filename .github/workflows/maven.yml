@@ -53,7 +53,7 @@ jobs:
     - name: Azure WebApp deploy
       uses: Azure/webapps-deploy@v2
       with:
-        app-name: PISS
+        vm-name: PISS
         package: magazyn.jar
 
 
