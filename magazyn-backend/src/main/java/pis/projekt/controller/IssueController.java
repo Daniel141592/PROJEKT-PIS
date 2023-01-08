@@ -39,11 +39,6 @@ public class IssueController {
         return issueService.addIssue(issue);
     }
 
-    @GetMapping("/mine")
-    public List<Issue> getIssuesOfLoggedEmp() {
-        return issueService.getIssuesOfCurrentlyLoggedEmp();
-    }
-
     @PostMapping("delete/{id}")
     public boolean deleteIssue(@PathVariable Integer id) {
         return issueService.deleteIssue(id);

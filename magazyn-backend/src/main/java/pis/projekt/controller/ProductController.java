@@ -36,7 +36,7 @@ public class ProductController {
     @PostMapping("/add")
     public Product addProduct(@RequestBody Product product){ return productService.addProduct(product);}
 
-    @PostMapping("delete/{id}")
+    @PostMapping("/delete/{id}")
     public boolean deleteProduct(@PathVariable Integer id) {
         return productService.deleteProduct(id);
     }

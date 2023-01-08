@@ -84,4 +84,6 @@ public class Magazine {
         return sections;
     }
 
+    public void setSections(List<Section> sections) {this.sections = sections;}
+
 }

@@ -51,12 +51,9 @@ public class IssueHistoryService implements IIssueHistoryService {
 
     @Override
     public boolean deleteIssueHistory(Integer issueHistoryId){
-        if(issueHistoryRepository.existsById(issueHistoryId)){return false;}
-        else{
-            issueHistoryRepository.deleteById(issueHistoryId);
-            return true;
-        }
+        if(!issueHistoryRepository.existsById(issueHistoryId))
+            return false;
+        issueHistoryRepository.deleteById(issueHistoryId);
+        return true;
     }
-
-
 }

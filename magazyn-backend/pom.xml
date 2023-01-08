@@ -12,7 +12,7 @@
     <groupId>pis.projekt</groupId>
     <artifactId>PISprojekt</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -144,6 +144,18 @@
             <scope>runtime</scope>
             <version>2.1.214</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.junit.jupiter</groupId>-->
+<!--            <artifactId>junit-jupiter-engine</artifactId>-->
+<!--&lt;!&ndash;            <version>4.13.2</version>&ndash;&gt;-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.junit.vintage</groupId>-->
+<!--                <artifactId>junit-vintage-engine</artifactId>-->
+<!--                <version>5.4.0</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
 
     </dependencies>
 
@@ -192,6 +204,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
 		</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
         </plugins>
     </build>
 
