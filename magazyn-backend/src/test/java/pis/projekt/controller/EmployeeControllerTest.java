@@ -60,11 +60,6 @@ public class EmployeeControllerTest {
 
     final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static String mapToJson(Object object) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
-    }
-
     @Test
     public void allEmployeesTest() throws Exception{
         List<Employee> employees = new ArrayList<>();
