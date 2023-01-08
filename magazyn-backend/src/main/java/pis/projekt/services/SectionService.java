@@ -43,33 +43,19 @@ public class SectionService implements ISectionService {
 
     @Override
     public boolean deleteSection(Integer sectionId){
-        if(sectionRepository.existsById(sectionId)){return false;}
-        else{
-            sectionRepository.deleteById(sectionId);
-            return true;
-        }
+        if(!sectionRepository.existsById(sectionId))
+            return false;
+        sectionRepository.deleteById(sectionId);
+        return true;
     }
 
-    boolean checkCollision(Integer magazine_id, Section newSection) {
+    public boolean checkCollision(Integer magazine_id, Section newSection) {
         List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine_id);
-        boolean isSame;
         for (Section section : sections) {
-            isSame = true;
             for (Pair newSecPoint: newSection.getCoords()) {
                 if (SectionService.containsPoint(section, newSecPoint))
                     return true;
             }
-            for (Pair oldSecPoint: section.getCoords()){
-                if (SectionService.containsPoint(newSection, oldSecPoint))
-                    return true;
-            }
-            for (int i = 0; i < 4; i++) {
-                if(section.getCoords() != newSection.getCoords()){
-                    isSame = false;
-                }
-            }
-            if (isSame)
-                return true;
         }
         return false;
     }
@@ -79,7 +65,7 @@ public class SectionService implements ISectionService {
         Section section = sectionRepository.findSectionById(sectionId);
         Product product = section.getProduct();
         amount = section.getAmount() + amount;
-        if (amount >= calcMaxCapacity(section) || amount >= product.getStackSize()) {
+        if (amount > calcMaxCapacity(section) || amount > product.getStackSize()) {
             return false;
         }
         section.setAmount(amount);
@@ -99,9 +85,9 @@ public class SectionService implements ISectionService {
     }
 
     public static boolean containsPoint(Section section, Pair point) {
-        if (section.getBottomLeftPointY() + section.getLength() < point.first)
-            return false;
-        return (section.getBottomLeftPointX() + section.getWidth() >= point.second);
+        if (section.getBottomLeftPointX() <= point.first && section.getBottomLeftPointX() + section.getLength() >= point.first)
+            return true;
+        return (section.getBottomLeftPointY() <= point.second && section.getBottomLeftPointY() + section.getWidth() >= point.second);
     }
 
     public static double calcArea(Section section) {
