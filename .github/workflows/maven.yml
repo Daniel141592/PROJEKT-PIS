@@ -50,11 +50,12 @@ jobs:
       - name: Check if jar exists
         run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar
       - name: Change name of .jar for simplicity
-        run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar magazyn.jar
+#        run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar magazyn.jar
+        run: echo "test" > magazyn.jar
 
       - name: Deploy to nexus
         run:
-          mvn deploy:deploy-file --file magazyn-backend/pom.xml \
+          mvn deploy:deploy-file \
           -DgroupId=my.group.id \
           -DartifactId=my-artifact-id \
           -Dversion=1.0.0.1 \
