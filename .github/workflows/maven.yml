@@ -55,9 +55,10 @@ jobs:
 
       - name: Deploy to nexus
         run:
-          mvn deploy:deploy-file -Durl=http://23.101.76.103:8081/repository/maven-releases/ \
+          mvn deploy:deploy-file --file magazyn-backend/pom.xml \
+          -Durl=http://23.101.76.103:8081/repository/maven-releases/ \
           -DrepositoryId=nexus \
-          -Dfile=magazyn2.jar \
+          -Dfile=magazyn.jar \
           -DgroupId=com.example \
           -DartifactId=my-file \
           -Dversion=1.0.0
