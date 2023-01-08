@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Vector;
 
 @RestController
 @RequestMapping("/magazines")
@@ -71,7 +72,7 @@ public class MagazineController {
     }
 
     @GetMapping("/report/search")
-    public String searchInReports(@RequestParam(name = "search") String search) {
+    public Vector<String> searchInReports(@RequestParam(name = "search") String search) {
         return magazineService.searchInReports(search);
     }
 }

@@ -67,7 +67,7 @@ public class MagazineService implements IMagazineService {
     }
 
     @Override
-    public String searchInReports(String search) {
+    public Vector<String> searchInReports(String search) {
         ElasticConnector elasticConnector = new ElasticConnector(cloudId, username, password);
         return elasticConnector.elasticSearch(search);
     }

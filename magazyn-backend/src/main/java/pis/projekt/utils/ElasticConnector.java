@@ -8,9 +8,13 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.*;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 public class ElasticConnector {
 
@@ -35,11 +39,11 @@ public class ElasticConnector {
         return builder.build();
     }
 
-    public String elasticSearch(String search) {
+    public Vector<String> elasticSearch(String search) {
         return elasticSearch(null, search);
     }
 
-    public String elasticSearch(String index, String search) {
+    public Vector<String> elasticSearch(String index, String search) {
         JSONObject result = null;
         RestClient client = getRestClient();
 
@@ -62,7 +66,17 @@ public class ElasticConnector {
             e.printStackTrace();
             return null;
         }
-        return result.toString();
+
+        Vector<String> strippedResult = new Vector<String>();
+
+        JSONObject reportsList = result.getJSONObject("hits");
+        JSONArray reportsListJSONArray = reportsList.getJSONArray("hits");
+
+        for(int i=0;i<reportsListJSONArray.length();i++){
+            strippedResult.add(reportsListJSONArray.getJSONObject(i).getJSONObject("_source").getString("data"));
+        }
+
+        return strippedResult;
     }
 
     public int getCount(String index) {
