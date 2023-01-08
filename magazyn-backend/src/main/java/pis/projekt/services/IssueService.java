@@ -64,4 +64,9 @@ public class IssueService implements IIssueService {
         issueHistoryRepository.save(new IssueHistory(issue));
         return issueRepository.save(issue);
     }
+
+    public List<Issue> getIssuesOfCurrentlyLoggedEmp() {
+        // TODO poprawić to, tak by brało usera z sesji
+        return issueRepository.findIssuesByIssuedEmployee_Id(1);
+    }
 }
