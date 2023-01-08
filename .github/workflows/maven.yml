@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: jar-executable
-        path: /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/PISprojekt-1.0-SNAPSHOT.jar
+        path: /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         with:
           name: jar-executable
       - name: Check
-        run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/PISprojekt-1.0-SNAPSHOT.jar
+        run: ls -l /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/*.jar
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
