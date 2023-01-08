@@ -36,7 +36,7 @@ jobs:
 
     - name: Change name of .jar for simplicity
 #     run: /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
-      run: echo "test" > magazyn.jar # dla szybkości
+      run: echo "test" > magazyn.jar # dla szybkości wzium
 
     - name: Deploy to nexus
       run: >
