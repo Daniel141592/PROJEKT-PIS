@@ -53,7 +53,7 @@ jobs:
     - name: Dupa
       run: echo "dupa" > dupa.txt
     - name: ssh
-      run: echo "sshpass -d -p '${{ secrets.SSH_PASSWORD }}' scp -o StrictHostKeyChecking=no dupa.txt azureuser@40.114.226.113:~/" > cmd.txt
+      run: echo "sshpass -d -p "pisUserpisUser123" scp -o StrictHostKeyChecking=no dupa.txt azureuser@40.114.226.113:~/" > cmd.txt
     - name: Dupa
       run: cat cmd.txt
 
