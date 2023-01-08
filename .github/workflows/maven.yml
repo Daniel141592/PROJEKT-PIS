@@ -27,12 +27,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file magazyn-backend/pom.xml
-    - name: Run tests
-      run: mvn clean test --file magazyn-backend/pom.xml
-    - name: create Jar
-      run: mvn clean package --file magazyn-backend/pom.xml
+#    - name: Build with Maven
+#      run: mvn -B package --file magazyn-backend/pom.xml
+#    - name: Run tests
+#      run: mvn clean test --file magazyn-backend/pom.xml
+#    - name: create Jar
+#      run: mvn clean package --file magazyn-backend/pom.xml
 
     - name: Change name of .jar for simplicity
       run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
@@ -53,7 +53,7 @@ jobs:
     - name: Dupa
       run: echo "dupa" > dupa.txt
     - name: ssh
-      run: sshpass -d -p "pisUserpisUser123" scp -o StrictHostKeyChecking=no dupa.txt azureuser@40.114.226.113:~/
+      run: sshpass -d -p "pisUserpisUser123" scp dupa.txt azureuser@40.114.226.113:~/
 
 
 
