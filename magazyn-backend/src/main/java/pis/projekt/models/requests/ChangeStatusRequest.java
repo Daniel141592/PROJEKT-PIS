@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotNull;
 
 public class ChangeStatusRequest {
     @NotNull
-    String status;
+    private String status;
+
+    public ChangeStatusRequest() { }
 
     public ChangeStatusRequest(String status) {
         this.status = status;
