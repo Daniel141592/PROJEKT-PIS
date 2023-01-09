@@ -31,6 +31,8 @@ jobs:
       run: mvn -B package --file magazyn-backend/pom.xml
     - name: Run tests
       run: mvn clean test --file magazyn-backend/pom.xml
+    - name: Add application properties
+      run: echo ${{ secrets.SSH_PASSWORD }} > magazyn-backend/xrc/main/resources/application.properties
     - name: create Jar
       run: mvn clean package --file magazyn-backend/pom.xml
 
