@@ -22,7 +22,6 @@ nvm install 19.3.0
 
 npm i
 killall node
-#npm run build
-npm run dev
+npm run build
 cd dist
 
