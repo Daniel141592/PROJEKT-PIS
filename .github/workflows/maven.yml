@@ -34,7 +34,7 @@ jobs:
     - name: Add application properties
       run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > magazyn-backend/src/main/resources/application.properties
     - name:
-      run: sshpass -p ${{ secrets.APPLICATION_PROPERTIES }} scp -o StrictHostKeyChecking=no magazyn-backend/src/main/resources/application.properties azureuser@40.114.226.113:~/
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn-backend/src/main/resources/application.properties azureuser@40.114.226.113:~/
     - name: create Jar
       run: mvn clean package --file magazyn-backend/pom.xml
 
