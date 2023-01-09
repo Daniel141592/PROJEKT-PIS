@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pis.projekt.interfaces.IEmployeeService;
+import pis.projekt.models.Employee;
 import pis.projekt.services.EmployeeService;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -38,22 +39,28 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (request.getRequestURI().startsWith("/account/")) {
+        if (request.getRequestURI().startsWith("/employees/login") ||
+            request.getRequestURI().startsWith("/employees/register")) {
             doFilter(request, response, filterChain);
+            return;
+        }
+
+        if (token == null || token.isBlank()) {
+            return401(response);
             return;
         }
 
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         grantedAuthorityList.add(new SimpleGrantedAuthority(Roles.USER.toString()));
 
-        var chunks = token.split("\\.");
+        String[] chunks = token.split("\\.");
         if (chunks.length != 3) {
             return401(response);
             return;
         }
 
-        var secretKeySpec = new SecretKeySpec(EmployeeService.SECRET.getBytes(), SignatureAlgorithm.HS256.getJcaName());
-        var validator = new DefaultJwtSignatureValidator(SignatureAlgorithm.HS256, secretKeySpec);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(EmployeeService.SECRET.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+        DefaultJwtSignatureValidator validator = new DefaultJwtSignatureValidator(SignatureAlgorithm.HS256, secretKeySpec);
 
         if (!validator.isValid(chunks[0] + '.' + chunks[1], chunks[2])) {
             return401(response);
@@ -64,9 +71,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         boolean isManager;
 
         try {
-            var decoder = Base64.getDecoder();
-            var payload = new String(decoder.decode(chunks[1]));
-            var json = new JSONObject(payload);
+            Base64.Decoder decoder = Base64.getDecoder();
+            String payload = new String(decoder.decode(chunks[1]));
+            JSONObject json = new JSONObject(payload);
 
             login = json.getString("login");
             password = json.getString("password");
@@ -81,7 +88,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        var employee = employeeService.findEmployeeByLogin(login);
+        Employee employee = employeeService.findEmployeeByLogin(login);
         if (employee == null) {
             return401(response);
             return;

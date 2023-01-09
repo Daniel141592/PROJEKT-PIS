@@ -23,7 +23,7 @@ export const LoginPageK: React.FC = () => {
 
 			if (response.success) {
 				redirect(PATHS.manager)
-				localStorage.setItem("token", JSON.stringify((response.token)));
+				localStorage.setItem("token", response.token);
 			}
 		})
 	}
