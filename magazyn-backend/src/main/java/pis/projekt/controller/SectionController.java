@@ -34,8 +34,9 @@ public class SectionController {
         return sectionService.findSectionsByMagazine_Id(magazineId);
     }
 
-    @GetMapping("/find")
-    public List<Section> getSectionsByProductId(@RequestParam("sectionid") Integer productId) {
+    //TODO: make optional arguments!
+    @GetMapping("/find2")
+    public List<Section> getSectionsByProductId(@RequestParam("productid") Integer productId) {
         return sectionService.findSectionsByProduct_Id(productId);
     }
 
