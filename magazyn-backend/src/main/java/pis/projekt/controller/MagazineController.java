@@ -21,7 +21,7 @@ import java.util.Vector;
 
 @RestController
 @RequestMapping("/magazines")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost"})
 public class MagazineController {
     private final IMagazineService magazineService;
 
