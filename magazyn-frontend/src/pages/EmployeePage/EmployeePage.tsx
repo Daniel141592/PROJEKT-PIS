@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import reactLogo from 'assets/react.svg'
 import s from "./EmployeePage.module.scss"
-import clsx from "clsx";
 import {MagTask} from "../../components/MagTask";
-import {MagLinkButton} from '../../components/MagLinkButton';
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
 import {sendRequestGET} from 'requests';

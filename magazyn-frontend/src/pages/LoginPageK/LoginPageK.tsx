@@ -2,21 +2,17 @@ import React from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageK.module.scss"
 import {MagButton} from "components/MagButton";
-import {MagLinkButton} from "components/MagLinkButton";
 import {Link, useNavigate} from "react-router-dom";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";
 import {FieldValues, useForm} from "react-hook-form";
-import {LOCAL_STORAGE_CONFIG} from "config/localStorageConfig";
-import {useMutation} from "react-query";
 import {useUserContext} from "context/UserContext";
 import { sendRequestPOST } from 'requests';
 
 export const LoginPageK: React.FC = () => {
 
 	const redirect = useNavigate();
-	const {register, formState, handleSubmit} = useForm();
-	const {setIsLoggedIn} = useUserContext()
+	const {register, handleSubmit} = useForm();
 
 	async function sendLoginRequest(data: FieldValues){
 		let response = sendRequestPOST(

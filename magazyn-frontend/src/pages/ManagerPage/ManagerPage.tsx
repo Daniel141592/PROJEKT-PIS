@@ -2,9 +2,8 @@ import React, {useState} from 'react'
 import s from "./ManagerPage.module.scss"
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
-import { FieldValues, useForm } from 'react-hook-form';
-import { redirect, useNavigate } from 'react-router-dom';
-import { sendRequestGET } from 'requests';
+import {useForm} from 'react-hook-form';
+import {sendRequestGET} from 'requests';
 
 
 export const ManagerPage: React.FC = () => {
@@ -17,8 +16,7 @@ export const ManagerPage: React.FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isElasticOpen, setIsElasticOpen] = useState(false);
 	const [isRaportOpen, setIsRaportOpen] = useState(false);
-	const {register, formState, handleSubmit} = useForm();
-	const redirect = useNavigate();
+	const {handleSubmit} = useForm();
 
 	function Modal({ isOpen=false, children=null }) {
 		if (!isOpen) {
