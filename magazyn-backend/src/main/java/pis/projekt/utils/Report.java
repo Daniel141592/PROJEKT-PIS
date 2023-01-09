@@ -19,6 +19,8 @@ import pis.projekt.services.ReportModelService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.Blob;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -76,8 +78,15 @@ public class Report{
         reportDocument = PDDocument.load(file);
         reportPage = reportDocument.getPage(0);
 
-        String fontDirectory = "src/main/resources/fonts/arial.ttf";
-        PDType0Font font = PDType0Font.load(reportDocument, new File(fontDirectory));
+        URL url = this.getClass().getClassLoader().getResource("fonts/arial.ttf");
+
+        PDType0Font font;
+
+        try {
+            font = PDType0Font.load(reportDocument, new File(url.toURI()));
+        } catch (URISyntaxException e) {
+            font = PDType0Font.load(reportDocument, new File(url.getPath()));
+        }
 
         contentStream = new PDPageContentStream(reportDocument, reportPage);
         contentStream.setFont(font,20);

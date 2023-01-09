@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost"})
 public class ProductController {
     private final IProductService productService;
 
@@ -28,7 +28,7 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
-    @GetMapping("/by/name")
+    @GetMapping("/find")
     public List<Product> getProductsByName(@RequestParam("name") String name) {
         return productService.findProductsByNameContaining(name);
     }

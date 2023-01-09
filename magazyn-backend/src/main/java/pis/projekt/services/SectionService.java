@@ -35,7 +35,7 @@ public class SectionService implements ISectionService {
 
     @Override
     public Section addSection(Section section) {
-        if(!checkCollision(section.getMagazineId(), section)) {
+        if(!checkCollision(section.GetMagazineId(), section)) {
             return sectionRepository.save(section);
         }
         return null;
@@ -52,7 +52,7 @@ public class SectionService implements ISectionService {
     public boolean checkCollision(Integer magazine_id, Section newSection) {
         List<Section> sections = sectionRepository.findSectionsByMagazine_Id(magazine_id);
         for (Section section : sections) {
-            for (Pair newSecPoint: newSection.getCoords()) {
+            for (Pair newSecPoint: newSection.GetCoords()) {
                 if (SectionService.containsPoint(section, newSecPoint))
                     return true;
             }
@@ -77,9 +77,9 @@ public class SectionService implements ISectionService {
         Product product = section.getProduct();
         int length = section.getLength();
         int width = section.getWidth();
-        int propValue1 = (length / product.getDimensions().first) * (width / product.getDimensions().second)
+        int propValue1 = (length / product.GetDimensions().first) * (width / product.GetDimensions().second)
                 * product.getStackSize();
-        int propValue2 = (width / product.getDimensions().first) * (length / product.getDimensions().second)
+        int propValue2 = (width / product.GetDimensions().first) * (length / product.GetDimensions().second)
                 * product.getStackSize();
         return Math.max(propValue1, propValue2);
     }

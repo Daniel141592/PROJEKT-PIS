@@ -18,6 +18,10 @@ public class EmployeeResponse {
         this.isManager = employee.getIsManager();
     }
 
+    public EmployeeResponse(){
+
+    }
+
     public int getId() {
         return id;
     }
@@ -34,7 +38,9 @@ public class EmployeeResponse {
         return login;
     }
 
-    public boolean isManager() {
-        return isManager;
-    }
+    public boolean getIsManager() {return isManager;}
+
+//    public boolean isManager() {
+//        return isManager;
+//    }
 }

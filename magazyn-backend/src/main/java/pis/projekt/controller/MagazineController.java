@@ -18,9 +18,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Vector;
 
+
 @RestController
 @RequestMapping("/magazines")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost"})
 public class MagazineController {
     private final IMagazineService magazineService;
 
@@ -40,7 +41,7 @@ public class MagazineController {
     }
 
     @GetMapping("/find")
-    public List<Magazine> getMagazineByName(@RequestParam("name") String name) {
+    public List<Magazine> getMagazinesByName(@RequestParam("name") String name) {
         return magazineService.findMagazineByName(name);
     }
 
@@ -63,7 +64,7 @@ public class MagazineController {
             resource = new UrlResource(path.toUri());
         }
         catch (MalformedURLException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
@@ -75,4 +76,5 @@ public class MagazineController {
     public Vector<String> searchInReports(@RequestParam(name = "search") String search) {
         return magazineService.searchInReports(search);
     }
+
 }
