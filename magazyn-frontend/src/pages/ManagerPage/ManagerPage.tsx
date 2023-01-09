@@ -3,21 +3,33 @@ import s from "./ManagerPage.module.scss"
 import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
 import { FieldValues, useForm } from 'react-hook-form';
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { sendRequestGET } from 'requests';
 
 
 export const ManagerPage: React.FC = () => {
 	const [history, setHistory] = useState([]);
+	const [elastic, setElastic] = useState([]);
+	const [raportLink, setRaportLink] = useState('');
 	const [description, setDescription] = useState('');
 	const [keyWords, setKeyWords] = useState('');
-	const {register, formState, handleSubmit} = useForm();
+	const [idMagazine, setIdMagazine] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isElasticOpen, setIsElasticOpen] = useState(false);
+	const [isRaportOpen, setIsRaportOpen] = useState(false);
+	const {register, formState, handleSubmit} = useForm();
+	const redirect = useNavigate();
 
 	function Modal({ isOpen, onClose, children }) {
 		if (!isOpen) {
 		  return null;
+		}
+
+		if (history.length < 1) {
+			return 	<p className={s.taskHist}>
+						<br/>
+						Brak wyników.
+					</p>
 		}
 
 		return (
@@ -42,7 +54,37 @@ export const ManagerPage: React.FC = () => {
 		);
 	  }
 
-	  function Elastic({ isOpen, onClose, children }) {
+	function Elastic({ isOpen, onClose, children }) {
+		if (!isOpen) {
+		  return null;
+		}
+
+		if (elastic.length < 1) {
+			return 	<p className={s.taskHist}>
+				 		<br/>
+						Brak wyników.
+					</p>
+		}
+
+		return (
+		  <div className="modal-overlay">
+			<div className="modal-content">
+				{children}
+				{elastic.map((data, idx) => {
+					return <div>
+								<p className={s.taskHist}>
+									<br/>
+									{data}
+								</p>
+								<hr className={s.hLine}></hr>
+							</div>
+				})}
+			</div>
+		  </div>
+		);
+	  }
+
+	  function Raport({ isOpen, onClose, children }) {
 		if (!isOpen) {
 		  return null;
 		}
@@ -51,11 +93,20 @@ export const ManagerPage: React.FC = () => {
 		  <div className="modal-overlay">
 			<div className="modal-content">
 				{children}
+				<a href={raportLink}>
+					<div className={s.pdf}>
+						<div className={s.img}></div>
+						<p className={s.Link}>Raport.pdf</p>
+					</div>
+				</a>
 			</div>
 		  </div>
 		);
 	  }
 
+	function handleChangeMagazine(event: any) {
+		setIdMagazine(event.target.value)
+	}
 
 	function handleChangeDescription(event: any) {
 		setDescription(event.target.value)
@@ -80,11 +131,18 @@ export const ManagerPage: React.FC = () => {
 		setIsElasticOpen(true)
 
 		let response = sendRequestGET(
-			'issueHistories/contains?desc=' + keyWords
+			'magazines/report/search?search=' + keyWords
 		).then(async r => {
 			let response = await r.json()
-			setKeyWords(response)
+			setElastic(response)
 		})
+		
+	}
+
+	function sendReport(event: any){
+		setIsRaportOpen(true)
+		let tmp_link = 'http://localhost:8080/magazines/report/' + idMagazine
+		setRaportLink(tmp_link)
 	}
 
 	return (
@@ -117,18 +175,17 @@ export const ManagerPage: React.FC = () => {
 							<input placeholder='Opis' onChange={handleChangeDescription} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Generuj</button>
-						<Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-							{/* <p className={s.headerTaskSmall}> Zadania: </p> */}
-						</Modal>
+						<Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}></Modal>
 					</form>
 				</div>
 				<h1 className={s.headerTask}>Raport z magazynu:</h1>
 				<div className={s.mainDiv}>
-					<form>
+					<form onSubmit={handleSubmit(sendReport)}>
 						<label>
-							<input placeholder='Nazwa magazynu' className={s.input}/>
+							<input placeholder='Id magazynu' onChange={handleChangeMagazine} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Generuj</button>
+						<Raport isOpen={isRaportOpen} onRequestClose={() => setIsRaportOpen(false)}></Raport>
 					</form>
 				</div>
 				<h1 className={s.headerTask}>Wyszukiwanie pełnotekstowe:</h1>
@@ -138,9 +195,7 @@ export const ManagerPage: React.FC = () => {
 							<input placeholder='Słowa kluczowe' onChange={handleChangeDescriptionElastic} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Szukaj</button>
-						<Elastic isOpen={isElasticOpen} onRequestClose={() => setIsElasticOpen(false)}>
-							<p className={s.headerTaskSmall}> CHUJ JEBANY W DUPE ELASTIC </p>
-						</Elastic>
+						<Elastic isOpen={isElasticOpen} onRequestClose={() => setIsElasticOpen(false)}></Elastic>
 					</form>
 				</div>
 				<h1><br></br></h1>

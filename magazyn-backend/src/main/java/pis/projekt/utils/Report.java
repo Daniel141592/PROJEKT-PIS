@@ -61,7 +61,7 @@ public class Report{
 
         reportPage = reportDocument.getPage(0);
 
-        String fontDirectory = "magazyn-backend/src/main/resources/fonts/arial.ttf";
+        String fontDirectory = "src/main/resources/fonts/arial.ttf";
         PDType0Font font = PDType0Font.load(reportDocument, new File(fontDirectory));
 
 

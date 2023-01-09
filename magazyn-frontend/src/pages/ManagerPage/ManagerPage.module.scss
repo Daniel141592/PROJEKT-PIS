@@ -10,6 +10,19 @@ $color-font-button-secondary: #ffffff;
     background-size: cover;
   }
 
+  .pdf {
+    display: flex;
+  }
+
+  .img {
+    margin-top: 10px;
+    margin-right: 3px;
+    height: 20px;
+    width: 20px;
+    background-image: url('../../img/pdf.png');
+    background-size: cover;
+  }
+
   .mainDiv {
     width: 100%;
     height: fit-content;
@@ -210,3 +223,9 @@ $color-font-button-secondary: #ffffff;
   .hLine {
       border: 2px solid $color-button-primary;
   }
+
+.Link {
+  padding-top: 1%;
+  color: blue;
+  padding-bottom: 1%;
+}
