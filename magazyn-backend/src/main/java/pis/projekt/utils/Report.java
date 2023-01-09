@@ -57,6 +57,7 @@ public class Report{
         //Look what you made me do... You made me dismember my child and scatter his limbs ...
         //Now look at my beautiful child, what it has become... Does this satisfy you?
 
+        // Ans: no.
     };
 
     private void createNameForPDF(Magazine magazine, LocalDateTime now){
@@ -139,7 +140,6 @@ public class Report{
 
             elastic.indexPDF(pdfBytes);
             return reportModelRepository.save(new ReportModel(null, pdfBytes));
-            //return reportModelRepository.save(new ReportModel(null, pdfBytes));
         }catch (Exception e){System.out.println(e);}
 
         return null;

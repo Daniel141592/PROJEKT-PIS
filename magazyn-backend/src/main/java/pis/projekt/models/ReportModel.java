@@ -21,6 +21,10 @@ public class ReportModel {
         this.pdfFile = fileBytes;
     }
 
+    public ReportModel(){
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -36,6 +40,5 @@ public class ReportModel {
     public void setPdfFile(byte[] pdfFile) {
         this.pdfFile = pdfFile;
     }
-
 
 }

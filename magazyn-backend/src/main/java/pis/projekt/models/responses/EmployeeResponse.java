@@ -40,7 +40,7 @@ public class EmployeeResponse {
 
     public boolean getIsManager() {return isManager;}
 
-//    public boolean isManager() {
-//        return isManager;
-//    }
+    public boolean IsManager() {
+        return isManager;
+    }
 }
