@@ -229,3 +229,41 @@ $color-font-button-secondary: #ffffff;
   color: blue;
   padding-bottom: 1%;
 }
+
+
+.input5 {
+  border: none;
+  width: 24.25%;
+  height: 30px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: large;
+  padding: 0 16px;
+  border-radius: 10px;
+}
+
+.input5:focus {
+  border-radius: 10px;
+  border: 3px;
+  border-style: solid;
+  border-color: $color-button-primary;
+}
+
+.input6 {
+  border: none;
+  width: 24.25%;
+  height: 30px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: large;
+  padding: 0 16px;
+  border-radius: 10px;
+  margin-left: 1%;
+}
+
+.input6:focus {
+  border-radius: 10px;
+  border: 3px;
+  border-style: solid;
+  border-color: $color-button-primary;
+}

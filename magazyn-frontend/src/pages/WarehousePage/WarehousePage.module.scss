@@ -73,7 +73,7 @@ $color-font-button-secondary: #ffffff;
     font-size: 130%;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: rgb(26, 26, 26);
-    width: 100%;
+    width: 20%;
   }
 
   .Panel {
@@ -112,10 +112,10 @@ $color-font-button-secondary: #ffffff;
     cursor: pointer;
     background-color: $color-button-primary;
     color: $color-font-button-primary;
-    width: 100%;
+    width: 20%;
     height: 30px;
     border-radius: 10px;
-    margin-left: auto;
+    margin-left: 80%;
     margin-right: 0;
   }
   
