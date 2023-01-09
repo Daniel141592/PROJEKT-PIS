@@ -21,9 +21,12 @@ fi
 nvm install 19.3.0
 
 npm i
-killall node
-killall python3
+sudo killall node
+sudo npm i http-server --global
+
 npm run build
 cd dist
-sudo python3 -m http.server 80
+sudo http-server -p 80 --proxy http://localhost .
+#
+#sudo python3 -m http.server 80 &
 
