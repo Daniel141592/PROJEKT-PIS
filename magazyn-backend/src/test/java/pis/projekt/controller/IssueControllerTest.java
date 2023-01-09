@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pis.projekt.models.Employee;
 import pis.projekt.models.Issue;
+import pis.projekt.models.requests.ChangeStatusRequest;
 import pis.projekt.services.IssueService;
 
 import java.util.ArrayList;
@@ -172,12 +173,14 @@ public class IssueControllerTest {
         Employee man = new Employee(1, "marek", "grechuta", "mgrech", "hash", true);
         Employee emp = new Employee(2, "jacek", "kaczmarski", "jkac", "hash", false);
         Issue issue = new Issue(5, "name", "desc", man, emp, "dupa");
-        String newStatus = "dupa";
+        ChangeStatusRequest changeStatusRequest = new ChangeStatusRequest("dupa");
         when(issueService.changeStatus(5, "dupa")).thenReturn(issue);
 
         RequestBuilder req = MockMvcRequestBuilders
                 .post("/issues/update/5")
-                .content(newStatus);
+                .content(objectMapper.writeValueAsString(changeStatusRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
         String response = mockMvc.perform(req).andReturn().getResponse().getContentAsString();
         Issue actIssue = objectMapper.readValue(response, new TypeReference<Issue>() {});
 

@@ -19,6 +19,8 @@ public interface IEmployeeService {
 
     List<Employee> findEmployeesExcludingManagers();
 
+    Employee findEmployeeByLogin(String login);
+
     Employee login(LoginRequest loginRequest);
 
     boolean register(RegisterRequest registerRequest);

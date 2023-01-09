@@ -1,0 +1,231 @@
+$color-button-primary: #e36810;
+$color-font-button-primary: #ffffff;
+$color-button-secondary: #000000;
+$color-font-button-secondary: #ffffff;
+
+.fullDiv {
+    height: 30%;
+    width: 100%;
+    background-image: url('../../img/manager.jpg');
+    background-size: cover;
+  }
+
+  .pdf {
+    display: flex;
+  }
+
+  .img {
+    margin-top: 10px;
+    margin-right: 3px;
+    height: 20px;
+    width: 20px;
+    background-image: url('../../img/pdf.png');
+    background-size: cover;
+  }
+
+  .mainDiv {
+    width: 100%;
+    height: fit-content;
+    border-radius: 20px;
+    border: 5px;
+    border-style: solid;
+    border-color: $color-button-primary;
+    margin-top: 2%;
+    padding: 1%;
+  }
+  
+  .transDiv {
+    height: 100%;
+    width: 100%;
+    background: rgb(5, 0, 0, 0.8);
+  }
+
+  .headerUp {
+    padding-top: 7.5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    font-size: 400%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    // color: black;
+  }
+
+  .headerTask {
+    font-size: 200%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding-top: 5%;
+    padding-bottom: 1%;
+    color: rgb(26, 26, 26);
+  }
+
+  .headerTaskSmall {
+    font-size: 150%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    color: rgb(26, 26, 26);
+  }
+
+  .Panel {
+    width: 100%;
+    min-height: 70%;
+    height: fit-content;
+    padding-left: 20%;
+    padding-right: 20%;
+    background: rgb(225, 225, 225);
+  }
+
+.link {
+  margin-left: 40%;
+}
+
+  .button {
+    // font-family: Helvetica, monospace;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    border: none;
+    transition-duration: 0.3s;
+    padding: 0 16px;
+    // overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: $color-button-primary;
+    color: $color-font-button-primary;
+    width: 20%;
+    height: 30px;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-bottom: 20px;
+  }
+  
+  .button:hover {
+    scale: 0.95;
+  }
+  
+  .button:active {
+    scale: 0.9;
+  }
+
+  .button2 {
+    // font-family: Helvetica, monospace;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    border: none;
+    transition-duration: 0.3s;
+    padding: 0 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: $color-button-primary;
+    color: $color-font-button-primary;
+    width: 49.5%;
+    height: 30px;
+    border-radius: 10px;
+    margin-left: 1%;
+  }
+  
+  .button2:hover {
+    scale: 0.95;
+  }
+  
+  .button2:active {
+    scale: 0.9;
+  }
+  
+  .input {
+    border: none;
+    width: 49.5%;
+    height: 30px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    padding: 0 16px;
+    border-radius: 10px;
+  }
+  
+  .input:focus {
+    border-radius: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: $color-button-primary;
+  }
+
+  .input2 {
+    border: none;
+    width: 49.5%;
+    height: 30px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    padding: 0 16px;
+    border-radius: 10px;
+    margin-bottom: 1%;
+  }
+  
+  .input2:focus {
+    border-radius: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: $color-button-primary;
+  }
+
+  .input3 {
+    border: none;
+    width: 100%;
+    height: 30px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    padding: 0 16px;
+    border-radius: 10px;
+    margin-bottom: 1%;
+  }
+  
+  .input3:focus {
+    border-radius: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: $color-button-primary;
+  }
+
+  .input4 {
+    border: none;
+    width: 49.5%;
+    height: 30px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    padding: 0 16px;
+    border-radius: 10px;
+    margin-bottom: 1%;
+    margin-left: 1%;
+  }
+  
+  .input4:focus {
+    border-radius: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: $color-button-primary;
+  }
+
+  .taskHist {
+      color: $color-button-secondary;
+      font-size: 110%;
+  }
+
+  .hLine {
+      border: 2px solid $color-button-primary;
+  }
+
+.Link {
+  padding-top: 1%;
+  color: blue;
+  padding-bottom: 1%;
+}

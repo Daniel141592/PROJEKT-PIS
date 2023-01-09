@@ -19,6 +19,7 @@ import pis.projekt.models.Section;
 import pis.projekt.models.requests.AddProductRequest;
 import pis.projekt.services.SectionService;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class SectionControllerTest {
 
 
     @Test
-    public void getSectionsByMagazineIdTest() throws Exception{
+    public void getSectionsByUnitIdMagazineTest() throws Exception{
         Magazine mag = new Magazine();
         Product prod = new Product();
         List<Section> sections = new LinkedList<>();
@@ -86,7 +87,7 @@ public class SectionControllerTest {
     }
 
     @Test
-    public void getSectionsByProductIdTest() throws Exception{
+    public void getSectionsByUnitIdProductTest() throws Exception{
         Magazine mag = new Magazine();
         Product prod = new Product();
         List<Section> sections = new LinkedList<>();
@@ -94,11 +95,20 @@ public class SectionControllerTest {
             sections.add(new Section(i, mag, prod, "name", i+1, i+2, i+3, i+4, i+5));
         }
         when(sectionService.findSectionsByProduct_Id(any())).thenReturn(sections);
-        RequestBuilder req = MockMvcRequestBuilders.get("/sections/find2?productid=1");
+        RequestBuilder req = MockMvcRequestBuilders.get("/sections/find?productid=1");
         String response = mockMvc.perform(req).andReturn().getResponse().getContentAsString();
         List<Section> actSections = objectMapper.readValue(response, new TypeReference<List<Section>>() {});
         Assertions.assertThat(actSections.size()).isEqualTo(8);
         Assertions.assertThat(actSections.get(2).getId()).isEqualTo(2);
+    }
+
+    @Test
+    public void getSectionsByUnitIdNullTest() throws Exception{
+        when(sectionService.findSectionsByProduct_Id(any())).thenReturn(new ArrayList<>());
+        RequestBuilder req = MockMvcRequestBuilders.get("/sections/find");
+        String response = mockMvc.perform(req).andReturn().getResponse().getContentAsString();
+        List<Section> actSections = objectMapper.readValue(response, new TypeReference<List<Section>>() {});
+        Assertions.assertThat(actSections).isEmpty();
     }
 
     @Test

@@ -2,8 +2,6 @@ import React from 'react'
 import {TemplatePage} from "../../templates/TemplatePage";
 import s from "./SignupPage.module.scss"
 import {MagButton} from "../../components/MagButton";
-import {Link} from "react-router-dom";
-import {PATHS} from "../../config/paths";
 import {MagInput} from "../../components/MagInput";
 
 export const SignupPage: React.FC = () => {

@@ -2,33 +2,30 @@ import React from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageP.module.scss"
 import {MagButton} from "components/MagButton";
-import {MagLinkButton} from "components/MagLinkButton";
-import {Link, useNavigate} from "react-router-dom";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";
 import {FieldValues, useForm} from "react-hook-form";
-import {LOCAL_STORAGE_CONFIG} from "config/localStorageConfig";
-import {useMutation} from "react-query";
-import {useUserContext} from "context/UserContext";
+import {Link, useNavigate} from "react-router-dom";
+import {sendRequestPOST} from 'requests';
+
 
 export const LoginPageP: React.FC = () => {
 
 	const redirect = useNavigate();
-	const {register, formState, handleSubmit} = useForm();
-	const {setIsLoggedIn} = useUserContext();
+	const {register, handleSubmit} = useForm();
 
-	function sendLoginRequest(data: FieldValues) {
-		let url = "http://localhost:8080/employees/login";
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				// 'Authorization': `${cookies.get("JWTTOKEN")}`
-			},
-			body: JSON.stringify({"username": data.UserName, "password": data.Password})
-		}).then(async r => {
-			console.log(await r.json());
-		});
+	async function sendLoginRequest(data: FieldValues){
+		let response = sendRequestPOST(
+			{"username": data.UserName, "password": data.Password},
+			'employees/login'
+		).then(async r => {
+			let response = await r.json()
+
+			if (response.success) {
+				redirect(PATHS.employee)
+				localStorage.setItem("token", response.token);
+			}
+		})
 	}
 
 	return (
@@ -42,8 +39,7 @@ export const LoginPageP: React.FC = () => {
 							<MagInput placeholder="Nazwa użytkownika" {...register("UserName")}/>
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
 						</div>
-						{/* <MagButton type="submit">Zaloguj się</MagButton> */}
-						<MagLinkButton href={PATHS.employee}>Zaloguj się</MagLinkButton>
+						<MagButton type="submit">Zaloguj się</MagButton>
 						<p className={s.signInCaption}>
 							Nie masz konta?{" "}
 							<Link to={PATHS.signup}>Zarejestruj się</Link>
