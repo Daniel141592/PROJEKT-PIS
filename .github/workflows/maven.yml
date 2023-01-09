@@ -53,11 +53,13 @@ jobs:
 #    - name: ssh
 #      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
     - name: Deploy frontend
-      run: |
-        echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
-        sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/
-        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
-        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < magazyn-frontend/deploy-front.sh   
+      run: echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
+    - name: Deploy frontend 2
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/
+    - name: Deploy frontend 3
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
+    - name: Deploy frontend 4
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < magazyn-frontend/deploy-front.sh
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
