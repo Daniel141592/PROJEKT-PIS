@@ -44,26 +44,40 @@ public class Report{
 
         reportDocument = new PDDocument();
 
-        DateTimeFormatter dtf_name = DateTimeFormatter.ofPattern("yyyy_MM_dd__HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
 
-        name = "Raport_" + magazine.getName() + "_" + dtf_name.format(now) + ".pdf";
+        createNameForPDF(magazine, now);
 
+        createAnEmptyShellOfAPDF();
+
+        fillPDFWithContent(magazine, now);
+
+        //Look what you made me do... You made me dismember my child and scatter his limbs ...
+        //Now look at my beautiful child, what it has become... Does this satisfy you?
+
+    };
+
+    private void createNameForPDF(Magazine magazine, LocalDateTime now){
+        DateTimeFormatter dtf_name = DateTimeFormatter.ofPattern("yyyy_MM_dd__HH_mm_ss");
+        name = "Raport_" + magazine.getName() + "_" + dtf_name.format(now) + ".pdf";
+    }
+
+    private void createAnEmptyShellOfAPDF() throws IOException{
         PDDocument doc = new PDDocument();
         PDPage page = new PDPage();
         doc.addPage(page);
         doc.save(name);
         doc.close();
+    }
 
+    private void fillPDFWithContent(Magazine magazine, LocalDateTime now) throws IOException{
         File file = new File(name);
         absolutePath = file.getAbsolutePath();
         reportDocument = PDDocument.load(file);
-
         reportPage = reportDocument.getPage(0);
 
         String fontDirectory = "src/main/resources/fonts/arial.ttf";
         PDType0Font font = PDType0Font.load(reportDocument, new File(fontDirectory));
-
 
         contentStream = new PDPageContentStream(reportDocument, reportPage);
         contentStream.setFont(font,20);
@@ -71,48 +85,34 @@ public class Report{
         contentStream.newLineAtOffset(20, 750);
         contentStream.setLeading(15f);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        reportText = "Raport z magazynu: " + magazine.getName() + " z " + dtf.format(now);
-        contentStream.showText(reportText);
+        addNewTextLine("Raport z magazynu: " + magazine.getName() + " z " + dtf.format(now));
         contentStream.setFont(font,14);
+        addNewTextLine("Nazwa magazynu: " + magazine.getName());
+        addNewTextLine("ID magazynu: " + Integer.toString(magazine.getId()));
+        addNewTextLine("Wymiary magazynu: " + Integer.toString(magazine.getLength()) + 'x' + Integer.toString(magazine.getWidth()));
+        addNewTextLine("Liczba sekcji: " + Integer.toString(magazine.getSections().size()));
+        addNewTextLine("Wolne miejsce: " + Double.toString(MagazineService.calcEmptySpace(magazine, false )));
+        addNewTextLine("Wolne miejsce (w procentach): " + Double.toString(MagazineService.calcEmptySpace(magazine, true )) + "%");
         contentStream.newLine();
-        reportText ="Nazwa magazynu: " + magazine.getName();
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="ID magazynu: " + Integer.toString(magazine.getId());
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="Wymiary magazynu: " + Integer.toString(magazine.getLength()) + 'x' + Integer.toString(magazine.getWidth());
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="Liczba sekcji: " + Integer.toString(magazine.getSections().size());
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="Wolne miejsce: " + Double.toString(MagazineService.calcEmptySpace(magazine, false ));
-        contentStream.showText(reportText);
-        contentStream.newLine();
-        reportText ="Wolne miejsce (w procentach): " + Double.toString(MagazineService.calcEmptySpace(magazine, true )) + "%";
-        contentStream.showText(reportText);
-
-        contentStream.newLine();
-        contentStream.newLine();
-        reportText ="Zawartość magazynu: ";
-        contentStream.showText(reportText);
+        addNewTextLine("Zawartość magazynu: ");
         contentStream.setFont(font,14);
 
         Vector<Product> productVector = MagazineService.getProductVector(magazine);
 
         for(Product p: productVector){
-            contentStream.newLine();
-            reportText ="- " + p.getName() + ": " + " Sekcje - " + MagazineService.getProductSections(magazine, p) + "  Całkowita ilość - " + MagazineService.getProductAmount(magazine, p);
-            contentStream.showText(reportText);
+            addNewTextLine("- " + p.getName() + ": " + " Sekcje - " + MagazineService.getProductSections(magazine, p) + "  Całkowita ilość - " + MagazineService.getProductAmount(magazine, p));
         }
 
         contentStream.endText();
         contentStream.close();
         reportDocument.save(name);
         reportDocument.close();
+    }
 
-    };
+    private void addNewTextLine(String text) throws IOException{
+        contentStream.showText(text);
+        contentStream.newLine();
+    }
 
     public String getName() {
         return name;
