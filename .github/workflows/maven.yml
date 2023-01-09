@@ -48,10 +48,15 @@ jobs:
 #        -DgroupId=pis.projekt
 #        -DartifactId=magazyn-executable
 #        -Dversion=1.0.0sss
-    - name: scp
+    - name: Deploy .jar
       run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
 #    - name: ssh
 #      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
+    - name: Deploy frontend
+      run: >
+        echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
+        sshpass -p ${{ secrets.DEPLOY_KEY }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/.ssh/id_rsa
+        sshpass -p ${{ secrets.DEPLOY_KEY }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 *.ssh/*'
 
 
 
