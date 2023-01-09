@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageK.module.scss"
 import {MagButton} from "components/MagButton";
+import {MagLoginFailed} from "components/MagLoginFailed";
 import {Link, useNavigate} from "react-router-dom";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";
 import {FieldValues, useForm} from "react-hook-form";
 import {useUserContext} from "context/UserContext";
-import { sendRequestPOST } from 'requests';
+import {sendRequestPOST} from 'requests';
+
 
 export const LoginPageK: React.FC = () => {
-
+	const [isFailOpen, setIsFailOpen] = useState(false);
 	const redirect = useNavigate();
 	const {register, handleSubmit} = useForm();
 
@@ -25,6 +27,9 @@ export const LoginPageK: React.FC = () => {
 				redirect(PATHS.manager)
 				localStorage.setItem("token", JSON.stringify((response.token)));
 			}
+			else {
+				setIsFailOpen(true)
+			}
 		})
 	}
 
@@ -38,6 +43,7 @@ export const LoginPageK: React.FC = () => {
 						<div className={s.inputContainer}>
 							<MagInput placeholder="Nazwa użytkownika" {...register("UserName")}/>
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
+							<MagLoginFailed isOpen={isFailOpen}></MagLoginFailed>
 						</div>
 						<MagButton type="submit">Zaloguj się</MagButton>
 						<p className={s.signInCaption}>
