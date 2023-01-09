@@ -22,6 +22,8 @@ nvm install 19.3.0
 
 npm i
 killall node
+killall python3
 npm run build
 cd dist
+sudo python3 -m http.server 80
 
