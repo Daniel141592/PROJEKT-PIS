@@ -27,7 +27,7 @@ export const WarehousePage: React.FC = () => {
 		<TemplatePage>
 			<div className={s.fullDiv}>
 				<div className={s.transDiv}>
-					<h1 className={s.headerUp}>MAGAZYN</h1>
+					<h1 className={s.headerUp}>MAGAZYNY</h1>
 				</div>
 			</div>
 			<div className={s.Panel}>
@@ -38,10 +38,15 @@ export const WarehousePage: React.FC = () => {
 							<h1 className={s.headerTask2}>{item1.name}</h1>
 							<h1 className={s.headerTask4}>Wymiary: {item1.length}m x {item1.width}m</h1>
 						</div>
+						<div className={s.header}>
 						<h1 className={s.headerTask3}>Sekcje: </h1>
 						{item1.sections.map((item2, index2) => (
 							<p className={s.Task}> {item2.name}</p>
 						))}
+						<a href={'http://localhost:8080/magazines/report/' + item1.id}>
+							<button type="submit" className={s.button2}>Pobierz raport</button>
+						</a>
+						</div>
 						<h1><br/></h1>
 					</div>
 				))}

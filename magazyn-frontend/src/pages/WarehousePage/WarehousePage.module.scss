@@ -73,6 +73,7 @@ $color-font-button-secondary: #ffffff;
     font-size: 130%;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: rgb(26, 26, 26);
+    width: 100%;
   }
 
   .Panel {
@@ -93,4 +94,35 @@ $color-font-button-secondary: #ffffff;
     border-color: $color-button-primary;
     margin-top: 2%;
     padding: 1%;
+  }
+
+
+  .button2 {
+    // font-family: Helvetica, monospace;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: large;
+    border: none;
+    transition-duration: 0.3s;
+    padding: 0 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: $color-button-primary;
+    color: $color-font-button-primary;
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .button2:hover {
+    scale: 0.95;
+  }
+  
+  .button2:active {
+    scale: 0.9;
   }
