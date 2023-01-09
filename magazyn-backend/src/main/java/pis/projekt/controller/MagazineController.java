@@ -1,5 +1,6 @@
 package pis.projekt.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -15,6 +16,8 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Vector;
+
 
 @RestController
 @RequestMapping("/magazines")
@@ -47,15 +50,14 @@ public class MagazineController {
         return magazineService.addMagazine(magazine);
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("/delete/{id}")
     public boolean deleteMagazine(@PathVariable Integer id) {
         return magazineService.deleteMagazine(id);
     }
 
     @GetMapping("/report/{id}")
     public ResponseEntity createAndDownloadReport(@PathVariable Integer id) throws IOException {
-        Report report = new Report(magazineService.findMagazineById(id));
-        String fileName = report.getAbsolutePath();
+        String fileName = magazineService.createAndStashReport(id);
         Path path = Paths.get(fileName);
         Resource resource = null;
         try {
@@ -69,4 +71,10 @@ public class MagazineController {
                 .body(resource);
 
     }
+
+    @GetMapping("/report/search")
+    public Vector<String> searchInReports(@RequestParam(name = "search") String search) {
+        return magazineService.searchInReports(search);
+    }
+
 }

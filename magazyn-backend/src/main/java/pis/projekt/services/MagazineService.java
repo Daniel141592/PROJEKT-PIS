@@ -1,14 +1,21 @@
 package pis.projekt.services;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pis.projekt.interfaces.IMagazineService;
+import pis.projekt.interfaces.IReportModelService;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Product;
 import pis.projekt.models.Section;
 import pis.projekt.repository.IMagazineRepository;
+import pis.projekt.utils.ElasticConnector;
+import pis.projekt.repository.IReportModelRepository;
 import pis.projekt.repository.ISectionRepository;
+import pis.projekt.utils.Report;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,8 +24,18 @@ public class MagazineService implements IMagazineService {
 
     @Autowired
     private IMagazineRepository magazineRepository;
+    
+    @Value("${elastic.cloudId}")
+    private String cloudId;
+    @Value("${elastic.username}")
+    private String username;
+    @Value("${elastic.password}")
+    private String password;
+
     @Autowired
     private ISectionRepository sectionRepository;
+    @Autowired
+    private IReportModelRepository reportModelRepository;
 
     @Override
     public List<Magazine> findAllMagazines() {
@@ -46,6 +63,18 @@ public class MagazineService implements IMagazineService {
             return false;
         magazineRepository.deleteById(magazineId);
         return true;
+    }
+
+    @Override
+    public Vector<String> searchInReports(String search) {
+        ElasticConnector elasticConnector = new ElasticConnector(cloudId, username, password);
+        return elasticConnector.elasticSearch(search);
+    }
+
+    public String createAndStashReport(Integer magazineId) throws IOException {
+        Report report = new Report(magazineRepository.findMagazineById(magazineId));
+        report.addReportToDB(reportModelRepository, cloudId, username, password);
+        return report.getAbsolutePath();
     }
 
     public static double calcSpace(Magazine magazine) {

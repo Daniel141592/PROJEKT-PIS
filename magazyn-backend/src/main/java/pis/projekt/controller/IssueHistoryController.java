@@ -39,7 +39,7 @@ public class IssueHistoryController {
         return issueHistoryService.addIssueHistory(issueHistory);
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("/delete/{id}")
     public boolean deleteIssueHistory(@PathVariable Integer id) {
         return issueHistoryService.deleteIssueHistory(id);
     }
