@@ -155,8 +155,8 @@ public class Section {
         Pair[] coords = new Pair[4];
         coords[0] = new Pair(bottomLeftPointX, bottomLeftPointY);
         coords[1] = new Pair(bottomLeftPointX + width, bottomLeftPointY);
-        coords[2] = new Pair(bottomLeftPointX, bottomLeftPointY + length);
-        coords[3] = new Pair(bottomLeftPointX + width, bottomLeftPointY + length);
+        coords[2] = new Pair(bottomLeftPointX + width, bottomLeftPointY + length);
+        coords[3] = new Pair(bottomLeftPointX, bottomLeftPointY + length);
         return coords;
     }
 }
