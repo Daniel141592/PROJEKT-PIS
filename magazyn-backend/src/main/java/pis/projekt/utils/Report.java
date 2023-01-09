@@ -19,6 +19,7 @@ import pis.projekt.services.ReportModelService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Blob;
@@ -57,6 +58,7 @@ public class Report{
         //Look what you made me do... You made me dismember my child and scatter his limbs ...
         //Now look at my beautiful child, what it has become... Does this satisfy you?
 
+        // Ans: no.
     };
 
     private void createNameForPDF(Magazine magazine, LocalDateTime now){
@@ -78,15 +80,13 @@ public class Report{
         reportDocument = PDDocument.load(file);
         reportPage = reportDocument.getPage(0);
 
-        URL url = this.getClass().getClassLoader().getResource("fonts/arial.ttf");
+        //URL url = this.getClass().getClassLoader().getResource("fonts/arial.ttf");
+
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("fonts/arial.ttf");
 
         PDType0Font font;
 
-        try {
-            font = PDType0Font.load(reportDocument, new File(url.toURI()));
-        } catch (URISyntaxException e) {
-            font = PDType0Font.load(reportDocument, new File(url.getPath()));
-        }
+        font = PDType0Font.load(reportDocument, is);
 
         contentStream = new PDPageContentStream(reportDocument, reportPage);
         contentStream.setFont(font,20);
@@ -139,7 +139,6 @@ public class Report{
 
             elastic.indexPDF(pdfBytes);
             return reportModelRepository.save(new ReportModel(null, pdfBytes));
-            //return reportModelRepository.save(new ReportModel(null, pdfBytes));
         }catch (Exception e){System.out.println(e);}
 
         return null;
