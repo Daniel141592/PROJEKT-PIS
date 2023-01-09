@@ -35,10 +35,8 @@ public class EmployeeControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-//    @Autowired
     private EmployeeService employeeService;
 
-//    @Autowired
     @InjectMocks
     private EmployeeController employeeController;
 

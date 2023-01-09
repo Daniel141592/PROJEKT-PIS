@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pis.projekt.models.Employee;
 import pis.projekt.models.Issue;
-import pis.projekt.services.EmployeeService;
 import pis.projekt.services.IssueService;
 
 import java.util.ArrayList;

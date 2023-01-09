@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pis.projekt.interfaces.IMagazineService;
 import pis.projekt.models.Magazine;
-import pis.projekt.models.Section;
 import pis.projekt.utils.Report;
 
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.ResourceBundle;
 
 @RestController
 @RequestMapping("/magazines")
@@ -41,7 +38,7 @@ public class MagazineController {
     }
 
     @GetMapping("/find")
-    public List<Magazine> getMagazineByName(@RequestParam("name") String name) {
+    public List<Magazine> getMagazinesByName(@RequestParam("name") String name) {
         return magazineService.findMagazineByName(name);
     }
 
@@ -65,12 +62,11 @@ public class MagazineController {
             resource = new UrlResource(path.toUri());
         }
         catch (MalformedURLException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
 
     }
-
 }
