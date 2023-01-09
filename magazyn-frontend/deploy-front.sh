@@ -26,4 +26,5 @@ sudo killall python3
 npm run build
 cd dist
 sudo python3 -m http.server 80 &
+echo "finished"
 
