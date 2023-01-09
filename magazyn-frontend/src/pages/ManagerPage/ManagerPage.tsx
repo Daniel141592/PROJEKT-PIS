@@ -96,7 +96,7 @@ export const ManagerPage: React.FC = () => {
 				<a href={raportLink}>
 					<div className={s.pdf}>
 						<div className={s.img}></div>
-						<p className={s.Link}>Raport.pdf</p>
+						<p className={s.Link}>Raport_magazyn_{idMagazine}.pdf</p>
 					</div>
 				</a>
 			</div>
@@ -151,7 +151,7 @@ export const ManagerPage: React.FC = () => {
 				<div className={s.transDiv}>
 					<h1 className={s.headerUp}>PANEL KIEROWNIKA</h1>
 					<a href={PATHS.warehouse} className={s.link}>
-						<button className={s.button}>Magazyn</button>
+						<button className={s.button}>Magazyny</button>
 					</a>
 				</div>
 			</div>

@@ -24,6 +24,7 @@ $color-font-button-secondary: #ffffff;
     font-size: 400%;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
+    margin-bottom: 5%;
     // color: black;
   }
 
@@ -35,6 +36,45 @@ $color-font-button-secondary: #ffffff;
     color: rgb(26, 26, 26);
   }
 
+  .header {
+    display: flex;
+  }
+
+  .headerTask2 {
+    font-size: 150%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(26, 26, 26);
+  }
+
+  .headerTask4 {
+    font-size: 140%;
+    margin-left: auto;
+    margin-right: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(26, 26, 26);
+  }
+
+  .headerTask3 {
+    font-size: 140%;
+    padding-bottom: 3%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(26, 26, 26);
+  }
+
+  .Task {
+    margin-left: 5%;
+    padding-left: 1%;
+    margin-bottom: 0.5%;
+    border-left: 5px solid #e36810;
+    font-size: 130%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(26, 26, 26);
+  }
+
   .Panel {
     width: 100%;
     min-height: 70%;
@@ -42,4 +82,15 @@ $color-font-button-secondary: #ffffff;
     padding-left: 20%;
     padding-right: 20%;
     background: rgb(225, 225, 225);
+  }
+
+  .mainDiv {
+    width: 100%;
+    height: fit-content;
+    border-radius: 20px;
+    border: 5px;
+    border-style: solid;
+    border-color: $color-button-primary;
+    margin-top: 2%;
+    padding: 1%;
   }

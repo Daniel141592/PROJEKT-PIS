@@ -26,7 +26,7 @@ export const EmployeePage: React.FC = () => {
 				<div className={s.transDiv}>
 					<h1 className={s.headerUp}>PANEL PRACOWNIKA</h1>
 					<a href={PATHS.warehouse} className={s.link}>
-						<button className={s.button}>Magazyn</button>
+						<button className={s.button}>Magazyny</button>
 					</a>
 				</div>
 			</div>
