@@ -57,7 +57,7 @@ jobs:
         echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
         sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/.ssh/id_rsa
         sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 *.ssh/*'
-        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < deploy-front.sh   
+        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < magazyn-frontend/deploy-front.sh   
 
 
 
