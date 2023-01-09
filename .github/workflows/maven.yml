@@ -31,6 +31,8 @@ jobs:
       run: mvn -B package --file magazyn-backend/pom.xml
     - name: Run tests
       run: mvn clean test --file magazyn-backend/pom.xml
+    - name: Add application properties
+      run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > magazyn-backend/src/main/resources/application.properties
     - name: create Jar
       run: mvn clean package --file magazyn-backend/pom.xml
 
@@ -46,10 +48,16 @@ jobs:
 #        -DgroupId=pis.projekt
 #        -DartifactId=magazyn-executable
 #        -Dversion=1.0.0sss
-    - name: scp
+    - name: Deploy .jar
       run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
-    - name: ssh
-      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
+#    - name: ssh
+#      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
+    - name: Deploy frontend
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
+        sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/
+        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
+        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < magazyn-frontend/deploy-front.sh   
 
 
 
