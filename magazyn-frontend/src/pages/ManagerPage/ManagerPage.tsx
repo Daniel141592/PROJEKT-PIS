@@ -10,8 +10,10 @@ import { sendRequestGET } from 'requests';
 export const ManagerPage: React.FC = () => {
 	const [history, setHistory] = useState([]);
 	const [description, setDescription] = useState('');
+	const [keyWords, setKeyWords] = useState('');
 	const {register, formState, handleSubmit} = useForm();
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isElasticOpen, setIsElasticOpen] = useState(false);
 
 	function Modal({ isOpen, onClose, children }) {
 		if (!isOpen) {
@@ -40,9 +42,27 @@ export const ManagerPage: React.FC = () => {
 		);
 	  }
 
+	  function Elastic({ isOpen, onClose, children }) {
+		if (!isOpen) {
+		  return null;
+		}
+
+		return (
+		  <div className="modal-overlay">
+			<div className="modal-content">
+				{children}
+			</div>
+		  </div>
+		);
+	  }
+
 
 	function handleChangeDescription(event: any) {
 		setDescription(event.target.value)
+	}
+
+	function handleChangeDescriptionElastic(event: any) {
+		setKeyWords(event.target.value)
 	}
 
 	function sendHistoryRequest(event: any){
@@ -53,6 +73,17 @@ export const ManagerPage: React.FC = () => {
 		).then(async r => {
 			let response = await r.json()
 			setHistory(response)
+		})
+	}
+
+	function sendElastic(event: any){
+		setIsElasticOpen(true)
+
+		let response = sendRequestGET(
+			'issueHistories/contains?desc=' + keyWords
+		).then(async r => {
+			let response = await r.json()
+			setKeyWords(response)
 		})
 	}
 
@@ -102,11 +133,14 @@ export const ManagerPage: React.FC = () => {
 				</div>
 				<h1 className={s.headerTask}>Wyszukiwanie pełnotekstowe:</h1>
 				<div className={s.mainDiv}>
-					<form>
+					<form onSubmit={handleSubmit(sendElastic)}>
 						<label>
-							<input placeholder='Słowa kluczowe' className={s.input}/>
+							<input placeholder='Słowa kluczowe' onChange={handleChangeDescriptionElastic} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Szukaj</button>
+						<Elastic isOpen={isElasticOpen} onRequestClose={() => setIsElasticOpen(false)}>
+							<p className={s.headerTaskSmall}> CHUJ JEBANY W DUPE ELASTIC </p>
+						</Elastic>
 					</form>
 				</div>
 				<h1><br></br></h1>
