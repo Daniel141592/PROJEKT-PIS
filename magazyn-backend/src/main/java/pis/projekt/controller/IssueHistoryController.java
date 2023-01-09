@@ -9,7 +9,7 @@ import pis.projekt.models.IssueHistory;
 import java.util.List;
 
 @RestController
-@RequestMapping("/issueHistories")
+@RequestMapping("/issuehistories")
 @CrossOrigin(origins = "http://localhost:5173")
 public class IssueHistoryController {
     private final IIssueHistoryService issueHistoryService;

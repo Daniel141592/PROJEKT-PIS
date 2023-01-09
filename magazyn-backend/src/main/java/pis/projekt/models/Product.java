@@ -69,7 +69,7 @@ public class Product {
         return name;
     }
 
-    public Pair getDimensions() { return new Pair(width, length); }
+    public Pair GetDimensions() { return new Pair(width, length); }
 
     public int getStackSize() { return stackSize; }
 

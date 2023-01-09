@@ -29,13 +29,14 @@ public class SectionController {
         return sectionService.findSectionById(id);
     }
 
-    @GetMapping("/by/magazine")
-    public List<Section> getSectionsByMagazineId(@RequestParam("id") Integer magazineId) {
+    @GetMapping("/find")
+    public List<Section> getSectionsByMagazineId(@RequestParam("magazineid") Integer magazineId) {
         return sectionService.findSectionsByMagazine_Id(magazineId);
     }
 
-    @GetMapping("/by/product")
-    public List<Section> getSectionsByProductId(@RequestParam("id") Integer productId) {
+    //TODO: make optional arguments!
+    @GetMapping("/find2")
+    public List<Section> getSectionsByProductId(@RequestParam("productid") Integer productId) {
         return sectionService.findSectionsByProduct_Id(productId);
     }
 

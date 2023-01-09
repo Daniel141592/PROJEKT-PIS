@@ -32,7 +32,8 @@ public class EmployeeController {
 
     @GetMapping("{id}")
     public EmployeeResponse getEmployee(@PathVariable Integer id) {
-        return new EmployeeResponse(employeeService.findEmployeeById(id));
+        Employee employee = employeeService.findEmployeeById(id);
+        return (employee == null) ? null: new EmployeeResponse(employee);
     }
 
     @GetMapping("/all")

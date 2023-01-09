@@ -58,6 +58,27 @@ public class Section {
         this.bottomLeftPointY = bottomLeftPointY;
     }
 
+    public Section(
+            Integer id,
+            Magazine magazine,
+            Product product,
+            String name,
+            int amount,
+            int width,
+            int length,
+            int bottomLeftPointX,
+            int bottomLeftPointY) {
+        this.id = id;
+        this.magazine = magazine;
+        this.product = product;
+        this.name = name;
+        this.amount = amount;
+        this.length = length;
+        this.width = width;
+        this.bottomLeftPointX = bottomLeftPointX;
+        this.bottomLeftPointY = bottomLeftPointY;
+    }
+
     public int getId() {
         return id;
     }
@@ -66,7 +87,7 @@ public class Section {
         return name;
     }
 
-    public Integer getMagazineId() {
+    public Integer GetMagazineId() {
         return magazine.getId();
     }
 
@@ -130,7 +151,7 @@ public class Section {
         this.amount = amount;
     }
 
-    public Pair[] getCoords() {
+    public Pair[] GetCoords() {
         Pair[] coords = new Pair[4];
         coords[0] = new Pair(bottomLeftPointX, bottomLeftPointY);
         coords[1] = new Pair(bottomLeftPointX + width, bottomLeftPointY);
