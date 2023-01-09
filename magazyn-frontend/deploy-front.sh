@@ -1,21 +1,27 @@
 if [ ! -d "PROJEKT-PIS" ]; then
-    git clone git@github.com:Daniel141592/PROJEKT-PIS.git
-    cd PROJEKT-PIS/magazyn-frontend
+  git clone git@github.com:Daniel141592/PROJEKT-PIS.git
+  cd PROJEKT-PIS/magazyn-frontend
 else
-    cd PROJEKT-PIS/magazyn-frontend
-    git pull
+  cd PROJEKT-PIS/magazyn-frontend
+  git pull
 fi
 
-sudo apt install -y npm
+npm --version
+if [ ! $? -eq 0 ]; then
+  sudo apt install -y npm
+fi
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm --version
+if [ ! $? -eq 0 ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
 nvm install 19.3.0
 
 npm i
-npm run build
+#npm run build
+npm run dev
 cd dist
 
