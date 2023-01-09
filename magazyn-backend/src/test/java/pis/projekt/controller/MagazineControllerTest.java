@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Section;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.MagazineService;
 
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class MagazineControllerTest {
 
     @MockBean
     private MagazineService magazineService;
+
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 

@@ -32,6 +32,7 @@ public class Issue {
         this.status = newStatus;
     }
 
+
     public Issue() {
 
     }

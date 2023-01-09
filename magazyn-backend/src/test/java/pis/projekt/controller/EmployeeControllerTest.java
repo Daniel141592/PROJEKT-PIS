@@ -19,6 +19,7 @@ import pis.projekt.models.Employee;
 import pis.projekt.models.requests.LoginRequest;
 import pis.projekt.models.responses.EmployeeResponse;
 import pis.projekt.models.responses.LoginResponse;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.EmployeeService;
 
 import java.util.ArrayList;
@@ -37,8 +38,8 @@ public class EmployeeControllerTest {
     @MockBean
     private EmployeeService employeeService;
 
-    @InjectMocks
-    private EmployeeController employeeController;
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 

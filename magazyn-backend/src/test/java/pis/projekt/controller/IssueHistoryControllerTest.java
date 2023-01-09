@@ -20,6 +20,7 @@ import pis.projekt.models.Employee;
 import pis.projekt.models.Issue;
 import pis.projekt.models.IssueHistory;
 import pis.projekt.models.responses.EmployeeResponse;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.IssueHistoryService;
 
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class IssueHistoryControllerTest {
     @MockBean
     private IssueHistoryService issueHistoryService;
 
-    @InjectMocks
-    private IssueHistoryController issueHistoryController;
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 

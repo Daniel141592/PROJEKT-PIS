@@ -17,6 +17,7 @@ import pis.projekt.models.Magazine;
 import pis.projekt.models.Product;
 import pis.projekt.models.Section;
 import pis.projekt.models.requests.AddProductRequest;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.SectionService;
 
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class SectionControllerTest {
 
     @MockBean
     private SectionService sectionService;
+
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 
