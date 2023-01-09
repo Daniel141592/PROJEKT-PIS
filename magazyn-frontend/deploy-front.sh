@@ -1,5 +1,10 @@
-git clone git@github.com:Daniel141592/PROJEKT-PIS.git
-cd PROJEKT-PIS/magazyn-frontend
+if [ ! -d "PROJEKT-PIS" ]; then
+    git clone git@github.com:Daniel141592/PROJEKT-PIS.git
+    cd PROJEKT-PIS/magazyn-frontend
+else
+    cd PROJEKT-PIS/magazyn-frontend
+    git pull
+fi
 
 sudo apt install -y npm
 
@@ -11,5 +16,6 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 19.3.0
 
 npm i
-npm run dev  # TODO poprawić na produkcyjną instalację
+npm run build
+cd dist
 
