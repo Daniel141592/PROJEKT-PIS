@@ -32,7 +32,7 @@ export const EmployeePage: React.FC = () => {
 			</div>
 			<div className={s.Panel}>
 				<h3 className={s.headerTask}>Dzisiejsze zadania: </h3>
-				{issues.map((data, idx) => {
+				{issues.map((data: any) => {
 					return <MagTask name={data.name} description={data.description} status={data.status} id={data.id}/>
 				})}
 				{/* // <MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/> */}

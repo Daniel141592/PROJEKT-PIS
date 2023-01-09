@@ -32,7 +32,7 @@ export const WarehousePage: React.FC = () => {
 			</div>
 			<div className={s.Panel}>
 				<h1 className={s.headerTask}>Nasze magazyny:</h1>
-				{magazines.map((item1, index1) => (
+				{magazines.map((item1: any) => (
 					<div className={s.mainDiv}>
 						<div className={s.header}>
 							<h1 className={s.headerTask2}>{item1.name}</h1>
@@ -40,7 +40,7 @@ export const WarehousePage: React.FC = () => {
 						</div>
 						<div className={s.header}>
 						<h1 className={s.headerTask3}>Sekcje: </h1>
-						{item1.sections.map((item2, index2) => (
+						{item1.sections.map((item2: any) => (
 							<p className={s.Task}> {item2.name}</p>
 						))}
 						<a href={'http://localhost:8080/magazines/report/' + item1.id}>

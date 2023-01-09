@@ -20,7 +20,7 @@ export const ManagerPage: React.FC = () => {
 	const {register, formState, handleSubmit} = useForm();
 	const redirect = useNavigate();
 
-	function Modal({ isOpen, onClose, children }) {
+	function Modal({ isOpen=false, children=null }) {
 		if (!isOpen) {
 		  return null;
 		}
@@ -36,7 +36,7 @@ export const ManagerPage: React.FC = () => {
 		  <div className="modal-overlay">
 			<div className="modal-content">
 				{children}
-				{history.map((data, idx) => {
+				{history.map((data: any) => {
 					return <div>
 								<p className={s.taskHist}>
 									<br/>
@@ -54,7 +54,7 @@ export const ManagerPage: React.FC = () => {
 		);
 	  }
 
-	function Elastic({ isOpen, onClose, children }) {
+	function Elastic({ isOpen=false, children=null }) {
 		if (!isOpen) {
 		  return null;
 		}
@@ -84,7 +84,7 @@ export const ManagerPage: React.FC = () => {
 		);
 	  }
 
-	  function Raport({ isOpen, onClose, children }) {
+	  function Raport({ isOpen=false, children=null }) {
 		if (!isOpen) {
 		  return null;
 		}
@@ -175,7 +175,7 @@ export const ManagerPage: React.FC = () => {
 							<input placeholder='Opis' onChange={handleChangeDescription} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Generuj</button>
-						<Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}></Modal>
+						<Modal isOpen={isModalOpen}></Modal>
 					</form>
 				</div>
 				<h1 className={s.headerTask}>Raport z magazynu:</h1>
@@ -185,7 +185,7 @@ export const ManagerPage: React.FC = () => {
 							<input placeholder='Id magazynu' onChange={handleChangeMagazine} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Generuj</button>
-						<Raport isOpen={isRaportOpen} onRequestClose={() => setIsRaportOpen(false)}></Raport>
+						<Raport isOpen={isRaportOpen}></Raport>
 					</form>
 				</div>
 				<h1 className={s.headerTask}>Wyszukiwanie pełnotekstowe:</h1>
@@ -195,7 +195,7 @@ export const ManagerPage: React.FC = () => {
 							<input placeholder='Słowa kluczowe' onChange={handleChangeDescriptionElastic} className={s.input}/>
 						</label>
 						<button type="submit" className={s.button2}>Szukaj</button>
-						<Elastic isOpen={isElasticOpen} onRequestClose={() => setIsElasticOpen(false)}></Elastic>
+						<Elastic isOpen={isElasticOpen}></Elastic>
 					</form>
 				</div>
 				<h1><br></br></h1>
