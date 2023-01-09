@@ -23,7 +23,6 @@ nvm install 19.3.0
 npm i
 sudo killall node
 sudo killall python3
-sudo npm i http-server --global
 
 npm run build
 cd dist
