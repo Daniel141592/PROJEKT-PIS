@@ -29,13 +29,13 @@ public class SectionController {
         return sectionService.findSectionById(id);
     }
 
-    @GetMapping("/by/magazine")
-    public List<Section> getSectionsByMagazineId(@RequestParam("id") Integer magazineId) {
+    @GetMapping("/find")
+    public List<Section> getSectionsByMagazineId(@RequestParam("magazineid") Integer magazineId) {
         return sectionService.findSectionsByMagazine_Id(magazineId);
     }
 
-    @GetMapping("/by/product")
-    public List<Section> getSectionsByProductId(@RequestParam("id") Integer productId) {
+    @GetMapping("/find")
+    public List<Section> getSectionsByProductId(@RequestParam("sectionid") Integer productId) {
         return sectionService.findSectionsByProduct_Id(productId);
     }
 

@@ -77,9 +77,9 @@ public class SectionService implements ISectionService {
         Product product = section.getProduct();
         int length = section.getLength();
         int width = section.getWidth();
-        int propValue1 = (length / product.getDimensions().first) * (width / product.getDimensions().second)
+        int propValue1 = (length / product.GetDimensions().first) * (width / product.GetDimensions().second)
                 * product.getStackSize();
-        int propValue2 = (width / product.getDimensions().first) * (length / product.getDimensions().second)
+        int propValue2 = (width / product.GetDimensions().first) * (length / product.GetDimensions().second)
                 * product.getStackSize();
         return Math.max(propValue1, propValue2);
     }

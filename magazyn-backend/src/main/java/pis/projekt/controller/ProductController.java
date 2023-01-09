@@ -28,7 +28,7 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
-    @GetMapping("/by/name")
+    @GetMapping("/find")
     public List<Product> getProductsByName(@RequestParam("name") String name) {
         return productService.findProductsByNameContaining(name);
     }
