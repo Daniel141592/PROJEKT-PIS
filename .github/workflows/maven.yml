@@ -33,11 +33,10 @@ jobs:
       #      run: mvn clean test --file magazyn-backend/pom.xml
       #    - name: Add application properties
       #      run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > magazyn-backend/src/main/resources/application.properties
-      #    - name: create Jar
-      #      run: mvn clean package --file magazyn-backend/pom.xml
-      #
-      #    - name: Change name of .jar for simplicity
-      #      run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
+      - name: create Jar
+        run: mvn clean package --file magazyn-backend/pom.xml
+      - name: Change name of .jar for simplicity
+        run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
 
       #    - name: Deploy to Nexus
       #      run: >
@@ -48,8 +47,8 @@ jobs:
       #        -DgroupId=pis.projekt
       #        -DartifactId=magazyn-executable
       #        -Dversion=1.0.0sss
-      #    - name: Deploy .jar
-      #      run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
+      - name: Deploy .jar
+        run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
       #    - name: ssh
       #      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
       - name: Deploy frontend
