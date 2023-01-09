@@ -16,6 +16,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -28,23 +29,30 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file magazyn-backend/pom.xml
-      
-  testing:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Test with maven
+    - name: Run tests
       run: mvn clean test --file magazyn-backend/pom.xml
-        
-        
-      
+    - name: create Jar
+      run: mvn clean package --file magazyn-backend/pom.xml
+
+    - name: Change name of .jar for simplicity
+      run: mv /home/runner/work/PROJEKT-PIS/PROJEKT-PIS/magazyn-backend/target/*.jar magazyn.jar
+
+#    - name: Deploy to Nexus
+#      run: >
+#        mvn deploy:deploy-file --file deploy.xml
+#        -DrepositoryId=nexus
+#        -Durl=http://23.101.76.103:8081/repository/maven-releases/
+#        -Dfile=magazyn.jar
+#        -DgroupId=pis.projekt
+#        -DartifactId=magazyn-executable
+#        -Dversion=1.0.0sss
+    - name: scp
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
+    - name: ssh
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
+
+
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
