@@ -6,6 +6,7 @@ import pis.projekt.interfaces.ISectionService;
 import pis.projekt.models.Section;
 import pis.projekt.models.requests.AddProductRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,15 +30,22 @@ public class SectionController {
         return sectionService.findSectionById(id);
     }
 
-    @GetMapping("/find")
-    public List<Section> getSectionsByMagazineId(@RequestParam("magazineid") Integer magazineId) {
-        return sectionService.findSectionsByMagazine_Id(magazineId);
-    }
+//    @GetMapping("/find")
+//    public List<Section> getSectionsByMagazineId(@RequestParam(value = "magazineid", required = false) Integer magazineId) {
+//        return sectionService.findSectionsByMagazine_Id(magazineId);
+//    }
 
     //TODO: make optional arguments!
-    @GetMapping("/find2")
-    public List<Section> getSectionsByProductId(@RequestParam("productid") Integer productId) {
-        return sectionService.findSectionsByProduct_Id(productId);
+    @GetMapping("/find")
+    public List<Section> getSectionsByUnitId(
+            @RequestParam(value = "productid", required = false) Integer productId,
+            @RequestParam(value = "magazineid", required = false) Integer magazineId) {
+        if (productId != null)
+            return sectionService.findSectionsByProduct_Id(productId);
+        else if (magazineId != null)
+            return sectionService.findSectionsByMagazine_Id(magazineId);
+        else
+            return sectionService.findSectionsByMagazine_Id(null);
     }
 
     @PostMapping("/add")
