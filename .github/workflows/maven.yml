@@ -60,7 +60,8 @@ jobs:
       run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
     - name: Deploy frontend 4
       run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn-frontend/deploy-front.sh azureuser@40.114.226.113:~/
-#      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 < magazyn-frontend/deploy-front.sh
+    - name: Deploy frontend 5
+      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 ./deploy-frontend.sh
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
