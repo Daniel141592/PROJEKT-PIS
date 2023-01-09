@@ -19,7 +19,6 @@ if [ ! $? -eq 0 ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 nvm install 19.3.0
-
 npm i
 sudo killall node
 sudo killall python3
