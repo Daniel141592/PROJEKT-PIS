@@ -4,6 +4,9 @@ import {PATHS} from "../../config/paths";
 import {TemplatePage} from "../../templates/TemplatePage";
 import {useForm} from 'react-hook-form';
 import {sendRequestGET, sendRequestPOST} from 'requests';
+import {API_URL} from "../../config/apiUrl";
+
+const BASE_URL = API_URL != "" ? API_URL : 'http://localhost:8080/';
 
 
 export const ManagerPage: React.FC = () => {
@@ -365,7 +368,7 @@ export const ManagerPage: React.FC = () => {
 
 	function sendReport(event: any){
 		setIsRaportOpen(true)
-		let tmp_link = 'http://localhost:8080/magazines/report/' + idMagazine
+		let tmp_link = BASE_URL+'magazines/report/' + idMagazine
 		setRaportLink(tmp_link)
 	}
 
