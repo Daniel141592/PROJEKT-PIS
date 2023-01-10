@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/issues")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113/"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
 public class IssueController {
     private final IIssueService issueService;
 
