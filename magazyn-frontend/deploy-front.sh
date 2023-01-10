@@ -5,6 +5,7 @@ else
   cd PROJEKT-PIS/magazyn-frontend
   git pull
 fi
+echo "export const API_URL: string = '$1';" > magazyn-frontend/src/config/apiUrl.ts
 
 npm --version
 if [ ! $? -eq 0 ]; then
