@@ -5,23 +5,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import pis.projekt.Config;
 import pis.projekt.models.Employee;
 import pis.projekt.models.IssueHistory;
+import pis.projekt.security.SecurityHelper;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
 
 
-@DataJpaTest
 @RunWith(SpringRunner.class)
 @Import({Config.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@SpringBootTest
+@AutoConfigureTestDatabase
 public class IIssueHistoryRepositoryTest {
 
     @Autowired
@@ -29,6 +34,7 @@ public class IIssueHistoryRepositoryTest {
 
     @Autowired
     IEmployeeRepository ER;
+
 
     LocalDateTime ldt1 = LocalDateTime.of(2005, Month.APRIL, 2, 21, 37, 00);
     LocalDateTime ldt2 = LocalDateTime.of(1945, Month.APRIL, 30, 15, 30, 00);

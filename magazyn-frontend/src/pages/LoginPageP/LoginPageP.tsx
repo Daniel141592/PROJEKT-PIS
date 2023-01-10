@@ -24,7 +24,7 @@ export const LoginPageP: React.FC = () => {
 
 			if (response.success) {
 				redirect(PATHS.employee)
-				localStorage.setItem("token", JSON.stringify((response.token)));
+				localStorage.setItem("token", response.token);
 			}
 			else {
 				setIsFailOpen(true)
