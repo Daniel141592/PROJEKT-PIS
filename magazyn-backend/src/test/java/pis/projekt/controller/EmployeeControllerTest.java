@@ -2,14 +2,21 @@ package pis.projekt.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.junit.Before;
 import org.junit.Test;
 import org.assertj.core.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -19,17 +26,22 @@ import pis.projekt.models.Employee;
 import pis.projekt.models.requests.LoginRequest;
 import pis.projekt.models.responses.EmployeeResponse;
 import pis.projekt.models.responses.LoginResponse;
+import pis.projekt.repository.IEmployeeRepository;
 import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.EmployeeService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
+import static pis.projekt.services.EmployeeService.SECRET;
+
 @WebMvcTest(EmployeeController.class)
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class EmployeeControllerTest {
 
     @Autowired
@@ -37,13 +49,13 @@ public class EmployeeControllerTest {
 
     @MockBean
     private EmployeeService employeeService;
-
     @MockBean
     private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
+    @WithMockUser(value = "jplacek")
     public void allEmployeesTest() throws Exception{
         List<Employee> employees = new ArrayList<>();
         for (int i=0; i<10; i++) {
@@ -51,7 +63,6 @@ public class EmployeeControllerTest {
         }
 
         when(employeeService.findAllEmployees()).thenReturn(employees);
-
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/employees/all");
         MvcResult result = mockMvc.perform(request).andReturn();
@@ -109,7 +120,8 @@ public class EmployeeControllerTest {
     @Test
     public void loginFailTest() throws Exception{
         when(employeeService.login(any())).thenReturn(null);
-        LoginRequest loginRequest = new LoginRequest("name", "password");
+
+        LoginRequest loginRequest = new LoginRequest("jacek", "placek");
 
         RequestBuilder req = MockMvcRequestBuilders
                 .post("/employees/login")
@@ -126,10 +138,11 @@ public class EmployeeControllerTest {
 
     @Test
     public void loginSuccessTest() throws Exception{
-        Employee employee = new Employee(20, "adam", "sudol", "sadam", "hash", false);
-        when(employeeService.login(any())).thenReturn(employee);
+        Employee EMP = new Employee(1, "jacek", "placek", "jplacek", "hash", true);
+
+        LoginRequest loginRequest = new LoginRequest("jplacek", "hash");
+        when(employeeService.login(any())).thenReturn(EMP);
         when(employeeService.generateToken(any())).thenReturn("token");
-        LoginRequest loginRequest = new LoginRequest("name", "password");
 
         RequestBuilder req = MockMvcRequestBuilders
                 .post("/employees/login")

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import pis.projekt.models.Issue;
 import pis.projekt.models.IssueHistory;
 import pis.projekt.models.responses.EmployeeResponse;
 import pis.projekt.security.JwtTokenFilter;
+import pis.projekt.services.EmployeeService;
 import pis.projekt.services.IssueHistoryService;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(IssueHistoryController.class)
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class IssueHistoryControllerTest {
 
     @Autowired
@@ -42,6 +45,9 @@ public class IssueHistoryControllerTest {
 
     @MockBean
     private JwtTokenFilter jwtTokenFilter;
+
+    @MockBean
+    private EmployeeService employeeService;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 
