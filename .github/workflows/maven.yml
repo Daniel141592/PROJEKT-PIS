@@ -53,7 +53,7 @@ jobs:
           sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/
           sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
           sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn-frontend/deploy-front.sh azureuser@40.114.226.113:~/
-          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 ./deploy-front.sh 40.114.226.113:8080/
+          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh azureuser@40.114.226.113 ./deploy-front.sh http://40.114.226.113:8080/
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
