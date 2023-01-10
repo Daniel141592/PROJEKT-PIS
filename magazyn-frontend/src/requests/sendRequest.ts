@@ -1,7 +1,6 @@
 import { FieldValues } from "react-hook-form";
 
 export function sendRequestPOST(data: FieldValues, url: string) {
-    // let url = "http://localhost:8080/employees/login";
     url = 'http://localhost:8080/' + url
     return fetch(url, {
         method: 'POST',

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {TemplatePage} from "templates/TemplatePage";
 import s from "./LoginPageP.module.scss"
 import {MagButton} from "components/MagButton";
+import {MagLoginFailed} from "components/MagLoginFailed";
 import {PATHS} from "config/paths";
 import {MagInput} from "components/MagInput";
 import {FieldValues, useForm} from "react-hook-form";
@@ -10,7 +11,7 @@ import {sendRequestPOST} from 'requests';
 
 
 export const LoginPageP: React.FC = () => {
-
+	const [isFailOpen, setIsFailOpen] = useState(false);
 	const redirect = useNavigate();
 	const {register, handleSubmit} = useForm();
 
@@ -25,6 +26,9 @@ export const LoginPageP: React.FC = () => {
 				redirect(PATHS.employee)
 				localStorage.setItem("token", response.token);
 			}
+			else {
+				setIsFailOpen(true)
+			}
 		})
 	}
 
@@ -38,6 +42,7 @@ export const LoginPageP: React.FC = () => {
 						<div className={s.inputContainer}>
 							<MagInput placeholder="Nazwa użytkownika" {...register("UserName")}/>
 							<MagInput type="password" placeholder="Hasło" {...register("Password")}/>
+							<MagLoginFailed isOpen={isFailOpen}></MagLoginFailed>
 						</div>
 						<MagButton type="submit">Zaloguj się</MagButton>
 						<p className={s.signInCaption}>
@@ -50,3 +55,4 @@ export const LoginPageP: React.FC = () => {
 		</TemplatePage>
 	)
 }
+

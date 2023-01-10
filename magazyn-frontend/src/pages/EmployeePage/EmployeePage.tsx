@@ -32,8 +32,9 @@ export const EmployeePage: React.FC = () => {
 				{issues.map((data: any) => {
 					return <MagTask name={data.name} description={data.description} status={data.status} id={data.id}/>
 				})}
-				{/* // <MagTask name='Skończyć ten jebany pis' description='TBD' status='Bliskie pierdolnięcia'/> */}
+			<h1><br></br></h1>
 			</div>
+
 		</TemplatePage>
 	)
 }
