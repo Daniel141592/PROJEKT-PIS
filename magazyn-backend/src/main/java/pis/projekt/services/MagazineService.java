@@ -68,7 +68,7 @@ public class MagazineService implements IMagazineService {
     @Override
     public Vector<String> searchInReports(String search) {
         ElasticConnector elasticConnector = new ElasticConnector(cloudId, username, password);
-        return elasticConnector.elasticSearch(search);
+        return elasticConnector.elasticSearch("pdf_index", search);
     }
 
     public String createAndStashReport(Integer magazineId) throws IOException {
