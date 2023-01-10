@@ -2,6 +2,7 @@ package pis.projekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pis.projekt.Config;
 import pis.projekt.interfaces.IIssueHistoryService;
 import pis.projekt.interfaces.IIssueService;
 import pis.projekt.models.IssueHistory;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/issuehistories")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
+@CrossOrigin(origins = {Config.CORS_URL})
 public class IssueHistoryController {
     private final IIssueHistoryService issueHistoryService;
 

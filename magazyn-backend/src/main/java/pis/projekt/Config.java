@@ -1,5 +1,6 @@
 package pis.projekt;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -25,6 +26,8 @@ import pis.projekt.services.EmployeeService;
 @EnableJpaAuditing
 @EnableWebSecurity
 public class Config {
+
+    public final static String CORS_URL = "http://localhost:5173/";
     @Bean
     public IEmployeeService getEmployeeService() {
         return new EmployeeService();

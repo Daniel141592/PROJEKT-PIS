@@ -2,6 +2,7 @@ package pis.projekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pis.projekt.Config;
 import pis.projekt.interfaces.IEmployeeService;
 import pis.projekt.models.Employee;
 import pis.projekt.models.requests.LoginRequest;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
+@CrossOrigin(origins = {Config.CORS_URL})
 public class EmployeeController {
     private final IEmployeeService employeeService;
 

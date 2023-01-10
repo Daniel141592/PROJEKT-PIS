@@ -29,6 +29,10 @@ jobs:
         run: mvn clean test --file magazyn-backend/pom.xml
       - name: Add application properties
         run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > magazyn-backend/src/main/resources/application.properties
+      - name: Insert Address
+        run: ^
+          sed 's/public final static String CORS_URL = "http:\/\/localhost:5173\/";/public final static String CORS_URL = "http:\/\/40.114.226.113\/";/g' 
+          magazyn-backend/src/main/java/pis/projekt/Config.java
       - name: create Jar
         run: mvn clean package --file magazyn-backend/pom.xml
       - name: Change name of .jar for simplicity

@@ -7,6 +7,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pis.projekt.Config;
 import pis.projekt.interfaces.IMagazineService;
 import pis.projekt.models.Magazine;
 import pis.projekt.utils.Report;
@@ -21,7 +22,7 @@ import java.util.Vector;
 
 @RestController
 @RequestMapping("/magazines")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
+@CrossOrigin(origins = {Config.CORS_URL})
 public class MagazineController {
     private final IMagazineService magazineService;
 

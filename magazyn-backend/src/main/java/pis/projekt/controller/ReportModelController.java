@@ -2,6 +2,7 @@ package pis.projekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pis.projekt.Config;
 import pis.projekt.interfaces.IProductService;
 import pis.projekt.interfaces.IReportModelService;
 import pis.projekt.models.Product;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
+@CrossOrigin(origins = {Config.CORS_URL})
 public class ReportModelController {
     private final IReportModelService reportModelService;
 
