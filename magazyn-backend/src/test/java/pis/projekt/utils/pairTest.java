@@ -1,4 +1,4 @@
-package pis.projekt.test;
+package pis.projekt.utils;
 import org.junit.Test;
 import org.junit.Assert;
 import pis.projekt.utils.Pair;

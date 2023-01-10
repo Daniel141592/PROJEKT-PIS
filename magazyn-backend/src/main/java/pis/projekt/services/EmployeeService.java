@@ -55,6 +55,11 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public Employee findEmployeeByLogin(String login) {
+        return employeeRepository.findEmployeeByLogin(login);
+    }
+
+    @Override
     public Employee login(LoginRequest loginRequest) {
         if (loginRequest.getPassword() == null || loginRequest.getPassword().isBlank())
             return null;

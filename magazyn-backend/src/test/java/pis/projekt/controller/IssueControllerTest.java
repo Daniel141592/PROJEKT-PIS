@@ -7,7 +7,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pis.projekt.models.Employee;
 import pis.projekt.models.Issue;
 import pis.projekt.models.requests.ChangeStatusRequest;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.IssueService;
 
 import java.util.ArrayList;
@@ -29,6 +33,8 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(IssueController.class)
 @RunWith(SpringRunner.class)
+@AutoConfigureTestDatabase
+@AutoConfigureMockMvc(addFilters = false)
 public class IssueControllerTest {
 
     @Autowired
@@ -37,8 +43,8 @@ public class IssueControllerTest {
     @MockBean
     private IssueService issueService;
 
-    @InjectMocks
-    private IssueController issueController;
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 

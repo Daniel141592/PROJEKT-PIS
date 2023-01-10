@@ -10,7 +10,7 @@ export const EmployeePage: React.FC = () => {
 
 	useEffect(() => {
 		sendRequestGET(
-			'issues/all'
+			'issues/mine'
 		).then(async r => {
 			let response = await r.json()
 			setIssues(response)

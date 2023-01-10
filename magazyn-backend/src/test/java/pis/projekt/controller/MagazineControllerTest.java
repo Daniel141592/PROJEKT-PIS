@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.assertj.core.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pis.projekt.models.Magazine;
 import pis.projekt.models.Section;
+import pis.projekt.security.JwtTokenFilter;
 import pis.projekt.services.MagazineService;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(MagazineController.class)
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class MagazineControllerTest {
 
     @Autowired
@@ -33,6 +36,9 @@ public class MagazineControllerTest {
 
     @MockBean
     private MagazineService magazineService;
+
+    @MockBean
+    private JwtTokenFilter jwtTokenFilter;
 
     final ObjectMapper objectMapper = new ObjectMapper();
 

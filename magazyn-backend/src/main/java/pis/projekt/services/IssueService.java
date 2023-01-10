@@ -1,12 +1,15 @@
 package pis.projekt.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pis.projekt.interfaces.IIssueService;
+import pis.projekt.models.Employee;
 import pis.projekt.models.Issue;
 import pis.projekt.models.IssueHistory;
 import pis.projekt.repository.IIssueHistoryRepository;
 import pis.projekt.repository.IIssueRepository;
+import pis.projekt.security.SecurityHelper;
 
 import java.util.List;
 
@@ -66,7 +69,7 @@ public class IssueService implements IIssueService {
     }
 
     public List<Issue> getIssuesOfCurrentlyLoggedEmp() {
-        // TODO poprawić to, tak by brało usera z sesji
-        return issueRepository.findIssuesByIssuedEmployee_Id(1);
+        Employee employee = SecurityHelper.getCurrentUser();
+        return issueRepository.findIssuesByIssuedEmployee_Id(employee.getId());
     }
 }
