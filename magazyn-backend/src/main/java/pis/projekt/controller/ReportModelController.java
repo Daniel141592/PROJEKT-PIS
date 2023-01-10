@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113/"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost", "http://40.114.226.113"})
 public class ReportModelController {
     private final IReportModelService reportModelService;
 
