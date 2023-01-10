@@ -49,6 +49,7 @@ jobs:
       #      run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'java -jar magazyn.jar'
       - name: Deploy frontend
         run: |
+          echo "export const API_URL: string = '40.114.226.113:8080';" > magazyn-frontend/src/config/apiUrl.ts
           echo "${{ secrets.DEPLOY_KEY }}" > key.ssh
           sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no key.ssh azureuser@40.114.226.113:~/
           sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no azureuser@40.114.226.113 'chmod 700 key.ssh && mv key.ssh .ssh/id_rsa'
