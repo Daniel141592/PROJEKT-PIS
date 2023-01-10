@@ -346,7 +346,7 @@ export const ManagerPage: React.FC = () => {
 		setIsModalOpen(true)
 
 		let response = sendRequestGET(
-			'issueHistories/contains?desc=' + description
+			'issuehistories/contains?desc=' + description
 		).then(async r => {
 			let response = await r.json()
 			setHistory(response)
