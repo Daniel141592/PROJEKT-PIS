@@ -12,19 +12,11 @@ if [ ! $? -eq 0 ]; then
   sudo apt install -y npm
 fi
 
-nvm --version
-if [ ! $? -eq 0 ]; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-fi
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
 nvm install 19.3.0
 npm i
-sudo killall node
-sudo killall python3
 npm run build
-cd dist
-sudo python3 -m http.server 80 &
-echo "finished"
-
