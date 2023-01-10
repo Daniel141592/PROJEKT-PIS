@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react'
 import s from "./WarehousePage.module.scss"
 import {TemplatePage} from "../../templates/TemplatePage";
 import {sendRequestGET} from 'requests';
+import {API_URL} from "../../config/apiUrl";
 
+const BASE_URL = API_URL != "" ? API_URL : 'http://localhost:8080/';
 
 export const WarehousePage: React.FC = () => {
 	const [magazines, setMagazines] = useState([]);
@@ -38,7 +40,7 @@ export const WarehousePage: React.FC = () => {
 									<p className={s.Task}> {item2.name}</p>
 								))}
 							</div>
-							<a href={'http://localhost:8080/magazines/report/' + item1.id}>
+							<a href={BASE_URL+'magazines/report/' + item1.id}>
 								<button type="submit" className={s.button2}>Pobierz raport</button>
 							</a>
 						</div>

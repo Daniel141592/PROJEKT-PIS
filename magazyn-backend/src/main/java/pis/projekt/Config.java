@@ -36,7 +36,8 @@ public class Config {
                 .cors().and()
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/employees/login", "/employees/login/",
-                                                "/employees/register", "/employees/register/"
+                                                "/employees/register", "/employees/register/",
+                                                "/magazines/report/**"
                     ).permitAll();
                     authorize.requestMatchers(
                             HttpMethod.POST,

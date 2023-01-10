@@ -40,7 +40,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (request.getRequestURI().startsWith("/employees/login") ||
-            request.getRequestURI().startsWith("/employees/register")) {
+            request.getRequestURI().startsWith("/employees/register") ||
+                request.getRequestURI().startsWith("/magazines/report")) {
             doFilter(request, response, filterChain);
             return;
         }
