@@ -20,10 +20,5 @@ if [ ! $? -eq 0 ]; then
 fi
 nvm install 19.3.0
 npm i
-sudo killall node
-sudo killall python3
 npm run build
-cd dist
-sudo python3 -m http.server 80 &
-echo "finished"
 
