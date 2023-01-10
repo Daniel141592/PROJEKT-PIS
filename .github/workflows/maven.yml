@@ -44,7 +44,7 @@ jobs:
       #        -Dfile=magazyn.jar
       #        -DgroupId=pis.projekt
       #        -DartifactId=magazyn-executable
-      #        -Dversion=1.0.0sss
+      #        -Dversion=1.0.0
       - name: Deploy .jar
         run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no magazyn.jar azureuser@40.114.226.113:~/
       #    - name: ssh
